@@ -3,98 +3,63 @@ import CoreGraphics
 import AppKit
 import SwiftUI
 
-let motionManager: CMHeadphoneMotionManager = CMHeadphoneMotionManager()
+let motionManager = CMHeadphoneMotionManager()
 
-var isReferenceSet: Bool = false
-var referencePitch: Double = 0
-var referenceYaw: Double = 0
-
-var lastPitch: Double = 0
-var lastYaw: Double = 0
-
-let sensitivity: Double = 0.02
-
-let pitchScale: CGFloat = 1900.0
-let yawScale: CGFloat = 1900.0
+let pitchOffset = 0.0
+let yawOffset = 0.0
 
 let screenFrame = NSScreen.main!.frame
 var currentCursorPos = CGPoint(x: screenFrame.midX, y: screenFrame.midY)
+var targetCursorPos = currentCursorPos
 
-var targetCursorPos: CGPoint = currentCursorPos
+func lerp(_ a: CGFloat, _ b: CGFloat, t: CGFloat) -> CGFloat {
+    return a + (b - a) * t
+}
 
-func lerp(_ a: CGFloat, _ b: CGFloat, t: CGFloat) -> CGFloat { return a + (b - a) * t }
+func moveCursor(to point: CGPoint) {
+    let move = CGEvent(mouseEventSource: nil, mouseType: .mouseMoved, mouseCursorPosition: point, mouseButton: .left)
+    move?.post(tap: .cghidEventTap)
+}
 
-if !motionManager.isDeviceMotionAvailable {
-    print("에어팟 연결 안됨")
+guard motionManager.isDeviceMotionAvailable else {
+    print("❌ 에어팟이 연결되지 않았습니다.")
     exit(1)
-} else {
-    if let screen = NSScreen.main {
-        let screenFrame = screen.frame
-        let screenCenter = CGPoint(x: screenFrame.midX, y: screenFrame.midY)
+}
 
-        let initialMove = CGEvent(
-            mouseEventSource: nil,
-            mouseType: .mouseMoved,
-            mouseCursorPosition: screenCenter,
-            mouseButton: .left)
-        initialMove?.post(tap: .cghidEventTap)
+moveCursor(to: currentCursorPos)
+print("🖱️ 커서를 화면 중앙으로 이동 완료")
 
-        currentCursorPos = screenCenter
-        targetCursorPos = screenCenter
+motionManager.startDeviceMotionUpdates(to: .main) { motion, error in
+    guard let motion = motion else { return }
 
-        print("🖱️ 초기 커서 위치 중앙으로 이동 완료")
-    }
+    let attitude = motion.attitude
+    let pitch = attitude.pitch
+    let yaw = -attitude.yaw
 
-    motionManager.startDeviceMotionUpdates(to: .main) { motion, error in
-        guard let motion: CMDeviceMotion = motion else { return }
+    print("\(pitch)")
+    print("\(yaw)")
 
-        let attitude: CMAttitude = motion.attitude
-        let pitch: Double = attitude.pitch
-        let yaw: Double = -attitude.yaw
+    let normalizePi:Double = .pi / 5.5
+    let normalizedPitch = ((pitch + pitchOffset) + normalizePi / 2) / normalizePi
 
-        if !isReferenceSet {
-            referencePitch = pitch
-            referenceYaw = yaw
-            isReferenceSet = true
-            print("✅ 기준 자세 설정 완료")
-            startKeyEventMonitor()
-            return
-        }
+    let normalizedYaw = ((yaw + yawOffset) + normalizePi) / (2 * normalizePi)
 
-        let adjustedPitch: Double = pitch - referencePitch
-        let adjustedYaw: Double = yaw - referenceYaw
+    let screenWidth = screenFrame.width
+    let screenHeight = screenFrame.height
 
-        if abs(adjustedPitch - lastPitch) > sensitivity || abs(adjustedYaw - lastYaw) > sensitivity {
-            print(String(format: "🎯 adjustedPitch: %.2f, adjustedYaw: %.2f", adjustedPitch, adjustedYaw))
-            lastPitch = adjustedPitch
-            lastYaw = adjustedYaw
+    let mappedX = screenWidth * CGFloat(normalizedYaw)
+    let mappedY = screenHeight * (1 - CGFloat(normalizedPitch)) // Y는 위가 0
 
-            if let screen: NSScreen = NSScreen.main {
-                let screenFrame: NSRect = screen.frame
-                let screenCenter: CGPoint = CGPoint(x: screenFrame.midX, y: screenFrame.midY)
+    targetCursorPos = CGPoint(x: mappedX, y: mappedY)
 
-                let newX: CGFloat = screenCenter.x + CGFloat(adjustedYaw) * yawScale
-                let newY: CGFloat = screenCenter.y - CGFloat(adjustedPitch) * pitchScale
+    print(String(format: "📐 pitch: %.2f, yaw: %.2f", pitch, yaw))
+    print(String(format: "🎯 이동 → x: %.0f, y: %.0f", mappedX, mappedY))
+}
 
-                targetCursorPos = CGPoint(x: newX, y: newY)
-                print(String(format: "🖱️ Move to (x: %.1f, y: %.1f)", newX, newY))
-            }
-        }
-    }
-
-    Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true) { _ in
-        withAnimation(.linear(duration: 1.0 / 60.0)) {
-            currentCursorPos.x = lerp(currentCursorPos.x, targetCursorPos.x, t:0.2)
-            currentCursorPos.y = lerp(currentCursorPos.y, targetCursorPos.y, t:0.2)
-        }
-
-        let move: CGEvent? = CGEvent(
-            mouseEventSource: nil,
-            mouseType: .mouseMoved,
-            mouseCursorPosition: currentCursorPos,
-            mouseButton: .left)
-        move?.post(tap: .cghidEventTap)
-    }
+Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true) { _ in
+    currentCursorPos.x = lerp(currentCursorPos.x, targetCursorPos.x, t: 0.2)
+    currentCursorPos.y = lerp(currentCursorPos.y, targetCursorPos.y, t: 0.2)
+    moveCursor(to: currentCursorPos)
 }
 
 RunLoop.main.run()
