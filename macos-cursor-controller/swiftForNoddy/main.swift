@@ -17,11 +17,9 @@ let sensitivity: Double = 0.02
 let pitchScale: CGFloat = 1900.0
 let yawScale: CGFloat = 1900.0
 
-// 현재 커서 위치 상태 저장 (처음엔 화면 중앙)
 let screenFrame = NSScreen.main!.frame
 var currentCursorPos = CGPoint(x: screenFrame.midX, y: screenFrame.midY)
 
-// 목표 위치 (adjustedPitch,Yaw 기반)
 var targetCursorPos: CGPoint = currentCursorPos
 
 func lerp(_ a: CGFloat, _ b: CGFloat, t: CGFloat) -> CGFloat { return a + (b - a) * t }
@@ -34,7 +32,6 @@ if !motionManager.isDeviceMotionAvailable {
         let screenFrame = screen.frame
         let screenCenter = CGPoint(x: screenFrame.midX, y: screenFrame.midY)
 
-        // 초기 커서 위치를 화면 중앙으로 이동
         let initialMove = CGEvent(
             mouseEventSource: nil,
             mouseType: .mouseMoved,
@@ -42,7 +39,6 @@ if !motionManager.isDeviceMotionAvailable {
             mouseButton: .left)
         initialMove?.post(tap: .cghidEventTap)
 
-        // 상태 값도 갱신
         currentCursorPos = screenCenter
         targetCursorPos = screenCenter
 
