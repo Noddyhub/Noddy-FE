@@ -1,4 +1,3 @@
-import Foundation
 import CoreMotion
 import CoreGraphics
 import AppKit
@@ -33,6 +32,7 @@ if !motionManager.isDeviceMotionAvailable {
             referenceYaw = yaw
             isReferenceSet = true
             print("✅ 기준 자세 설정 완료")
+            startKeyEventMonitor()
             return
         }
 
