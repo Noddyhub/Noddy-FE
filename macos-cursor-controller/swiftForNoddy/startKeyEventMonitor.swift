@@ -11,7 +11,12 @@ func startKeyEventMonitor() {
         callback: { _, type, event, _ in
             if type == .keyDown {
                 let keyCode: Int64 = event.getIntegerValueField(.keyboardEventKeycode)
-                print("Key Down: \(keyCode)")
+
+                if keyCode == 101 {
+                    mouseEventHelper.leftClickAtCurrentCursor()
+                } else if keyCode == 109 {
+                    mouseEventHelper.rightClickAtCurrentCursor()
+                }
             }
             return Unmanaged.passRetained(event)
         },
