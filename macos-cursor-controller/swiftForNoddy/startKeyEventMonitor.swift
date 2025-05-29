@@ -3,7 +3,6 @@ import Quartz
 var isCursorMode: Bool = true
 
 func startKeyEventMonitor() {
-    print()
     let eventMask: Int = (1 << CGEventType.keyDown.rawValue) | (1 << CGEventType.keyUp.rawValue)
 
     guard let eventTap: CFMachPort = CGEvent.tapCreate(
@@ -31,6 +30,10 @@ func startKeyEventMonitor() {
                                 cursorEventHelper.rightMouseDownAtCursor()
                             } else if type == .keyUp {
                                 cursorEventHelper.rightMouseUpAtCursor()
+                            }
+                        } else if keyCode == 125 {
+                            if type == .keyDown {
+                                motionPaused.toggle()
                             }
                         }
                     } else {
