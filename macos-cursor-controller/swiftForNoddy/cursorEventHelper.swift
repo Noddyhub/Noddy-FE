@@ -1,7 +1,7 @@
 import AppKit
 import Quartz
 
-struct mouseEventHelper {
+struct cursorEventHelper {
     private static var lastClickTime: TimeInterval = 0
     private static let doubleClickThreshold: TimeInterval = 0.3
 

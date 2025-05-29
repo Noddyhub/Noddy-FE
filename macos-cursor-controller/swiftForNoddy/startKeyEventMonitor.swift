@@ -1,6 +1,9 @@
 import Quartz
 
+var isCursorMode: Bool = true
+
 func startKeyEventMonitor() {
+    print()
     let eventMask: Int = (1 << CGEventType.keyDown.rawValue)
 
     guard let eventTap: CFMachPort = CGEvent.tapCreate(
@@ -10,13 +13,24 @@ func startKeyEventMonitor() {
         eventsOfInterest: CGEventMask(eventMask),
         callback: { _, type, event, _ in
             if type == .keyDown {
-                let keyCode: Int64 = event.getIntegerValueField(.keyboardEventKeycode)
+                let keyCode = event.getIntegerValueField(.keyboardEventKeycode)
+                let flags = event.flags
 
-                if keyCode == 101 {
-                    mouseEventHelper.leftClickAtCurrentCursor()
-                } else if keyCode == 109 {
-                    mouseEventHelper.rightClickAtCurrentCursor()
+                if keyCode == 48 && flags.contains(.maskControl) {
+                    isCursorMode.toggle()
+                    print("모드 : \(isCursorMode ? "Cursor Mode" : "Scroll Mode")")
+                } else {
+                    if isCursorMode {
+                        if keyCode == 123 {
+                            cursorEventHelper.leftClickAtCurrentCursor()
+                        } else if keyCode == 124 {
+                            cursorEventHelper.rightClickAtCurrentCursor()
+                        }
+                    } else {
+
+                    }
                 }
+
             }
             return Unmanaged.passRetained(event)
         },
