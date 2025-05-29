@@ -39,7 +39,7 @@ motionManager.startDeviceMotionUpdates(to: .main) { motion, error in
     print("\(pitch)")
     print("\(yaw)")
 
-    let normalizePi:Double = .pi / 5.5
+    let normalizePi: Double = .pi / 5.5
     let normalizedPitch = ((pitch + pitchOffset) + normalizePi / 2) / normalizePi
 
     let normalizedYaw = ((yaw + yawOffset) + normalizePi) / (2 * normalizePi)
@@ -48,7 +48,7 @@ motionManager.startDeviceMotionUpdates(to: .main) { motion, error in
     let screenHeight = screenFrame.height
 
     let mappedX = screenWidth * CGFloat(normalizedYaw)
-    let mappedY = screenHeight * (1 - CGFloat(normalizedPitch)) // Y는 위가 0
+    let mappedY = screenHeight * (1 - CGFloat(normalizedPitch))
 
     targetCursorPos = CGPoint(x: mappedX, y: mappedY)
 
