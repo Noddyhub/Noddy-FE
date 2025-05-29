@@ -35,6 +35,16 @@ func startKeyEventMonitor() {
                             if type == .keyDown {
                                 motionPaused.toggle()
                             }
+                        } else if keyCode == 116 {
+                            if type == .keyDown {
+                                cursorSensitvity = cursorSensitvity + 0.5
+                            }
+                        } else if keyCode == 121 {
+                            if type == .keyDown {
+                                if cursorSensitvity > 0.5 {
+                                    cursorSensitvity = cursorSensitvity - 0.5
+                                }
+                            }
                         }
                     } else {
 
