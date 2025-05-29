@@ -4,7 +4,7 @@ var isCursorMode: Bool = true
 
 func startKeyEventMonitor() {
     print()
-    let eventMask: Int = (1 << CGEventType.keyDown.rawValue)
+    let eventMask: Int = (1 << CGEventType.keyDown.rawValue) | (1 << CGEventType.keyUp.rawValue)
 
     guard let eventTap: CFMachPort = CGEvent.tapCreate(
         tap: .cgSessionEventTap,
@@ -12,7 +12,6 @@ func startKeyEventMonitor() {
         options: .defaultTap,
         eventsOfInterest: CGEventMask(eventMask),
         callback: { _, type, event, _ in
-            if type == .keyDown {
                 let keyCode = event.getIntegerValueField(.keyboardEventKeycode)
                 let flags = event.flags
 
@@ -22,16 +21,22 @@ func startKeyEventMonitor() {
                 } else {
                     if isCursorMode {
                         if keyCode == 123 {
-                            cursorEventHelper.leftClickAtCurrentCursor()
+                            if type == .keyDown {
+                                cursorEventHelper.leftMouseDownAtCursor()
+                            } else if type == .keyUp {
+                                cursorEventHelper.leftMouseUpAtCursor()
+                            }
                         } else if keyCode == 124 {
-                            cursorEventHelper.rightClickAtCurrentCursor()
+                            if type == .keyDown {
+                                cursorEventHelper.rightMouseDownAtCursor()
+                            } else if type == .keyUp {
+                                cursorEventHelper.rightMouseUpAtCursor()
+                            }
                         }
                     } else {
 
                     }
                 }
-
-            }
             return Unmanaged.passRetained(event)
         },
         userInfo: nil
