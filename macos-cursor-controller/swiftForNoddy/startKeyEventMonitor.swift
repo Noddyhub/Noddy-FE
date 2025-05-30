@@ -14,57 +14,53 @@ func startKeyEventMonitor() {
                 let keyCode = event.getIntegerValueField(.keyboardEventKeycode)
                 let flags = event.flags
 
-                if keyCode == 48 && flags.contains(.maskControl) {
+                if keyCode == 48 && flags.contains(.maskControl) && type == .keyDown {
                     isCursorMode.toggle()
                     print("모드 : \(isCursorMode ? "Cursor Mode" : "Scroll Mode")")
-                } else {
-                    if isCursorMode {
-                        if keyCode == 101 {
-                            if type == .keyDown {
-                                cursorEventHelper.leftMouseDownAtCursor()
-                            } else if type == .keyUp {
-                                cursorEventHelper.leftMouseUpAtCursor()
-                            }
-                        } else if keyCode == 109 {
-                            if type == .keyDown {
-                                cursorEventHelper.rightMouseDownAtCursor()
-                            } else if type == .keyUp {
-                                cursorEventHelper.rightMouseUpAtCursor()
-                            }
-                        } else if keyCode == 103 {
-                            if type == .keyDown {
-                                motionPaused.toggle()
-                            }
-                        } else if keyCode == 116 {
-                            if type == .keyDown {
-                                cursorSensitvity = cursorSensitvity + 0.5
-                            }
-                        } else if keyCode == 121 {
-                            if type == .keyDown {
-                                if cursorSensitvity > 0.5 {
-                                    cursorSensitvity = cursorSensitvity - 0.5
-                                }
-                            }
-                        } else if keyCode == 126 {
-                            if type == .keyDown {
-                                pitchOffset = pitchOffset + 0.01
-                            }
-                        } else if keyCode == 125 {
-                            if type == .keyDown {
-                                pitchOffset = pitchOffset - 0.01
-                            }
-                        } else if keyCode == 123 {
-                            if type == .keyDown {
-                                yawOffset = yawOffset - 0.01
-                            }
-                        } else if keyCode == 124 {
-                            if type == .keyDown {
-                                yawOffset = yawOffset + 0.01
-                            }
-                        }
-                    } else {
+                }
 
+                if isCursorMode {
+                    switch keyCode {
+                    case 101 where type == .keyDown:
+                        cursorEventHelper.leftMouseDownAtCursor()
+
+                    case 101 where type == .keyUp:
+                        cursorEventHelper.leftMouseUpAtCursor()
+
+                    case 109 where type == .keyDown:
+                        cursorEventHelper.rightMouseDownAtCursor()
+
+                    case 109 where type == .keyUp:
+                        cursorEventHelper.rightMouseUpAtCursor()
+
+                    case 103 where type == .keyDown:
+                        motionPaused.toggle()
+
+                    case 116 where type == .keyDown:
+                        cursorSensitivity += 0.5
+
+                    case 121 where type == .keyDown:
+                        if cursorSensitivity > 0.5 {
+                            cursorSensitivity -= 0.5
+                        }
+
+                    case 126 where type == .keyDown:
+                        pitchOffset += 0.01
+
+                    case 125 where type == .keyDown:
+                        pitchOffset -= 0.01
+
+                    case 123 where type == .keyDown:
+                        yawOffset -= 0.01
+
+                    case 124 where type == .keyDown:
+                        yawOffset += 0.01
+
+                    default:
+                        break
                     }
+                } else {
+
                 }
             return Unmanaged.passRetained(event)
         },
