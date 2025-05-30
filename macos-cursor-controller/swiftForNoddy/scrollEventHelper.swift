@@ -18,7 +18,7 @@ class ScrollEventHelper {
 
     func startMonitoring() {
         monitoringTimer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { [weak self] _ in
-            self?.checkCursorPosition()
+            self?.checkDistanceFromCenter()
         }
 
         RunLoop.main.add(monitoringTimer!, forMode: .common)
@@ -29,7 +29,7 @@ class ScrollEventHelper {
         monitoringTimer = nil
     }
 
-    private func checkCursorPosition() {
+    private func checkDistanceFromCenter() {
         let cursorPos = NSEvent.mouseLocation
 
         let deltaY = pitchForScroll - centerPoint.y
