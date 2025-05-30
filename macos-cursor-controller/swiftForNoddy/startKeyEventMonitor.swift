@@ -19,19 +19,19 @@ func startKeyEventMonitor() {
                     print("모드 : \(isCursorMode ? "Cursor Mode" : "Scroll Mode")")
                 } else {
                     if isCursorMode {
-                        if keyCode == 123 {
+                        if keyCode == 101 {
                             if type == .keyDown {
                                 cursorEventHelper.leftMouseDownAtCursor()
                             } else if type == .keyUp {
                                 cursorEventHelper.leftMouseUpAtCursor()
                             }
-                        } else if keyCode == 124 {
+                        } else if keyCode == 109 {
                             if type == .keyDown {
                                 cursorEventHelper.rightMouseDownAtCursor()
                             } else if type == .keyUp {
                                 cursorEventHelper.rightMouseUpAtCursor()
                             }
-                        } else if keyCode == 125 {
+                        } else if keyCode == 103 {
                             if type == .keyDown {
                                 motionPaused.toggle()
                             }
@@ -44,6 +44,22 @@ func startKeyEventMonitor() {
                                 if cursorSensitvity > 0.5 {
                                     cursorSensitvity = cursorSensitvity - 0.5
                                 }
+                            }
+                        } else if keyCode == 126 {
+                            if type == .keyDown {
+                                pitchOffset = pitchOffset + 0.01
+                            }
+                        } else if keyCode == 125 {
+                            if type == .keyDown {
+                                pitchOffset = pitchOffset - 0.01
+                            }
+                        } else if keyCode == 123 {
+                            if type == .keyDown {
+                                yawOffset = yawOffset - 0.01
+                            }
+                        } else if keyCode == 124 {
+                            if type == .keyDown {
+                                yawOffset = yawOffset + 0.01
                             }
                         }
                     } else {
