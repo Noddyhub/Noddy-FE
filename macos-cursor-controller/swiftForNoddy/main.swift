@@ -4,9 +4,13 @@ import AppKit
 import SwiftUI
 
 let motionManager = CMHeadphoneMotionManager()
+var motionPaused = false
 
+var pitchForScroll: CGFloat = 0
 let pitchOffset = 0.0
 let yawOffset = 0.0
+
+var cursorSensitivity = 5.5
 
 let screenFrame = NSScreen.main!.frame
 var currentCursorPos = CGPoint(x: screenFrame.midX, y: screenFrame.midY)
@@ -26,6 +30,7 @@ guard motionManager.isDeviceMotionAvailable else {
     exit(1)
 }
 
+startKeyEventMonitor()
 moveCursor(to: currentCursorPos)
 print("🖱️ 커서를 화면 중앙으로 이동 완료")
 
@@ -36,12 +41,8 @@ motionManager.startDeviceMotionUpdates(to: .main) { motion, error in
     let pitch = attitude.pitch
     let yaw = -attitude.yaw
 
-    print("\(pitch)")
-    print("\(yaw)")
-
-    let normalizePi: Double = .pi / 5.5
+    let normalizePi: Double = .pi / cursorSensitivity
     let normalizedPitch = ((pitch + pitchOffset) + normalizePi / 2) / normalizePi
-
     let normalizedYaw = ((yaw + yawOffset) + normalizePi) / (2 * normalizePi)
 
     let screenWidth = screenFrame.width
@@ -50,13 +51,13 @@ motionManager.startDeviceMotionUpdates(to: .main) { motion, error in
     let mappedX = screenWidth * CGFloat(normalizedYaw)
     let mappedY = screenHeight * (1 - CGFloat(normalizedPitch))
 
-    targetCursorPos = CGPoint(x: mappedX, y: mappedY)
+    pitchForScroll = mappedY
 
-    print(String(format: "📐 pitch: %.2f, yaw: %.2f", pitch, yaw))
-    print(String(format: "🎯 이동 → x: %.0f, y: %.0f", mappedX, mappedY))
+    targetCursorPos = CGPoint(x: mappedX, y: mappedY)
 }
 
 Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true) { _ in
+    guard !motionPaused else { return }
     currentCursorPos.x = lerp(currentCursorPos.x, targetCursorPos.x, t: 0.2)
     currentCursorPos.y = lerp(currentCursorPos.y, targetCursorPos.y, t: 0.2)
     moveCursor(to: currentCursorPos)
