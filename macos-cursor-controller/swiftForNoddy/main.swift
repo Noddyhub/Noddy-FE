@@ -7,8 +7,8 @@ let motionManager = CMHeadphoneMotionManager()
 var motionPaused = false
 
 var pitchForScroll: CGFloat = 0
-let pitchOffset = 0.0
-let yawOffset = 0.0
+var pitchOffset = 0.0
+var yawOffset = 0.0
 
 var cursorSensitivity = 5.5
 
