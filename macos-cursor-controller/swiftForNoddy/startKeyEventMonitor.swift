@@ -15,6 +15,7 @@ class KeyCode {
     static let ARROW_DOWN: Int = 125
     static let ARROW_LEFT: Int = 123
     static let ARROW_RIGHT: Int = 124
+    static let QKEY: Int = 12
 }
 
 func startKeyEventMonitor() {
@@ -55,7 +56,7 @@ func startKeyEventMonitor() {
                     motionPaused.toggle()
 
                 case KeyCode.PAGE_UP where type == .keyDown:
-                    CursorSensitivity += 0.5
+                    cursorSensitivity += 0.5
 
                 case KeyCode.PAGE_DOWN where type == .keyDown:
                     if cursorSensitivity > 0.5 {
@@ -78,7 +79,18 @@ func startKeyEventMonitor() {
                     break
                 }
             case false:
-                scrollEvent.startMonitoring()
+                if !scrollEvent.isMonitoring {
+                    scrollEvent.startMonitoring()
+                    scrollEvent.isScrolling = true
+                }
+
+                switch keyCodeInt {
+                case KeyCode.QKEY where type == .keyDown:
+                    scrollEvent.isScrolling.toggle()
+
+                default:
+                    break
+                }
             }
             return Unmanaged.passRetained(event)
         },

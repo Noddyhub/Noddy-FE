@@ -7,6 +7,8 @@ var scrollStartDeltaY: CGFloat = 90
 class ScrollEventHelper {
     private var centerPoint: CGPoint
     private var monitoringTimer: Timer?
+    var isScrolling = false
+    var isMonitoring = false
 
     init() {
         if let screen = NSScreen.main {
@@ -17,9 +19,8 @@ class ScrollEventHelper {
     }
 
     func startMonitoring() {
-        guard monitoringTimer == nil else {
-            return
-        }
+        guard monitoringTimer == nil else { return }
+        isMonitoring = true
 
         monitoringTimer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { [weak self] _ in
             self?.checkDistanceFromCenter()
@@ -31,11 +32,12 @@ class ScrollEventHelper {
     func stopMonitoring() {
         monitoringTimer?.invalidate()
         monitoringTimer = nil
+        isMonitoring = false
     }
 
     private func checkDistanceFromCenter() {
         guard !isCursorMode else { return }
-        guard !isScrolling else { return }
+        guard isScrolling else { return }
 
         let deltaY = pitchForScroll - centerPoint.y
 
