@@ -4,6 +4,19 @@ var isCursorMode: Bool = true
 
 let scrollEvent = ScrollEventHelper()
 
+class KeyCode {
+    static let Tab = 48
+    static let F9 = 101
+    static let F10 = 109
+    static let F11 = 103
+    static let PageUp = 116
+    static let PageDown = 121
+    static let ArrowUp = 126
+    static let ArrowDown = 125
+    static let ArrowLeft = 123
+    static let ArrowRight = 124
+}
+
 func startKeyEventMonitor() {
     let eventMask: Int = (1 << CGEventType.keyDown.rawValue) | (1 << CGEventType.keyUp.rawValue)
 
@@ -14,63 +27,63 @@ func startKeyEventMonitor() {
         eventsOfInterest: CGEventMask(eventMask),
         callback: { _, type, event, _ in
                 let keyCode = event.getIntegerValueField(.keyboardEventKeycode)
-                let flags = event.flags
+                let keyCodeInt = Int(keyCode)
+                let controlKey = event.flags.contains(.maskControl)
 
-                if keyCode == 48 && flags.contains(.maskControl) && type == .keyDown {
+                if keyCode == KeyCode.Tab && controlKey && type == .keyDown {
                     isCursorMode.toggle()
                     motionPaused.toggle()
-                    print("모드 : \(isCursorMode ? "Cursor Mode" : "Scroll Mode")")
                 }
 
-                if isCursorMode {
-                    scrollEvent.stopMonitoring()
-                    switch keyCode {
-                    case 101 where type == .keyDown:
-                        cursorEventHelper.leftMouseDownAtCursor()
+            switch isCursorMode {
+            case true:
+                scrollEvent.stopMonitoring()
+                switch keyCodeInt {
+                case KeyCode.F9 where type == .keyDown:
+                    cursorEventHelper.leftMouseDownAtCursor()
 
-                    case 101 where type == .keyUp:
-                        cursorEventHelper.leftMouseUpAtCursor()
+                case KeyCode.F9 where type == .keyUp:
+                    cursorEventHelper.leftMouseUpAtCursor()
 
-                    case 109 where type == .keyDown:
-                        cursorEventHelper.rightMouseDownAtCursor()
+                case KeyCode.F10 where type == .keyDown:
+                    cursorEventHelper.rightMouseDownAtCursor()
 
-                    case 109 where type == .keyUp:
-                        cursorEventHelper.rightMouseUpAtCursor()
+                case KeyCode.F10 where type == .keyUp:
+                    cursorEventHelper.rightMouseUpAtCursor()
 
-                    case 103 where type == .keyDown:
-                        motionPaused.toggle()
+                case KeyCode.F11 where type == .keyDown:
+                    motionPaused.toggle()
 
-                    case 116 where type == .keyDown:
-                        cursorSensitivity += 0.5
+                case KeyCode.PageUp where type == .keyDown:
+                    cursorSensitivity += 0.5
 
-                    case 121 where type == .keyDown:
-                        if cursorSensitivity > 0.5 {
-                            cursorSensitivity -= 0.5
-                        }
-
-                    case 126 where type == .keyDown:
-                        pitchOffset += 0.01
-
-                    case 125 where type == .keyDown:
-                        pitchOffset -= 0.01
-
-                    case 123 where type == .keyDown:
-                        yawOffset -= 0.01
-
-                    case 124 where type == .keyDown:
-                        yawOffset += 0.01
-
-                    default:
-                        break
+                case KeyCode.PageDown where type == .keyDown:
+                    if cursorSensitivity > 0.5 {
+                        cursorSensitivity -= 0.5
                     }
-                } else if !isCursorMode {
-                    scrollEvent.startMonitoring()
+
+                case KeyCode.ArrowUp where type == .keyDown:
+                    pitchOffset += 0.01
+
+                case KeyCode.ArrowDown where type == .keyDown:
+                    pitchOffset -= 0.01
+
+                case KeyCode.ArrowLeft where type == .keyDown:
+                    yawOffset -= 0.01
+
+                case KeyCode.ArrowRight where type == .keyDown:
+                    yawOffset += 0.01
+
+                default:
+                    break
                 }
+            case false:
+                scrollEvent.startMonitoring()
+            }
             return Unmanaged.passRetained(event)
         },
         userInfo: nil
     ) else {
-        print("에러 : 권한 없음")
         exit(1)
     }
 
