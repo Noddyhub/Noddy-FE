@@ -1,10 +1,14 @@
 import Cocoa
 import Quartz
 
+var scrollSpeed: CGFloat = 10
+var scrollStartDeltaY: CGFloat = 90
+
 class ScrollEventHelper {
     private var centerPoint: CGPoint
     private var monitoringTimer: Timer?
-    private var lastCursorPosition: CGPoint
+    var isScrolling = false
+    var isMonitoring = false
 
     init() {
         if let screen = NSScreen.main {
@@ -12,11 +16,12 @@ class ScrollEventHelper {
         } else {
             centerPoint = CGPoint.zero
         }
-
-        lastCursorPosition = centerPoint
     }
 
     func startMonitoring() {
+        guard monitoringTimer == nil else { return }
+        isMonitoring = true
+
         monitoringTimer = Timer.scheduledTimer(withTimeInterval: 0.02, repeats: true) { [weak self] _ in
             self?.checkDistanceFromCenter()
         }
@@ -27,22 +32,22 @@ class ScrollEventHelper {
     func stopMonitoring() {
         monitoringTimer?.invalidate()
         monitoringTimer = nil
+        isMonitoring = false
     }
 
     private func checkDistanceFromCenter() {
-        let cursorPos = NSEvent.mouseLocation
+        guard !isCursorMode else { return }
+        guard isScrolling else { return }
 
         let deltaY = pitchForScroll - centerPoint.y
 
-        if -deltaY > 90 {
-            self.postScrollWheelEvent(deltaY: 10)
-            CGDisplayMoveCursorToPoint(CGMainDisplayID(), centerPoint)
-        } else if -deltaY < -90 {
-            self.postScrollWheelEvent(deltaY: -10)
-            CGDisplayMoveCursorToPoint(CGMainDisplayID(), centerPoint)
+        if -deltaY > scrollStartDeltaY {
+            self.postScrollWheelEvent(deltaY: Int32(scrollSpeed))
+            CGDisplayMoveCursorToPoint(CGMainDisplayID(), currentCursorPos)
+        } else if -deltaY < -scrollStartDeltaY {
+            self.postScrollWheelEvent(deltaY: Int32(-scrollSpeed))
+            CGDisplayMoveCursorToPoint(CGMainDisplayID(), currentCursorPos)
         }
-
-        lastCursorPosition = cursorPos
     }
 
     private func postScrollWheelEvent(deltaY: Int32) {
