@@ -1,7 +1,7 @@
 import AppKit
 import Quartz
 
-struct cursorEventHelper {
+struct CursorEventHelper {
     private static var lastClickTime: CFAbsoluteTime = 0
     private static var clickCount: Int = 0
 

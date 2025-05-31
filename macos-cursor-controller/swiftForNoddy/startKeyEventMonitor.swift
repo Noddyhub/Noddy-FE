@@ -5,16 +5,16 @@ var isCursorMode: Bool = true
 let scrollEvent = ScrollEventHelper()
 
 class KeyCode {
-    static let Tab = 48
-    static let F9 = 101
-    static let F10 = 109
-    static let F11 = 103
-    static let PageUp = 116
-    static let PageDown = 121
-    static let ArrowUp = 126
-    static let ArrowDown = 125
-    static let ArrowLeft = 123
-    static let ArrowRight = 124
+    static let TAB: Int = 48
+    static let F9: Int = 101
+    static let F10: Int = 109
+    static let F11: Int = 103
+    static let PAGE_UP: Int = 116
+    static let PAGE_DOWN: Int = 121
+    static let ARROW_UP: Int = 126
+    static let ARROW_DOWN: Int = 125
+    static let ARROW_LEFT: Int = 123
+    static let ARROW_RIGHT: Int = 124
 }
 
 func startKeyEventMonitor() {
@@ -30,7 +30,7 @@ func startKeyEventMonitor() {
                 let keyCodeInt = Int(keyCode)
                 let controlKey = event.flags.contains(.maskControl)
 
-                if keyCode == KeyCode.Tab && controlKey && type == .keyDown {
+                if keyCode == KeyCode.TAB && controlKey && type == .keyDown {
                     isCursorMode.toggle()
                     motionPaused.toggle()
                 }
@@ -40,38 +40,38 @@ func startKeyEventMonitor() {
                 scrollEvent.stopMonitoring()
                 switch keyCodeInt {
                 case KeyCode.F9 where type == .keyDown:
-                    cursorEventHelper.leftMouseDownAtCursor()
+                    CursorEventHelper.leftMouseDownAtCursor()
 
                 case KeyCode.F9 where type == .keyUp:
-                    cursorEventHelper.leftMouseUpAtCursor()
+                    CursorEventHelper.leftMouseUpAtCursor()
 
                 case KeyCode.F10 where type == .keyDown:
-                    cursorEventHelper.rightMouseDownAtCursor()
+                    CursorEventHelper.rightMouseDownAtCursor()
 
                 case KeyCode.F10 where type == .keyUp:
-                    cursorEventHelper.rightMouseUpAtCursor()
+                    CursorEventHelper.rightMouseUpAtCursor()
 
                 case KeyCode.F11 where type == .keyDown:
                     motionPaused.toggle()
 
-                case KeyCode.PageUp where type == .keyDown:
-                    cursorSensitivity += 0.5
+                case KeyCode.PAGE_UP where type == .keyDown:
+                    CursorSensitivity += 0.5
 
-                case KeyCode.PageDown where type == .keyDown:
+                case KeyCode.PAGE_DOWN where type == .keyDown:
                     if cursorSensitivity > 0.5 {
                         cursorSensitivity -= 0.5
                     }
 
-                case KeyCode.ArrowUp where type == .keyDown:
+                case KeyCode.ARROW_UP where type == .keyDown:
                     pitchOffset += 0.01
 
-                case KeyCode.ArrowDown where type == .keyDown:
+                case KeyCode.ARROW_DOWN where type == .keyDown:
                     pitchOffset -= 0.01
 
-                case KeyCode.ArrowLeft where type == .keyDown:
+                case KeyCode.ARROW_LEFT where type == .keyDown:
                     yawOffset -= 0.01
 
-                case KeyCode.ArrowRight where type == .keyDown:
+                case KeyCode.ARROW_RIGHT where type == .keyDown:
                     yawOffset += 0.01
 
                 default:
