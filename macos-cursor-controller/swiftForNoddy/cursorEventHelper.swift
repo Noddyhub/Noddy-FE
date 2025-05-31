@@ -31,11 +31,7 @@ struct cursorEventHelper {
     }
 
     private static func click(mouseType: CGEventType, button: CGMouseButton, clickCount: Int = 1) {
-        let screenHeight: CGFloat = NSScreen.screens.first?.frame.height ?? 0
-        let location: NSPoint = NSEvent.mouseLocation
-        let flippedLocation: CGPoint = CGPoint(x: location.x, y: screenHeight - location.y)
-
-        if let event = CGEvent(mouseEventSource: nil, mouseType: mouseType, mouseCursorPosition: flippedLocation, mouseButton: button) {
+        if let event = CGEvent(mouseEventSource: nil, mouseType: mouseType, mouseCursorPosition: currentCursorPos, mouseButton: button) {
             event.setIntegerValueField(.mouseEventClickState, value: Int64(clickCount))
             event.post(tap: .cghidEventTap)
         }
