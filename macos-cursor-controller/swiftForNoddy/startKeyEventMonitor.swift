@@ -2,6 +2,8 @@ import Quartz
 
 var isCursorMode: Bool = true
 
+let scrollEvent = ScrollEventHelper()
+
 func startKeyEventMonitor() {
     let eventMask: Int = (1 << CGEventType.keyDown.rawValue) | (1 << CGEventType.keyUp.rawValue)
 
@@ -16,10 +18,12 @@ func startKeyEventMonitor() {
 
                 if keyCode == 48 && flags.contains(.maskControl) && type == .keyDown {
                     isCursorMode.toggle()
+                    motionPaused.toggle()
                     print("모드 : \(isCursorMode ? "Cursor Mode" : "Scroll Mode")")
                 }
 
                 if isCursorMode {
+                    scrollEvent.stopMonitoring()
                     switch keyCode {
                     case 101 where type == .keyDown:
                         cursorEventHelper.leftMouseDownAtCursor()
@@ -59,8 +63,8 @@ func startKeyEventMonitor() {
                     default:
                         break
                     }
-                } else {
-
+                } else if !isCursorMode {
+                    scrollEvent.startMonitoring()
                 }
             return Unmanaged.passRetained(event)
         },
