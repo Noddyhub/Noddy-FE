@@ -4,7 +4,6 @@ import Quartz
 class ScrollEventHelper {
     private var centerPoint: CGPoint
     private var monitoringTimer: Timer?
-    private var lastCursorPosition: CGPoint
 
     init() {
         if let screen = NSScreen.main {
@@ -12,8 +11,6 @@ class ScrollEventHelper {
         } else {
             centerPoint = CGPoint.zero
         }
-
-        lastCursorPosition = centerPoint
     }
 
     func startMonitoring() {
@@ -30,19 +27,16 @@ class ScrollEventHelper {
     }
 
     private func checkDistanceFromCenter() {
-        let cursorPos = NSEvent.mouseLocation
-
+        guard !isCursorMode else { return }
         let deltaY = pitchForScroll - centerPoint.y
 
         if -deltaY > 90 {
             self.postScrollWheelEvent(deltaY: 10)
-            CGDisplayMoveCursorToPoint(CGMainDisplayID(), centerPoint)
+            CGDisplayMoveCursorToPoint(CGMainDisplayID(), currentCursorPos)
         } else if -deltaY < -90 {
             self.postScrollWheelEvent(deltaY: -10)
-            CGDisplayMoveCursorToPoint(CGMainDisplayID(), centerPoint)
+            CGDisplayMoveCursorToPoint(CGMainDisplayID(), currentCursorPos)
         }
-
-        lastCursorPosition = cursorPos
     }
 
     private func postScrollWheelEvent(deltaY: Int32) {
