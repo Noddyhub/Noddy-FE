@@ -17,6 +17,8 @@ class KeyCode {
     var yawLeft: Int = 123 // ArrowLeft
     var yawRight: Int = 124 // ArrowRight
     var toggleScroll: Int = 12 // Q key
+    var increaseScrollSpeed: Int = 100 // F8
+    var decreaseScrollSpeed: Int = 98 // F7
 }
 
 let keyCodes = KeyCode()
@@ -91,6 +93,16 @@ func startKeyEventMonitor() {
                 case keyCodes.toggleScroll where type == .keyDown:
                     scrollEvent.isScrolling.toggle()
 
+                case keyCodes.increaseScrollSpeed where type == .keyDown:
+                    if scrollSensitivity > 10 {
+                        scrollSensitivity -= 10
+                        print(scrollSensitivity)
+                    }
+
+                case keyCodes.decreaseScrollSpeed where type == .keyDown:
+                    scrollSensitivity += 10
+                    print(scrollSensitivity)
+
                 default:
                     break
                 }
@@ -127,6 +139,8 @@ class KeySettingManager: NSObject {
         case "yawLeft": keyCodes.yawLeft = code
         case "yawRight": keyCodes.yawRight = code
         case "toggleScroll": keyCodes.toggleScroll = code
+        case "increaseScrollSpeed": keyCodes.increaseScrollSpeed = code
+        case "decreaseScrollSpeed": keyCodes.decreaseScrollSpeed = code
         default:
             print("Unknown action: \(action)")
         }
