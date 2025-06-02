@@ -16,6 +16,10 @@ let screenFrame = NSScreen.main!.frame
 var currentCursorPos = CGPoint(x: screenFrame.midX, y: screenFrame.midY)
 var targetCursorPos = currentCursorPos
 
+var filteredPitch = 0.0
+var filteredYaw = 0.0
+let filterAlpha = 0.15
+
 func lerp(_ a: CGFloat, _ b: CGFloat, t: CGFloat) -> CGFloat {
     return a + (b - a) * t
 }
@@ -40,6 +44,13 @@ motionManager.startDeviceMotionUpdates(to: .main) { motion, error in
     let attitude = motion.attitude
     let pitch = attitude.pitch
     let yaw = -attitude.yaw
+
+    filteredPitch = filterAlpha * pitch + (1 - filterAlpha) * filteredPitch
+    filteredYaw = filterAlpha * yaw + (1 - filterAlpha) * filteredYaw
+
+    let movementThreshold = 0.0088
+    let finalPitch = abs(filteredPitch) < movementThreshold ? 0 : filteredPitch
+    let finalYaw = abs(filteredYaw) < movementThreshold ? 0 : filteredYaw
 
     let normalizePi: Double = .pi / cursorSensitivity
     let normalizedPitch = ((pitch + pitchOffset) + normalizePi / 2) / normalizePi
