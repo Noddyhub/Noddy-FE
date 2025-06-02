@@ -2,11 +2,8 @@ import Quartz
 import CoreMotion
 
 let motionManager = CMHeadphoneMotionManager()
-
-guard motionManager.isDeviceMotionAvailable else {
-    print("에어팟이 연결 안됨.")
-    exit(1)
-}
+var isWearingAirPods = true
+var lastMotionTimestamp = Date()
 
 func moveCursor(to point: CGPoint) {
     let move = CGEvent(mouseEventSource: nil, mouseType: .mouseMoved, mouseCursorPosition: point, mouseButton: .left)
@@ -17,6 +14,9 @@ startKeyEventMonitor()
 moveCursor(to: currentCursorPos)
 motionManager.startDeviceMotionUpdates(to: .main) { motion, error in
     guard let motion = motion else { return }
+
+    lastMotionTimestamp = Date()
+    isWearingAirPods = true
 
     let attitude = motion.attitude
     let pitch = attitude.pitch
@@ -54,6 +54,19 @@ Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true) { _ in
     currentCursorPos.x = lerp(currentCursorPos.x, targetCursorPos.x, t: 0.2)
     currentCursorPos.y = lerp(currentCursorPos.y, targetCursorPos.y, t: 0.2)
     moveCursor(to: currentCursorPos)
+}
+
+Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
+    let timeSinceLastMotion = Date().timeIntervalSince(lastMotionTimestamp)
+    let maxInactiveDuration: TimeInterval = 2.0
+
+    if timeSinceLastMotion > maxInactiveDuration {
+        if isWearingAirPods {
+            isWearingAirPods = false
+            print("에어팟 감지 안됨. 프로그램 종료.")
+            exit(0)
+        }
+    }
 }
 
 RunLoop.main.run()
