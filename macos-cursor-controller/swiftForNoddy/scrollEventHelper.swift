@@ -3,6 +3,7 @@ import Quartz
 
 var scrollSpeed: CGFloat = 10
 var scrollStartDeltaY: CGFloat = 90
+var scrollSensitivity: CGFloat = 350
 
 class ScrollEventHelper {
     private var centerPoint: CGPoint
@@ -46,7 +47,6 @@ class ScrollEventHelper {
         guard absDeltaY > deadZone else { return }
 
         let maxSpeed: CGFloat = 30
-        let scrollSensitivity: CGFloat = 350
         let dynamicSpeed = min(maxSpeed, ((absDeltaY - deadZone) / scrollSensitivity) * maxSpeed)
 
         let direction: CGFloat = deltaY < 0 ? 1 : -1
