@@ -40,12 +40,17 @@ class ScrollEventHelper {
         guard isScrolling else { return }
 
         let deltaY = pitchForScroll - centerPoint.y
+        let absDeltaY = abs(deltaY)
 
-        if -deltaY > scrollStartDeltaY {
-            self.postScrollWheelEvent(deltaY: Int32(scrollSpeed))
-        } else if -deltaY < -scrollStartDeltaY {
-            self.postScrollWheelEvent(deltaY: Int32(-scrollSpeed))
-        }
+        let deadZone: CGFloat = scrollStartDeltaY
+        guard absDeltaY > deadZone else { return }
+
+        let maxSpeed: CGFloat = 30
+        let scrollSensitivity: CGFloat = 350
+        let dynamicSpeed = min(maxSpeed, ((absDeltaY - deadZone) / scrollSensitivity) * maxSpeed)
+
+        let direction: CGFloat = deltaY < 0 ? 1 : -1
+        postScrollWheelEvent(deltaY: Int32(dynamicSpeed * direction))
     }
 
     private func postScrollWheelEvent(deltaY: Int32) {
