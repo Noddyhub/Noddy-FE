@@ -57,6 +57,16 @@ func startKeyEventMonitor() {
                 case keyCodes.yawRight where type == .keyDown:
                     yawOffset += 0.05
 
+                case keyCodes.increaseCursorReactionSpeed where type == .keyDown:
+                    if filterAlpha < 1 {
+                        filterAlpha += 0.05
+                    }
+
+                case keyCodes.decreaseCursorReactionSpeed where type == .keyDown:
+                    if filterAlpha > 0.05 {
+                        filterAlpha -= 0.05
+                    }
+
                 default:
                     break
                 }
@@ -118,6 +128,9 @@ class KeySettingManager: NSObject {
         case "toggleScroll": keyCodes.toggleScroll = code
         case "increaseScrollSpeed": keyCodes.increaseScrollSpeed = code
         case "decreaseScrollSpeed": keyCodes.decreaseScrollSpeed = code
+        case "increaseCursorReactionSpeed": keyCodes.increaseCursorReactionSpeed = code
+        case "decreaseCursorReactionSpeed": keyCodes.decreaseCursorReactionSpeed = code
+
         default:
             print("Unknown action: \(action)")
         }

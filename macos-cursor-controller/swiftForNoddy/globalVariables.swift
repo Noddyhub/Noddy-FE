@@ -7,7 +7,7 @@ var pitchOffset = 0.0
 var yawOffset = 0.0
 var filteredPitch = 0.0
 var filteredYaw = 0.0
-let filterAlpha = 0.3
+var filterAlpha = 0.1
 
 // cursorController.swift (Cursor Control)
 var isCursorMode: Bool = true
@@ -35,4 +35,6 @@ class KeyCode {
     var toggleScroll: Int = 12 // Q key
     var increaseScrollSpeed: Int = 100 // F8
     var decreaseScrollSpeed: Int = 98 // F7
+    var increaseCursorReactionSpeed: Int = 97 // F6
+    var decreaseCursorReactionSpeed: Int = 96 // F5
 }
