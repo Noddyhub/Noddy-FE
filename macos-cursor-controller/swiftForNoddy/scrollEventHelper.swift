@@ -1,9 +1,6 @@
-import Cocoa
 import Quartz
 
-var scrollSpeed: CGFloat = 10
-var scrollStartDeltaY: CGFloat = 90
-var scrollSensitivity: CGFloat = 350
+let scrollEvent = ScrollEventHelper()
 
 class ScrollEventHelper {
     private var centerPoint: CGPoint
@@ -41,13 +38,13 @@ class ScrollEventHelper {
         guard isScrolling else { return }
 
         let deltaY = pitchForScroll - centerPoint.y
-        let absDeltaY = abs(deltaY)
+        let absoluteDeltaY = abs(deltaY)
 
-        let deadZone: CGFloat = scrollStartDeltaY
-        guard absDeltaY > deadZone else { return }
+        let deadZone: CGFloat = 90
+        guard absoluteDeltaY > deadZone else { return }
 
         let maxSpeed: CGFloat = 30
-        let dynamicSpeed = min(maxSpeed, ((absDeltaY - deadZone) / scrollSensitivity) * maxSpeed)
+        let dynamicSpeed = min(maxSpeed, ((absoluteDeltaY - deadZone) / scrollSensitivity) * maxSpeed)
 
         let direction: CGFloat = deltaY < 0 ? 1 : -1
         postScrollWheelEvent(deltaY: Int32(dynamicSpeed * direction))

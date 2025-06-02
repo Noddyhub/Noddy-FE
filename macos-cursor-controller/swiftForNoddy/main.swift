@@ -1,27 +1,11 @@
+import Quartz
 import CoreMotion
-import CoreGraphics
-import AppKit
-import SwiftUI
 
 let motionManager = CMHeadphoneMotionManager()
-var motionPaused = false
 
-var pitchForScroll: CGFloat = 0
-var pitchOffset = 0.0
-var yawOffset = 0.0
-
-var cursorSensitivity = 5.5
-
-let screenFrame = NSScreen.main!.frame
-var currentCursorPos = CGPoint(x: screenFrame.midX, y: screenFrame.midY)
-var targetCursorPos = currentCursorPos
-
-var filteredPitch = 0.0
-var filteredYaw = 0.0
-let filterAlpha = 0.15
-
-func lerp(_ a: CGFloat, _ b: CGFloat, t: CGFloat) -> CGFloat {
-    return a + (b - a) * t
+guard motionManager.isDeviceMotionAvailable else {
+    print("에어팟이 연결 안됨.")
+    exit(1)
 }
 
 func moveCursor(to point: CGPoint) {
@@ -29,15 +13,8 @@ func moveCursor(to point: CGPoint) {
     move?.post(tap: .cghidEventTap)
 }
 
-guard motionManager.isDeviceMotionAvailable else {
-    print("❌ 에어팟이 연결되지 않았습니다.")
-    exit(1)
-}
-
 startKeyEventMonitor()
 moveCursor(to: currentCursorPos)
-print("🖱️ 커서를 화면 중앙으로 이동 완료")
-
 motionManager.startDeviceMotionUpdates(to: .main) { motion, error in
     guard let motion = motion else { return }
 
@@ -45,16 +22,16 @@ motionManager.startDeviceMotionUpdates(to: .main) { motion, error in
     let pitch = attitude.pitch
     let yaw = -attitude.yaw
 
-    filteredPitch = filterAlpha * pitch + (1 - filterAlpha) * filteredPitch
-    filteredYaw = filterAlpha * yaw + (1 - filterAlpha) * filteredYaw
+    filteredPitch = filteredPitch + filterAlpha * (pitch - filteredPitch)
+    filteredYaw = filteredYaw + filterAlpha * (yaw - filteredYaw)
 
     let movementThreshold = 0.0088
     let finalPitch = abs(filteredPitch) < movementThreshold ? 0 : filteredPitch
     let finalYaw = abs(filteredYaw) < movementThreshold ? 0 : filteredYaw
 
     let normalizePi: Double = .pi / cursorSensitivity
-    let normalizedPitch = ((finalPitch + pitchOffset) + normalizePi / 2) / normalizePi
-    let normalizedYaw = ((finalYaw + yawOffset) + normalizePi) / (2 * normalizePi)
+    let normalizedPitch = ((finalPitch) + normalizePi / 2) / normalizePi + pitchOffset
+    let normalizedYaw = ((finalYaw) + normalizePi) / (2 * normalizePi) + yawOffset
 
     let screenWidth = screenFrame.width
     let screenHeight = screenFrame.height
@@ -68,7 +45,12 @@ motionManager.startDeviceMotionUpdates(to: .main) { motion, error in
 }
 
 Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true) { _ in
-    guard !motionPaused else { return }
+    guard !isMotionPaused else { return }
+
+    func lerp(_ a: CGFloat, _ b: CGFloat, t: CGFloat) -> CGFloat {
+        return a + (b - a) * t
+    }
+
     currentCursorPos.x = lerp(currentCursorPos.x, targetCursorPos.x, t: 0.2)
     currentCursorPos.y = lerp(currentCursorPos.y, targetCursorPos.y, t: 0.2)
     moveCursor(to: currentCursorPos)

@@ -1,27 +1,4 @@
-import Foundation
 import Quartz
-
-var isCursorMode: Bool = true
-
-let scrollEvent = ScrollEventHelper()
-
-class KeyCode {
-    var toggleMode: Int = 48 // Tab
-    var leftClick: Int = 101 // F9
-    var rightClick: Int = 109 // F10
-    var motionPause: Int = 103 // F11
-    var increaseSensitivity: Int = 116 // PageUp
-    var decreaseSensitivity: Int = 121 // PageDown
-    var pitchUp: Int = 126 // ArrowUp
-    var pitchDown: Int = 125 // ArrowDown
-    var yawLeft: Int = 123 // ArrowLeft
-    var yawRight: Int = 124 // ArrowRight
-    var toggleScroll: Int = 12 // Q key
-    var increaseScrollSpeed: Int = 100 // F8
-    var decreaseScrollSpeed: Int = 98 // F7
-}
-
-let keyCodes = KeyCode()
 
 func startKeyEventMonitor() {
     let eventMask: Int = (1 << CGEventType.keyDown.rawValue) | (1 << CGEventType.keyUp.rawValue)
@@ -38,7 +15,7 @@ func startKeyEventMonitor() {
 
             if keyCode == keyCodes.toggleMode && controlKey && type == .keyDown {
                     isCursorMode.toggle()
-                    motionPaused.toggle()
+                    isMotionPaused.toggle()
                 }
 
             switch isCursorMode {
@@ -52,13 +29,13 @@ func startKeyEventMonitor() {
                     CursorEventHelper.leftMouseUpAtCursor()
 
                 case keyCodes.rightClick where type == .keyDown:
-                    CursorEventHelper.rightMouseDownAtCursor()
+                    CursorEventHelper.rightMouseAtCursor(down: true)
 
                 case keyCodes.rightClick where type == .keyUp:
-                    CursorEventHelper.rightMouseUpAtCursor()
+                    CursorEventHelper.rightMouseAtCursor(down: false)
 
                 case keyCodes.motionPause where type == .keyDown:
-                    motionPaused.toggle()
+                    isMotionPaused.toggle()
 
                 case keyCodes.increaseSensitivity where type == .keyDown:
                     cursorSensitivity += 0.5
