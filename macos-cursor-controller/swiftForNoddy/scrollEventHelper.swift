@@ -43,10 +43,8 @@ class ScrollEventHelper {
 
         if -deltaY > scrollStartDeltaY {
             self.postScrollWheelEvent(deltaY: Int32(scrollSpeed))
-            CGDisplayMoveCursorToPoint(CGMainDisplayID(), currentCursorPos)
         } else if -deltaY < -scrollStartDeltaY {
             self.postScrollWheelEvent(deltaY: Int32(-scrollSpeed))
-            CGDisplayMoveCursorToPoint(CGMainDisplayID(), currentCursorPos)
         }
     }
 
