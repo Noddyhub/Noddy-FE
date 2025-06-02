@@ -41,6 +41,8 @@ motionManager.startDeviceMotionUpdates(to: .main) { motion, error in
 
     pitchForScroll = mappedY
 
+    sendMotionData(pitch: pitch, yaw: yaw)
+
     targetCursorPos = CGPoint(x: mappedX, y: mappedY)
 }
 
