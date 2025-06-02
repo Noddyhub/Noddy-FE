@@ -1,4 +1,3 @@
-import AppKit
 import Quartz
 
 struct CursorEventHelper {
@@ -9,7 +8,7 @@ struct CursorEventHelper {
         let currentTime: CFAbsoluteTime = CFAbsoluteTimeGetCurrent()
         let timeSinceLastClick: CFAbsoluteTime = currentTime - lastClickTime
         if timeSinceLastClick < NSEvent.doubleClickInterval {
-            clickCount = min(clickCount + 1, clickCount + 2)
+            clickCount += 1
         } else {
             clickCount = 1
         }
@@ -22,16 +21,18 @@ struct CursorEventHelper {
         click(mouseType: .leftMouseUp, button: .left, clickCount: clickCount)
     }
 
-    static func rightMouseDownAtCursor() {
-        click(mouseType: .rightMouseDown, button: .right)
+    static func rightMouseAtCursor(down: Bool) {
+        let type: CGEventType = down ? .rightMouseDown : .rightMouseUp
+        click(mouseType: type, button: .right)
     }
 
-    static func rightMouseUpAtCursor() {
-        click(mouseType: .rightMouseUp, button: .right)
-    }
-
-    private static func click(mouseType: CGEventType, button: CGMouseButton, clickCount: Int = 1) {
-        if let event = CGEvent(mouseEventSource: nil, mouseType: mouseType, mouseCursorPosition: currentCursorPos, mouseButton: button) {
+    private static func click(
+        mouseType: CGEventType,
+        button: CGMouseButton,
+        clickCount: Int = 1,
+        position: CGPoint = currentCursorPos
+    ) {
+        if let event = CGEvent(mouseEventSource: nil, mouseType: mouseType, mouseCursorPosition: position, mouseButton: button) {
             event.setIntegerValueField(.mouseEventClickState, value: Int64(clickCount))
             event.post(tap: .cghidEventTap)
         }
