@@ -53,8 +53,8 @@ motionManager.startDeviceMotionUpdates(to: .main) { motion, error in
     let finalYaw = abs(filteredYaw) < movementThreshold ? 0 : filteredYaw
 
     let normalizePi: Double = .pi / cursorSensitivity
-    let normalizedPitch = ((pitch + pitchOffset) + normalizePi / 2) / normalizePi
-    let normalizedYaw = ((yaw + yawOffset) + normalizePi) / (2 * normalizePi)
+    let normalizedPitch = ((finalPitch + pitchOffset) + normalizePi / 2) / normalizePi
+    let normalizedYaw = ((finalYaw + yawOffset) + normalizePi) / (2 * normalizePi)
 
     let screenWidth = screenFrame.width
     let screenHeight = screenFrame.height
