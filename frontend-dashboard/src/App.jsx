@@ -1,10 +1,5 @@
-import "./App.css";
+import MainLayout from "@/layouts/MainLayout";
 
-function App() {
-  return (
-    <>
-    </>
-  );
+export default function App() {
+  return <MainLayout>children...</MainLayout>;
 }
-
-export default App;
