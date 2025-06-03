@@ -83,12 +83,10 @@ func startKeyEventMonitor() {
                 case keyCodes.increaseScrollSpeed where type == .keyDown:
                     if scrollSensitivity > 10 {
                         scrollSensitivity -= 10
-                        print(scrollSensitivity)
                     }
 
                 case keyCodes.decreaseScrollSpeed where type == .keyDown:
                     scrollSensitivity += 10
-                    print(scrollSensitivity)
 
                 default:
                     break

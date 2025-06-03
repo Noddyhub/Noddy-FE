@@ -10,6 +10,8 @@ func moveCursor(to point: CGPoint) {
     move?.post(tap: .cghidEventTap)
 }
 
+webSocketTask.resume()
+
 startKeyEventMonitor()
 moveCursor(to: currentCursorPos)
 motionManager.startDeviceMotionUpdates(to: .main) { motion, error in
