@@ -4,7 +4,7 @@ import AirPodsImage from "@/assets/AirPodsImage.png";
 export default function StartPageLayout() {
   const navigate = useNavigate();
 
-  const clickHandler = () => {
+  const handleStartClick = () => {
     navigate("/instruction-page");
   };
 
@@ -14,7 +14,7 @@ export default function StartPageLayout() {
       <img className="mt-10 w-[30vh]" src={AirPodsImage} />
       <button
         className="mt-10 cursor-pointer rounded-xl bg-gray-200 px-4 py-2 font-bold shadow dark:bg-gray-800 dark:text-white"
-        onClick={clickHandler}
+        onClick={handleStartClick}
       >
         START
       </button>
