@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 export default function InstructionPageLayout() {
   const navigate = useNavigate();
 
-  const clickHandler = () => {
+  const handleSkipClick = () => {
     navigate("/option-page");
   };
 
@@ -22,7 +22,7 @@ export default function InstructionPageLayout() {
           </button>
           <button
             className="cursor-pointer rounded-xl bg-gray-200 px-4 py-2 font-bold shadow dark:bg-gray-800 dark:text-white"
-            onClick={clickHandler}
+            onClick={handleSkipClick}
           >
             Skip
           </button>
