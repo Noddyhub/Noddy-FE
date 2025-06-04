@@ -4,12 +4,16 @@ import ControlSlider from "@/components/ControlSlider";
 export default function CursorModeOptions() {
   return (
     <>
-      <div className="m-2 flex h-[50vh] w-[50vh] flex-col items-center justify-start rounded-2xl border-2">
-        <div className="font-bold">Option</div>
-        <ControlSlider name={"Cursor Sensitivity"} />
-        <ControlKey name={"Toggle Mode"} />
-        <ControlKey name={"Left Click"} />
-      </div>
+      <ControlSlider name={"Cursor Sensitivity"} />
+      <ControlSlider name={"Cursor Reaction Speed"} />
+      <ControlKey name={"Toggle Mode"} />
+      <ControlKey name={"Left Click"} />
+      <ControlKey name={"Right Click"} />
+      <ControlKey name={"Pause Cursor"} />
+      <ControlKey name={"Move Cursor Up"} />
+      <ControlKey name={"Move Cursor Down"} />
+      <ControlKey name={"Move Cursor Left"} />
+      <ControlKey name={"Move Cursor Right"} />
     </>
   );
 }
