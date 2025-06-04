@@ -1,8 +1,14 @@
+import { useMovementStore } from "@/stores/useMovementStore";
+
 export default function Body({ children }) {
+  const optionPage = useMovementStore((state) => state.optionPage);
+
   return (
-    <div className="m-2 flex h-[60vh] w-[50vh] flex-col items-center justify-start rounded-2xl border-2">
-      <div className="mt-2 mb-2 text-xl font-bold">Option</div>
-      {children}
-    </div>
+    <>
+      <div className="mt-2 mb-2 flex justify-center text-xl font-bold">{optionPage}</div>
+      <div className="m-2 flex h-[30vh] w-[50vh] flex-col items-center justify-start overflow-y-auto rounded-2xl">
+        <div className="flex flex-col items-center">{children}</div>
+      </div>
+    </>
   );
 }

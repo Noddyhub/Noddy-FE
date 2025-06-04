@@ -10,15 +10,16 @@ export default function MainLayout({ children }) {
 
   const renderOption = () => {
     switch (optionPage) {
-      case "cursor":
+      case "Cursor":
         return <CursorModeOptions />;
-      case "scroll":
+      case "Scroll":
         return <ScrollModeOptions />;
     }
   };
 
   return (
     <>
+      <div className="absolute -z-100 h-[100vh] w-[50vh] bg-gray-100"></div>
       <Header />
       <main>
         <Body children={renderOption()} />
