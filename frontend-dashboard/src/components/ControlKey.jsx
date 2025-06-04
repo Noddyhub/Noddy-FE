@@ -4,7 +4,7 @@ export default function ControlKey({ name }) {
   const [hotKey, setHotKey] = useState("");
 
   return (
-    <div className="mt-2 flex h-[5vh] w-[48vh] flex-row items-center justify-between rounded-2xl border-2 px-2">
+    <div className="mb-2 flex h-[5vh] w-[48vh] flex-row items-center justify-between rounded-2xl border-2 px-2">
       <div>{name}</div>
       <div className="flex flex-row">
         <input
