@@ -1,7 +1,7 @@
 export default function ControlSlider({ name }) {
   return (
-    <div className="mb-2 flex w-[45vh] flex-row items-center justify-between rounded-2xl bg-gray-200 px-2">
-      <div className="mt-2 mb-2 ml-2">{name}</div>
+    <div className="mb-2 flex w-[45vh] flex-row items-center justify-between rounded-2xl px-2">
+      <div className="mt-2 mb-2 ml-2 font-bold">{name}</div>
       <div className="flex flex-row">
         <input type="range" className="w-50 rounded-2xl px-2" />
       </div>
