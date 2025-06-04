@@ -1,11 +1,11 @@
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import Body from "@/components/Body";
 import { useMovementStore } from "@/stores/useMovementStore";
+import Body from "@/components/Body";
 import CursorModeOptions from "@/pages/cursorMode/CursorModeOptions";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import ScrollModeOptions from "@/pages/scrollMode/ScrollModeOptions";
 
-export default function MainLayout({ children }) {
+export default function OptionPageLayout() {
   const optionPage = useMovementStore((state) => state.optionPage);
 
   const renderOption = () => {
@@ -19,7 +19,7 @@ export default function MainLayout({ children }) {
 
   return (
     <>
-      <div className="absolute -z-100 h-[100vh] w-[50vh] bg-gray-100"></div>
+      <div className="absolute -z-100 h-[100vh] w-[50vh] bg-gray-50"></div>
       <Header />
       <main>
         <Body children={renderOption()} />
