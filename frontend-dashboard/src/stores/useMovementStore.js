@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 export const useMovementStore = create((set) => ({
-  optionPage: "cursor",
+  optionPage: "Cursor",
 
   setOptionPage: (optionPage) => set({ optionPage }),
 }));
