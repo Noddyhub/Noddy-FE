@@ -9,13 +9,13 @@ export default function Header() {
         <div className="flex justify-center text-4xl font-extrabold">Noddy</div>
         <div className="mt-[1.5vh] flex h-[3vh] w-[50vh]">
           <button
-            className="mr-1 ml-auto w-[7vh] cursor-pointer rounded-xl bg-gray-200"
+            className="mr-2 ml-auto h-[4vh] w-[7vh] cursor-pointer rounded-xl bg-white font-bold"
             onClick={() => setOptionPage("Cursor")}
           >
             Cursor
           </button>
           <button
-            className="mr-3 w-[7vh] cursor-pointer rounded-xl bg-gray-200"
+            className="mr-3 h-[4vh] w-[7vh] cursor-pointer rounded-xl bg-white font-bold"
             onClick={() => setOptionPage("Scroll")}
           >
             Scroll
