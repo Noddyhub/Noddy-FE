@@ -19,7 +19,6 @@ export default function OptionPageLayout() {
 
   return (
     <>
-      <div className="absolute -z-100 h-[100vh] w-[50vh] bg-gray-50"></div>
       <Header />
       <main>
         <Body children={renderOption()} />

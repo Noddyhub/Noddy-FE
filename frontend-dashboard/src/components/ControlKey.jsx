@@ -8,7 +8,7 @@ export default function ControlKey({ name }) {
       <div className="mt-2 mb-2 ml-2 font-bold">{name}</div>
       <div className="flex flex-row">
         <select
-          className="mr-2 h-7 w-20 rounded-lg bg-gray-200 px-2 font-bold"
+          className="mr-2 h-7 w-20 rounded-lg bg-gray-200 px-2 font-bold shadow"
           value={hotKey}
           onChange={(e) => setHotKey(e.target.value)}
         >
