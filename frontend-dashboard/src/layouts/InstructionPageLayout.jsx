@@ -14,9 +14,16 @@ export default function InstructionPageLayout() {
           안내 이미지
         </div>
         <div className="my-4 flex gap-2">
-          <button className="cursor-pointer rounded-xl bg-gray-200 px-4 py-2 font-bold shadow">Prev</button>
-          <button className="cursor-pointer rounded-xl bg-gray-200 px-4 py-2 font-bold shadow">Next</button>
-          <button className="cursor-pointer rounded-xl bg-gray-200 px-4 py-2 font-bold shadow" onClick={clickHandler}>
+          <button className="cursor-pointer rounded-xl bg-gray-200 px-4 py-2 font-bold shadow dark:bg-gray-800 dark:text-white">
+            Prev
+          </button>
+          <button className="cursor-pointer rounded-xl bg-gray-200 px-4 py-2 font-bold shadow dark:bg-gray-800 dark:text-white">
+            Next
+          </button>
+          <button
+            className="cursor-pointer rounded-xl bg-gray-200 px-4 py-2 font-bold shadow dark:bg-gray-800 dark:text-white"
+            onClick={clickHandler}
+          >
             Skip
           </button>
         </div>
