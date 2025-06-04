@@ -1,28 +1,11 @@
-import { useState } from "react";
+import OptionsList from "@/components/OptionsList";
 
 export default function ControlKey({ name }) {
-  const [hotKey, setHotKey] = useState("");
-
   return (
     <div className="mb-2 flex w-[45vh] flex-row items-center justify-between rounded-2xl px-2">
       <div className="mt-2 mb-2 ml-2 font-medium dark:text-white">{name}</div>
       <div className="flex flex-row">
-        <select
-          className="mr-2 h-7 w-30 rounded-lg bg-gray-200 px-2 font-medium shadow dark:bg-gray-800 dark:text-white"
-          value={hotKey}
-          onChange={(e) => setHotKey(e.target.value)}
-        >
-          <option value="" disabled>
-            단축키 선택
-          </option>
-          <option value="A">A</option>
-          <option value="B">B</option>
-          <option value="C">C</option>
-          <option value="D">D</option>
-          <option value="E">E</option>
-          <option value="F">F</option>
-          <option value="G">G</option>
-        </select>
+        <OptionsList />
       </div>
     </div>
   );
