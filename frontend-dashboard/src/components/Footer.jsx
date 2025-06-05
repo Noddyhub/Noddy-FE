@@ -12,6 +12,7 @@ export default function Footer() {
 
   const whiteColor = new THREE.Color("white");
   const blackColor = new THREE.Color("black");
+  const grayColor = new THREE.Color("rgb(140, 140, 140)");
 
   useEffect(() => {
     const scene = new THREE.Scene();
@@ -34,6 +35,14 @@ export default function Footer() {
     loader.load("headImage.gltf", (gltf) => {
       const model = gltf.scene;
       model.position.set(0, 0.2, 0);
+
+      model.traverse((child) => {
+        if (child.isMesh && !isThemeDark) {
+          child.material.color.set(whiteColor);
+        } else if (child.isMesh) {
+          child.material.color.set(grayColor);
+        }
+      });
 
       scene.add(model);
 
