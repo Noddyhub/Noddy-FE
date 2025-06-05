@@ -1,12 +1,17 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/Addons.js";
+import { useThemeStore } from "@/stores/useThemeStore";
 
 export default function Footer() {
   const canvasRef = useRef();
+  const isThemeDark = useThemeStore((state) => state.isThemeDark);
 
   const midX = window.innerWidth / 2;
   const midY = window.innerHeight / 2;
+
+  const whiteColor = new THREE.Color("white");
+  const blackColor = new THREE.Color("black");
 
   useEffect(() => {
     const scene = new THREE.Scene();
@@ -20,6 +25,8 @@ export default function Footer() {
     renderer.setSize(width, height, false);
     camera.position.set(0, 0, -30);
     camera.lookAt(0, 0, 0);
+
+    scene.background = isThemeDark ? whiteColor : blackColor;
 
     const mouse = { x: midX, y: midY };
 
@@ -54,11 +61,11 @@ export default function Footer() {
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
     };
-  }, []);
+  }, [isThemeDark]);
 
   return (
     <div className="flex h-[20vh] w-[50vh] items-center justify-center rounded-2xl">
-      <canvas ref={canvasRef} className="mr-[2vh] h-[17vh] w-[17vh] rounded-2xl border-2"></canvas>
+      <canvas ref={canvasRef} className="mr-[2vh] h-[17vh] w-[17vh] rounded-2xl"></canvas>
       <div className="flex h-[17vh] w-[25vh] flex-col items-center justify-center rounded-2xl bg-gray-200 dark:bg-gray-800 dark:text-white">
         <div className="flex justify-center">AirPods</div>
         <div className="pl-2">Name: Name</div>
