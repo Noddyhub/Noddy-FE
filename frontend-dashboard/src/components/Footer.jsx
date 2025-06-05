@@ -14,7 +14,14 @@ export default function Footer() {
   const blackColor = new THREE.Color("black");
   const grayColor = new THREE.Color("rgb(140, 140, 140)");
 
-  useEffect(() => {
+  const mouse = { x: midX, y: midY };
+
+  const handleMouseMove = (event) => {
+    mouse.x = event.clientX;
+    mouse.y = event.clientY;
+  };
+
+  const initializeThreeJS = () => {
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(8, 1, 1, 1000);
     const renderer = new THREE.WebGLRenderer({ canvas: canvasRef.current, antialias: true });
@@ -29,18 +36,14 @@ export default function Footer() {
 
     scene.background = isThemeDark ? whiteColor : blackColor;
 
-    const mouse = { x: midX, y: midY };
-
     const loader = new GLTFLoader();
     loader.load("headImage.gltf", (gltf) => {
       const model = gltf.scene;
       model.position.set(0, 0.2, 0);
 
       model.traverse((child) => {
-        if (child.isMesh && !isThemeDark) {
-          child.material.color.set(whiteColor);
-        } else if (child.isMesh) {
-          child.material.color.set(grayColor);
+        if (child.isMesh) {
+          child.material.color.set(isThemeDark ? grayColor : whiteColor);
         }
       });
 
@@ -48,10 +51,8 @@ export default function Footer() {
 
       const animate = () => {
         requestAnimationFrame(animate);
-
         model.rotation.y = -(mouse.x - midX) * 0.0008;
         model.rotation.x = (mouse.y - midY) * 0.0008;
-
         renderer.render(scene, camera);
       };
       animate();
@@ -60,13 +61,11 @@ export default function Footer() {
     const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1.5);
     hemiLight.position.set(0, 20, 0);
     scene.add(hemiLight);
+  };
 
-    const handleMouseMove = (event) => {
-      mouse.x = event.clientX;
-      mouse.y = event.clientY;
-    };
+  useEffect(() => {
+    initializeThreeJS();
     window.addEventListener("mousemove", handleMouseMove);
-
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
     };
