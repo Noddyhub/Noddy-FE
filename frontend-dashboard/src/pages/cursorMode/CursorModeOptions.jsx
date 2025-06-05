@@ -16,7 +16,7 @@ export default function CursorModeOptions() {
         min={1}
         max={10}
         step={1}
-        defaultValue={0.5}
+        defaultValue={5}
       />
       <ControlKey name={"Toggle Mode"} />
       <ControlKey name={"Left Click"} />
