@@ -11,13 +11,13 @@ var filterAlpha = 0.1
 
 // cursorController.swift (Cursor Control)
 var isCursorMode: Bool = true
-var cursorSensitivity = 5.5
+var cursorSensitivity = 6.0
 let screenFrame = NSScreen.main!.frame
 var currentCursorPos = CGPoint(x: screenFrame.midX, y: screenFrame.midY)
 var targetCursorPos = currentCursorPos
 
 // scrollEventHelper.swift (Scroll Control)
-var scrollSensitivity: CGFloat = 350
+var scrollSensitivity: CGFloat = 300
 
 // startKeyEventMonitor.swift (Key Settings)
 let keyCodes = KeyCode()
@@ -37,4 +37,9 @@ class KeyCode {
     var decreaseScrollSpeed: Int = 98 // F7
     var increaseCursorReactionSpeed: Int = 97 // F6
     var decreaseCursorReactionSpeed: Int = 96 // F5
+}
+
+// scrollEventHelper.swift (invertedValue, maxValue <-> minValue)
+func invertedValue(sliderValue: Double, minValue: Double, maxValue: Double) -> Double {
+    return maxValue - (sliderValue - minValue)
 }

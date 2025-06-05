@@ -1,11 +1,12 @@
 import Quartz
 
 let port = 8080
-let websocketURL = URL(string: "ws://host\(port)")!
+let websocketURL = URL(string: "ws://public ip\(port)")!
 let webSocketTask = URLSession(configuration: .default).webSocketTask(with: websocketURL)
 
 struct ServerMessage: Codable {
     let type: String
+    let name: String?
     let value: Double?
 }
 
@@ -23,7 +24,7 @@ func sendMotionData(pitch: Double, yaw: Double) {
     }
 }
 
-func recieveMovementData() {
+func receiveMessage() {
     webSocketTask.receive { result in
         switch result {
         case .failure(let error):
@@ -34,8 +35,14 @@ func recieveMovementData() {
                 if let data = text.data(using: .utf8) {
                     do {
                         let decoded = try JSONDecoder().decode(ServerMessage.self, from: data)
-                        if decoded.type == "number", let num = decoded.value {
-                            print("✅ 숫자 수신됨: \(num)")
+                        if decoded.type == "number", let num = decoded.value, let name = decoded.name {
+                            if name == "Cursor Sensitivity" {
+                                cursorSensitivity = num
+                            } else if name == "Cursor Reaction Speed" {
+                                filterAlpha = num / 10
+                            } else if name == "Scroll Speed" {
+                                scrollSensitivity = invertedValue(sliderValue: num, minValue: 550, maxValue: 50)
+                            }
                         }
                     } catch {
                         print("❌ JSON 디코딩 실패: \(error)")
@@ -48,6 +55,6 @@ func recieveMovementData() {
             }
         }
 
-        recieveMovementData()
+        receiveMessage()
     }
 }
