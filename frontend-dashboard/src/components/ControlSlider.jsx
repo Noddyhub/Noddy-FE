@@ -6,7 +6,7 @@ export default function ControlSlider({ name, min, max, step, defaultValue }) {
   const handleSliderChange = (e) => {
     const sliderValue = e.target.value;
     sendMessage(JSON.stringify({ name, sliderValue }));
-  }
+  };
 
   return (
     <div className="mb-2 flex w-[45vh] flex-row items-center justify-between rounded-2xl px-2">
