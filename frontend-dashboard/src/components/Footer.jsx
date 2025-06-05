@@ -1,9 +1,12 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
-import { GLTFLoader, OrbitControls } from "three/examples/jsm/Addons.js";
+import { GLTFLoader } from "three/examples/jsm/Addons.js";
 
 export default function Footer() {
   const canvasRef = useRef();
+
+  const midX = window.innerWidth / 2;
+  const midY = window.innerHeight / 2;
 
   useEffect(() => {
     const scene = new THREE.Scene();
@@ -15,18 +18,24 @@ export default function Footer() {
 
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(width, height, false);
-    camera.position.setZ(30);
+    camera.position.set(0, 0, -30);
+    camera.lookAt(0, 0, 0);
+
+    const mouse = { x: midX, y: midY };
 
     const loader = new GLTFLoader();
     loader.load("headImage.gltf", (gltf) => {
       const model = gltf.scene;
       model.position.set(0, 0.2, 0);
-      model.rotation.y = Math.PI;
 
       scene.add(model);
 
       const animate = () => {
         requestAnimationFrame(animate);
+
+        model.rotation.y = -(mouse.x - midX) * 0.0008;
+        model.rotation.x = (mouse.y - midY) * 0.0008;
+
         renderer.render(scene, camera);
       };
       animate();
@@ -36,7 +45,15 @@ export default function Footer() {
     hemiLight.position.set(0, 20, 0);
     scene.add(hemiLight);
 
-    new OrbitControls(camera, renderer.domElement);
+    const handleMouseMove = (event) => {
+      mouse.x = event.clientX;
+      mouse.y = event.clientY;
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
   }, []);
 
   return (
