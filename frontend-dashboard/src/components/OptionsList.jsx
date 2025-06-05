@@ -1,13 +1,23 @@
 import { useState } from "react";
+import useSocket from "../hooks/useSocket";
 
-export default function OptionsList() {
-  const [hotKey, setHotKey] = useState("");
+export default function OptionsList({ name }) {
+  const [hotKey, setHotkey] = useState("")
+  const { sendMessage } = useSocket();
+
+
+  const handleSelectChange = (e) => {
+    const selectedHotKey = e.target.value;
+
+    setHotkey(selectedHotKey);
+    sendMessage(JSON.stringify({ name, sliderValue: selectedHotKey.charCodeAt(0) }));
+  };
 
   return (
     <select
       className="mr-2 h-7 w-30 rounded-lg bg-gray-200 px-2 font-medium shadow dark:bg-gray-800 dark:text-white"
       value={hotKey}
-      onChange={(e) => setHotKey(e.target.value)}
+      onChange={(e) => handleSelectChange(e)}
     >
       <option value="" disabled>
         단축키 선택
