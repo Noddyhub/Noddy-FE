@@ -11,7 +11,7 @@ func moveCursor(to point: CGPoint) {
 }
 
 webSocketTask.resume()
-recieveMovementData()
+receiveDecodedData()
 
 startKeyEventMonitor()
 moveCursor(to: currentCursorPos)
@@ -62,16 +62,16 @@ Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true) { _ in
 }
 
 Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
-   let timeSinceLastMotion = Date().timeIntervalSince(lastMotionTimestamp)
-   let maxInactiveDuration: TimeInterval = 2.0
+    let timeSinceLastMotion = Date().timeIntervalSince(lastMotionTimestamp)
+    let maxInactiveDuration: TimeInterval = 2.0
 
-   if timeSinceLastMotion > maxInactiveDuration {
-       if isWearingAirPods {
-           isWearingAirPods = false
-           print("에어팟 감지 안됨. 프로그램 종료.")
-           exit(0)
-       }
-   }
+    if timeSinceLastMotion > maxInactiveDuration {
+        if isWearingAirPods {
+            isWearingAirPods = false
+            print("에어팟 감지 안됨. 프로그램 종료.")
+            exit(0)
+        }
+    }
 }
 
 RunLoop.main.run()

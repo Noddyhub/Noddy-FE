@@ -1,7 +1,7 @@
 import Quartz
 
 let port = 8080
-let websocketURL = URL(string: "ws://public ip\(port)")!
+let websocketURL = URL(string: "ws://43.203.38.121:\(port)")!
 let webSocketTask = URLSession(configuration: .default).webSocketTask(with: websocketURL)
 
 struct ServerMessage: Codable {
@@ -24,7 +24,7 @@ func sendMotionData(pitch: Double, yaw: Double) {
     }
 }
 
-func receiveMessage() {
+func receiveDecodedData() {
     webSocketTask.receive { result in
         switch result {
         case .failure(let error):
@@ -42,6 +42,24 @@ func receiveMessage() {
                                 filterAlpha = num / 10
                             } else if name == "Scroll Speed" {
                                 scrollSensitivity = invertedValue(sliderValue: num, minValue: 550, maxValue: 50)
+                            } else if name == "Toggle Mode" {
+                                keyCodes.toggleMode = Int(num)
+                            } else if name == "Left Click" {
+                                keyCodes.leftClick = Int(num)
+                            } else if name == "Right Click" {
+                                keyCodes.rightClick = Int(num)
+                            } else if name == "Pause Cursor" {
+                                keyCodes.motionPause = Int(num)
+                            } else if name == "Move Cursor Up" {
+                                keyCodes.pitchUp = Int(num)
+                            } else if name == "Move Cursor Down" {
+                                keyCodes.pitchDown = Int(num)
+                            } else if name == "Move Cursor Left" {
+                                keyCodes.yawLeft = Int(num)
+                            } else if name == "Move Cursor Right" {
+                                keyCodes.yawRight = Int(num)
+                            } else if name == "Pause Scroll" {
+                                keyCodes.toggleScroll = Int(num)
                             }
                         }
                     } catch {
@@ -55,6 +73,6 @@ func receiveMessage() {
             }
         }
 
-        receiveMessage()
+        receiveDecodedData()
     }
 }
