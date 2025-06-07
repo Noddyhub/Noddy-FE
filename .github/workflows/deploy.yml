@@ -3,7 +3,7 @@ name: Deploy React App to S3 + CloudFront
 on:
   push:
     branches:
-      - feature/cicid-37
+      - develop
 
 jobs:
   deploy:
