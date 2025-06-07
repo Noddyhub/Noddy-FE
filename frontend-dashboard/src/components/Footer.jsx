@@ -2,8 +2,9 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import { useEffect, useRef } from "react";
 import { useThemeStore } from "@/stores/useThemeStore";
+import useMousePosition from "@/hooks/useMousePosition";
 
-function Model({ mouseLocation }) {
+function Model({ mousePosition }) {
   const { scene } = useGLTF("/headImage.gltf");
   const ref = useRef();
   const isThemeDark = useThemeStore((state) => state.isThemeDark);
@@ -18,8 +19,8 @@ function Model({ mouseLocation }) {
 
   useFrame(() => {
     if (ref.current) {
-      ref.current.rotation.y = -(mouseLocation.current.x - window.innerWidth / 2) * 0.0008;
-      ref.current.rotation.x = (mouseLocation.current.y - window.innerHeight / 2) * 0.0008;
+      ref.current.rotation.y = -(mousePosition.current.x - window.innerWidth / 2) * 0.0008;
+      ref.current.rotation.x = (mousePosition.current.y - window.innerHeight / 2) * 0.0008;
     }
   });
 
@@ -27,17 +28,8 @@ function Model({ mouseLocation }) {
 }
 
 function ThreeScene() {
-  const mouseLocation = useRef({ x: window.innerWidth / 2, y: window.innerHeight / 2 });
   const isThemeDark = useThemeStore((state) => state.isThemeDark);
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      mouseLocation.current.x = e.clientX;
-      mouseLocation.current.y = e.clientY;
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  const mousePosition = useMousePosition();
 
   return (
     <Canvas
@@ -49,7 +41,7 @@ function ThreeScene() {
       }}
     >
       <hemisphereLight args={["#ffffff", "#444444", 1.5]} position={[0, 20, 0]} />
-      <Model mouseLocation={mouseLocation} />
+      <Model mousePosition={mousePosition} />
     </Canvas>
   );
 }
