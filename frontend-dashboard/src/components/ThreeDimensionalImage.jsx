@@ -11,7 +11,6 @@ export default function ThreeDimensionalImage() {
       camera={{ fov: 8, position: [0, 0, -30], near: 1, far: 1000 }}
       style={{
         background: isThemeDark ? "white" : "black",
-        borderRadius: "1rem",
       }}
     >
       <hemisphereLight args={["#ffffff", "#444444", 1.5]} position={[0, 20, 0]} />

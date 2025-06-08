@@ -2,14 +2,14 @@ import { useState } from "react";
 import useSocket from "../hooks/useSocket";
 
 export default function OptionsList({ name }) {
-  const [hotKey, setHotkey] = useState("")
+  const [hotKey, setHotkey] = useState("");
   const { sendMessage, clientId } = useSocket();
 
   const handleSelectChange = (e) => {
     const selectedHotKey = e.target.value;
 
     setHotkey(selectedHotKey);
-    sendMessage(JSON.stringify({ name, sliderValue: selectedHotKey.charCodeAt(0), clientId }));
+    sendMessage({ type: "control", name, value: selectedHotKey.charCodeAt(0), clientId });
   };
 
   return (

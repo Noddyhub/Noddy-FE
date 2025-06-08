@@ -6,7 +6,7 @@ import { useMovementStore } from "@/stores/useMovementStore";
 
 export default function Model3D() {
   const { scene } = useGLTF("/headImage.gltf");
-  const ref = useRef();
+  const modelRef = useRef();
   const isThemeDark = useThemeStore((state) => state.isThemeDark);
   const { pitch, yaw } = useMovementStore();
 
@@ -19,11 +19,11 @@ export default function Model3D() {
   }, [isThemeDark, scene]);
 
   useFrame(() => {
-    if (ref.current) {
-      ref.current.rotation.x = -(pitch - 0.5) * window.innerWidth * 0.0004;
-      ref.current.rotation.y = -(yaw - 0.5) * window.innerHeight * 0.001;
+    if (modelRef.current) {
+      modelRef.current.rotation.x = -(pitch - 0.5) * window.innerWidth * 0.0004;
+      modelRef.current.rotation.y = -(yaw - 0.5) * window.innerHeight * 0.001;
     }
   });
 
-  return <primitive object={scene} ref={ref} position={[0, 0.2, 0]} />;
+  return <primitive object={scene} ref={modelRef} position={[0, 0.2, 0]} />;
 }
