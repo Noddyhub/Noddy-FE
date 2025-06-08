@@ -3,21 +3,20 @@ import useSocket from "../hooks/useSocket";
 
 export default function OptionsList({ name }) {
   const [hotKey, setHotkey] = useState("")
-  const { sendMessage } = useSocket();
-
+  const { sendMessage, clientId } = useSocket();
 
   const handleSelectChange = (e) => {
     const selectedHotKey = e.target.value;
 
     setHotkey(selectedHotKey);
-    sendMessage(JSON.stringify({ name, sliderValue: selectedHotKey.charCodeAt(0) }));
+    sendMessage(JSON.stringify({ name, sliderValue: selectedHotKey.charCodeAt(0), clientId }));
   };
 
   return (
     <select
       className="mr-2 h-7 w-30 rounded-lg bg-gray-200 px-2 font-medium shadow dark:bg-gray-800 dark:text-white"
       value={hotKey}
-      onChange={(e) => handleSelectChange(e)}
+      onChange={handleSelectChange}
     >
       <option value="" disabled>
         단축키 선택
