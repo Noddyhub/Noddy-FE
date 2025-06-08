@@ -20,7 +20,12 @@ export default function App() {
       </div>
       <Routes>
         <Route path="/" element={<StartPageLayout />} />
-        <Route path="/instruction-page" element={<InstructionPageLayout />} />
+        <Route path="/instruction-page" element={<InstructionPageLayout />}>
+          <Route path="page-1" element={<div>Page 1</div>} />
+          <Route path="page-2" element={<div>Page 2</div>} />
+          <Route path="page-3" element={<div>Page 3</div>} />
+          <Route path="page-4" element={<div>Page 4</div>} />
+        </Route>
         <Route path="/option-page" element={<OptionPageLayout />} />
       </Routes>
     </>

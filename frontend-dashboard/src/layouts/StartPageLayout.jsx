@@ -5,7 +5,7 @@ export default function StartPageLayout() {
   const navigate = useNavigate();
 
   const handleStartClick = () => {
-    navigate("/instruction-page");
+    navigate("/instruction-page/page-1");
   };
 
   return (
