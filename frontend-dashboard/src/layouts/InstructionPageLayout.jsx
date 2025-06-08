@@ -38,12 +38,14 @@ export default function InstructionPageLayout() {
         <div className="my-4 flex gap-2">
           <button
             onClick={goToPreviousPage}
+            disabled={currentIndex === 0}
             className="cursor-pointer rounded-xl bg-gray-200 px-4 py-2 font-bold shadow disabled:opacity-50 dark:bg-gray-800 dark:text-white"
           >
             Prev
           </button>
           <button
             onClick={goToNextPage}
+            disabled={currentIndex === pageOrder.length - 1}
             className="cursor-pointer rounded-xl bg-gray-200 px-4 py-2 font-bold shadow disabled:opacity-50 dark:bg-gray-800 dark:text-white"
           >
             Next
