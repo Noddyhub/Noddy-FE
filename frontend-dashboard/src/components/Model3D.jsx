@@ -4,7 +4,7 @@ import { useFrame } from "@react-three/fiber";
 import { useThemeStore } from "@/stores/useThemeStore";
 import { useMovementStore } from "@/stores/useMovementStore";
 
-export default function Model3D() {
+export default function Model3D({ modelColor }) {
   const { scene } = useGLTF("/headImage.gltf");
   const modelRef = useRef();
   const isThemeDark = useThemeStore((state) => state.isThemeDark);
@@ -12,11 +12,15 @@ export default function Model3D() {
 
   useEffect(() => {
     scene.traverse((child) => {
-      if (child.isMesh) {
-        child.material.color.set(isThemeDark ? "rgb(140,140,140)" : "white");
+      if (modelColor && child.isMesh) {
+        child.material.color.set(modelColor);
+      } else {
+        if (child.isMesh) {
+          child.material.color.set(isThemeDark ? "rgb(140,140,140)" : "white");
+        }
       }
     });
-  }, [isThemeDark, scene]);
+  }, [isThemeDark, scene, modelColor]);
 
   useFrame(() => {
     if (modelRef.current) {

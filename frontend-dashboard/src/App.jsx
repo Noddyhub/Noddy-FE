@@ -3,6 +3,7 @@ import { useThemeStore } from "@/stores/useThemeStore";
 import InstructionPageLayout from "@/layouts/InstructionPageLayout";
 import OptionPageLayout from "@/layouts/OptionPageLayout";
 import StartPageLayout from "@/layouts/StartPageLayout";
+import ThreeDimensionalImage from "@/components/ThreeDimensionalImage";
 
 export default function App() {
   const { isThemeDark, setIsThemeDark } = useThemeStore();
@@ -21,10 +22,10 @@ export default function App() {
       <Routes>
         <Route path="/" element={<StartPageLayout />} />
         <Route path="/instruction-page" element={<InstructionPageLayout />}>
-          <Route path="page-1" element={<div>Page 1</div>} />
-          <Route path="page-2" element={<div>Page 2</div>} />
-          <Route path="page-3" element={<div>Page 3</div>} />
-          <Route path="page-4" element={<div>Page 4</div>} />
+          <Route path="page-1" element={<ThreeDimensionalImage rounded={"4xl"} modelColor={"red"} />} />
+          <Route path="page-2" element={<ThreeDimensionalImage rounded={"4xl"} modelColor={"yellow"} />} />
+          <Route path="page-3" element={<ThreeDimensionalImage rounded={"4xl"} modelColor={"green"} />} />
+          <Route path="page-4" element={<ThreeDimensionalImage rounded={"4xl"} modelColor={"blue"} />} />
         </Route>
         <Route path="/option-page" element={<OptionPageLayout />} />
       </Routes>
