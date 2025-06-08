@@ -7,7 +7,7 @@ export default function ControlSlider(props) {
   const handleSliderChange = (e) => {
     if (!clientId) return;
     const sliderValue = Number(e.target.value);
-    sendMessage({ type: "control", name, value: sliderValue, clientId });
+    sendMessage(JSON.stringify({ type: "control", name, value: sliderValue, clientId }));
   };
 
   return (
