@@ -4,14 +4,14 @@ import Model3D from "@/components/Model3D";
 
 export default function ThreeDimensionalImage(options) {
   const isThemeDark = useThemeStore((state) => state.isThemeDark);
-  const { rounded, modelColor } = options;
+  const { rounded, modelColor, backgroundColor } = options;
 
   return (
     <Canvas
       dpr={window.devicePixelRatio}
       camera={{ fov: 8, position: [0, 0, -30], near: 1, far: 1000 }}
       style={{
-        background: isThemeDark ? "white" : "black",
+        background: backgroundColor || (isThemeDark ? "white" : "black"),
       }}
       className={`rounded-${rounded}`}
     >
