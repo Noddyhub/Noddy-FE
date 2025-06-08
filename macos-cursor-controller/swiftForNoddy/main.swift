@@ -12,6 +12,7 @@ func moveCursor(to point: CGPoint) {
 
 webSocketTask.resume()
 receiveDecodedData()
+sendPairingMessage()
 
 startKeyEventMonitor()
 moveCursor(to: currentCursorPos)
