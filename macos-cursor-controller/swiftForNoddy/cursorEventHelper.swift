@@ -8,7 +8,7 @@ struct CursorEventHelper {
         let currentTime: CFAbsoluteTime = CFAbsoluteTimeGetCurrent()
         let timeSinceLastClick: CFAbsoluteTime = currentTime - lastClickTime
         if timeSinceLastClick < NSEvent.doubleClickInterval {
-            clickCount += 1
+            clickCount = min(clickCount + 1, 2)
         } else {
             clickCount = 1
         }
