@@ -2,12 +2,13 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { useGLTF } from "@react-three/drei";
 import { useEffect, useRef } from "react";
 import { useThemeStore } from "@/stores/useThemeStore";
-import useMousePosition from "@/hooks/useMousePosition";
+import { useMovementStore } from "@/stores/useMovementStore";
 
-function Model({ mousePosition }) {
+function Model() {
   const { scene } = useGLTF("/headImage.gltf");
   const ref = useRef();
   const isThemeDark = useThemeStore((state) => state.isThemeDark);
+  const { pitch, yaw } = useMovementStore();
 
   useEffect(() => {
     scene.traverse((child) => {
@@ -19,8 +20,8 @@ function Model({ mousePosition }) {
 
   useFrame(() => {
     if (ref.current) {
-      ref.current.rotation.y = -(mousePosition.current.x - window.innerWidth / 2) * 0.0008;
-      ref.current.rotation.x = (mousePosition.current.y - window.innerHeight / 2) * 0.0008;
+      ref.current.rotation.x = -(pitch - 0.5) * window.innerWidth * 0.0004;
+      ref.current.rotation.y = -(yaw - 0.5) * window.innerHeight * 0.001;
     }
   });
 
@@ -29,7 +30,6 @@ function Model({ mousePosition }) {
 
 export default function ThreeDimensionalImage() {
   const isThemeDark = useThemeStore((state) => state.isThemeDark);
-  const mousePosition = useMousePosition();
 
   return (
     <Canvas
@@ -41,7 +41,7 @@ export default function ThreeDimensionalImage() {
       }}
     >
       <hemisphereLight args={["#ffffff", "#444444", 1.5]} position={[0, 20, 0]} />
-      <Model mousePosition={mousePosition} />
+      <Model />
     </Canvas>
   );
 }
