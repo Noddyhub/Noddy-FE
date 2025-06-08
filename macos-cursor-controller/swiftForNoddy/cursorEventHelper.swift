@@ -15,10 +15,33 @@ struct CursorEventHelper {
 
         lastClickTime = currentTime
         click(mouseType: .leftMouseDown, button: .left, clickCount: clickCount)
+        simulateDragWhileMouseDown()
     }
 
     static func leftMouseUpAtCursor() {
         click(mouseType: .leftMouseUp, button: .left, clickCount: clickCount)
+    }
+
+    static func leftMouseDragAtCursor(to position: CGPoint) {
+        let dragEvent = CGEvent(mouseEventSource: nil, mouseType: .leftMouseDragged, mouseCursorPosition: position, mouseButton: .left)
+        dragEvent?.setIntegerValueField(.mouseEventClickState, value: Int64(clickCount))
+        dragEvent?.post(tap: .cghidEventTap)
+    }
+
+    static func simulateDragWhileMouseDown(duration: TimeInterval = 1.0, interval: TimeInterval = 0.01) {
+        let endTime = Date().addingTimeInterval(duration)
+        var lastPos = currentCursorPos
+
+        DispatchQueue.global(qos: .userInteractive).async {
+            while Date() < endTime {
+                let currentPos = currentCursorPos
+                if currentPos != lastPos {
+                    leftMouseDragAtCursor(to: currentPos)
+                    lastPos = currentPos
+                }
+                usleep(useconds_t(interval * 1_000_000))
+            }
+        }
     }
 
     static func rightMouseAtCursor(down: Bool) {
