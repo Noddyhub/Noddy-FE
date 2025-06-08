@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useMovementStore } from "@/stores/useMovementStore";
-import fetchClientId from "@/utils/fetchClientId";
+import fetchClientId from "@/api/fetchClientId";
 
 export default function useSocket() {
   const [clientId, setClientId] = useState(null);
