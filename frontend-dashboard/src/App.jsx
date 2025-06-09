@@ -6,10 +6,13 @@ import OptionPageLayout from "@/layouts/OptionPageLayout";
 import StartPageLayout from "@/layouts/StartPageLayout";
 import DetailedInstructionPageLayout from "@/layouts/DetailedInstructionPageLayout";
 import Model3D from "@/components/Model3D";
+import VirtualWindow from "@/components/VirtualWindow";
 
 export default function App() {
   const { isThemeDark, setIsThemeDark } = useThemeStore();
   const valueRotatingModelBackward = 0.5;
+  const valueMovingCameraUp = 40;
+  const valueMovingModelDown = -2;
 
   return (
     <>
@@ -28,15 +31,19 @@ export default function App() {
           <Route
             path="page-1"
             element={
-              <DetailedInstructionPageLayout
-                rounded={"4xl"}
-                model={<Model3D direction={valueRotatingModelBackward} />}
-              />
+              <>
+                <VirtualWindow />
+                <DetailedInstructionPageLayout
+                  rounded="4xl"
+                  model={<Model3D direction={valueRotatingModelBackward} modelTranslationY={valueMovingModelDown} />}
+                  cameraRotation={valueMovingCameraUp}
+                />
+              </>
             }
           />
-          <Route path="page-2" element={<DetailedInstructionPageLayout rounded={"4xl"} />} />
-          <Route path="page-3" element={<DetailedInstructionPageLayout rounded={"4xl"} />} />
-          <Route path="page-4" element={<DetailedInstructionPageLayout rounded={"4xl"} />} />
+          <Route path="page-2" element={<DetailedInstructionPageLayout rounded="4xl" />} />
+          <Route path="page-3" element={<DetailedInstructionPageLayout rounded="4xl" />} />
+          <Route path="page-4" element={<DetailedInstructionPageLayout rounded="4xl" />} />
         </Route>
         <Route path="/option-page" element={<OptionPageLayout />} />
       </Routes>
