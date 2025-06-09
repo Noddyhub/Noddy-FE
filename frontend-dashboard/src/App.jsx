@@ -7,6 +7,8 @@ import DetailedInstructionPageLayout from "@/layouts/DetailedInstructionPageLayo
 import Model3D from "@/components/Model3D";
 import VirtualWindow from "@/components/VirtualWindow";
 import VirtualArrowKeys from "@/components/VirtualArrowKeys";
+import GoogleOauth from "@/pages/login/GoogleOauth";
+import OAuthSuccessPage from "@/pages/login/OAuthSuccessPage";
 
 export default function App() {
   const VALUE_ROTATING_MODEL_BACKWARD = 0.5;
@@ -15,6 +17,7 @@ export default function App() {
 
   return (
     <>
+      <GoogleOauth></GoogleOauth>
       <div className="absolute -z-100 h-[100vh] w-[50vh] bg-gray-50 dark:bg-gray-700"></div>
       <ThemeToggleButton />
       <Routes>
@@ -52,6 +55,7 @@ export default function App() {
           />
         </Route>
         <Route path="/option-page" element={<OptionPageLayout />} />
+        <Route path="/oauth-success" element={<OAuthSuccessPage />} />
       </Routes>
     </>
   );
