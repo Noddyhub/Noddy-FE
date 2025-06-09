@@ -1,8 +1,10 @@
 import { useNavigate, useLocation, Outlet } from "react-router-dom";
+import useSocket from "../hooks/useSocket";
 
 export default function InstructionPageLayout() {
   const navigate = useNavigate();
   const location = useLocation();
+  useSocket();
 
   const skipPages = () => {
     navigate("/option-page");
