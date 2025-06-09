@@ -38,12 +38,45 @@ export default function App() {
                   model={<Model3D direction={valueRotatingModelBackward} modelTranslationY={valueMovingModelDown} />}
                   cameraRotation={valueMovingCameraUp}
                 />
+                <div className="flex w-[45vh] items-center justify-center rounded-2xl px-4 pt-4 text-center text-xl font-bold dark:text-white">
+                  위 이미지를 참고해 정면을 바라봐 주세요.
+                </div>
               </>
             }
           />
-          <Route path="page-2" element={<DetailedInstructionPageLayout rounded="4xl" />} />
-          <Route path="page-3" element={<DetailedInstructionPageLayout rounded="4xl" />} />
-          <Route path="page-4" element={<DetailedInstructionPageLayout rounded="4xl" />} />
+          <Route
+            path="page-2"
+            element={
+              <>
+                <DetailedInstructionPageLayout rounded="4xl" />
+                <div className="flex w-[45vh] items-center justify-center rounded-xl px-4 pt-4 text-center text-xl font-bold dark:text-white">
+                  위 이미지를 참고해 정면을 바라봐 주세요.
+                </div>
+              </>
+            }
+          />
+          <Route
+            path="page-3"
+            element={
+              <>
+                <DetailedInstructionPageLayout rounded="4xl" />
+                <div className="flex w-[45vh] items-center justify-center rounded-xl px-4 pt-4 text-center text-xl font-bold dark:text-white">
+                  위 이미지를 참고해 정면을 바라봐 주세요.
+                </div>
+              </>
+            }
+          />
+          <Route
+            path="page-4"
+            element={
+              <>
+                <DetailedInstructionPageLayout rounded="4xl" />
+                <div className="flex w-[45vh] items-center justify-center rounded-xl px-4 pt-4 text-center text-xl font-bold dark:text-white">
+                  위 이미지를 참고해 정면을 바라봐 주세요.
+                </div>
+              </>
+            }
+          />
         </Route>
         <Route path="/option-page" element={<OptionPageLayout />} />
       </Routes>
