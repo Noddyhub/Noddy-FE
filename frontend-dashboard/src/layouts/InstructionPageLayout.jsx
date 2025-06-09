@@ -34,7 +34,7 @@ export default function InstructionPageLayout() {
   return (
     <>
       <div className="flex w-[50vh] flex-col items-center justify-between">
-        <div className="flex h-[45vh] w-[45vh] flex-col items-center justify-center rounded-4xl bg-gray-100">
+        <div className="flex h-[50vh] w-[45vh] flex-col items-center justify-center rounded-4xl">
           <Outlet />
         </div>
         <div className="my-4 flex gap-2">

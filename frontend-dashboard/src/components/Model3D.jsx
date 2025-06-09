@@ -22,7 +22,7 @@ export default function Model3D(options) {
 
   useFrame(() => {
     if (modelRef.current) {
-      modelRef.current.rotation.x = (pitch - 0.5) * window.innerWidth * 0.0004;
+      modelRef.current.rotation.x = rotatingDirection * (pitch - 0.5) * window.innerWidth * 0.0004;
       modelRef.current.rotation.y = rotatingDirection * (yaw - direction) * window.innerHeight * 0.001;
     }
   });
