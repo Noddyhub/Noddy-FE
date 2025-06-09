@@ -5,9 +5,11 @@ import InstructionPageLayout from "@/layouts/InstructionPageLayout";
 import OptionPageLayout from "@/layouts/OptionPageLayout";
 import StartPageLayout from "@/layouts/StartPageLayout";
 import DetailedInstructionPageLayout from "@/layouts/DetailedInstructionPageLayout";
+import Model3D from "@/components/Model3D";
 
 export default function App() {
   const { isThemeDark, setIsThemeDark } = useThemeStore();
+  const valueRotatingModelBackward = 0.5;
 
   return (
     <>
@@ -23,7 +25,15 @@ export default function App() {
       <Routes>
         <Route path="/" element={<StartPageLayout />} />
         <Route path="/instruction-page" element={<InstructionPageLayout />}>
-          <Route path="page-1" element={<DetailedInstructionPageLayout rounded={"4xl"} />} />
+          <Route
+            path="page-1"
+            element={
+              <DetailedInstructionPageLayout
+                rounded={"4xl"}
+                model={<Model3D direction={valueRotatingModelBackward} />}
+              />
+            }
+          />
           <Route path="page-2" element={<DetailedInstructionPageLayout rounded={"4xl"} />} />
           <Route path="page-3" element={<DetailedInstructionPageLayout rounded={"4xl"} />} />
           <Route path="page-4" element={<DetailedInstructionPageLayout rounded={"4xl"} />} />
