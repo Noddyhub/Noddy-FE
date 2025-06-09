@@ -24,8 +24,8 @@ export default function Model3D({ modelColor }) {
 
   useFrame(() => {
     if (modelRef.current) {
-      modelRef.current.rotation.x = -(pitch - 0.5) * window.innerWidth * 0.0004;
-      modelRef.current.rotation.y = -(yaw - 0.5) * window.innerHeight * 0.001;
+      modelRef.current.rotation.x = (pitch - 0.5) * window.innerWidth * 0.0004;
+      modelRef.current.rotation.y = (yaw - 3.8) * window.innerHeight * 0.001;
     }
   });
 
