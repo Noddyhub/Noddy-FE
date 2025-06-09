@@ -9,7 +9,7 @@ export default function useSocket() {
 
   useEffect(() => {
     const getClientId = async () => {
-      const clientId = "abc123"; // 임시 clientID 할당
+      const clientId = "abc123";
       if (!clientId) return;
 
       setClientId(clientId);
@@ -24,28 +24,31 @@ export default function useSocket() {
 
       socket.onmessage = (event) => {
         try {
-          console.log("📥 수신한 원시 데이터:", event.data);
           const message = JSON.parse(event.data);
           setPitch(message.pitch);
           setYaw(message.yaw);
-        } catch(e) {
+        } catch (e) {
           console.warn("❗데이터 타입이 JSON이 아닙니다.", event.data);
           return;
         }
       };
 
-      socket.onerror = (err) => { console.error("WebSocket 에러:", err) };
-      socket.onclose = () => { console.log("WebSocket 연결 종료") };
-    }
+      socket.onerror = (err) => {
+        console.error("WebSocket 에러:", err);
+      };
+      socket.onclose = () => {
+        console.log("WebSocket 연결 종료");
+      };
+    };
 
     getClientId();
 
-    return () => socketRef.current?.close();;
+    return () => socketRef.current?.close();
   }, []);
 
   const sendMessage = (message) => {
     if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
-      console.log(message)
+      console.log(message);
       socketRef.current.send(message);
     } else {
       console.warn("⚠️ WebSocket이 아직 열리지 않았습니다.");
@@ -53,4 +56,4 @@ export default function useSocket() {
   };
 
   return { sendMessage, clientId };
-};
+}

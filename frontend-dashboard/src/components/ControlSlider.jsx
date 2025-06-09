@@ -16,7 +16,7 @@ export default function ControlSlider(props) {
       <div className="flex flex-row">
         <input
           type="range"
-          className="w-50 rounded-2xl px-2"
+          className="h-2 w-[12.5vh] cursor-pointer appearance-none rounded-lg bg-gray-200 accent-blue-500 dark:bg-gray-800 dark:accent-blue-200"
           min={min}
           max={max}
           step={step}

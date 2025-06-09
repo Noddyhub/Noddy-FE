@@ -1,4 +1,5 @@
 import { useMovementStore } from "@/stores/useMovementStore";
+import { CursorArrowRippleIcon, ArrowsUpDownIcon } from "@heroicons/react/20/solid";
 
 export default function Header() {
   const setOptionPage = useMovementStore((state) => state.setOptionPage);
@@ -9,16 +10,16 @@ export default function Header() {
         <div className="flex justify-center text-4xl font-extrabold dark:text-white">Noddy</div>
         <div className="mt-[1.5vh] flex h-[3vh] w-[50vh]">
           <button
-            className="mr-2 ml-auto h-[4vh] w-[7vh] cursor-pointer rounded-xl bg-gray-200 font-bold shadow dark:bg-gray-800 dark:text-white"
+            className="mr-3 ml-auto flex h-[4vh] w-[4vh] cursor-pointer items-center justify-center rounded-xl bg-gray-200 p-1 shadow dark:bg-gray-800 dark:text-white"
             onClick={() => setOptionPage("Cursor")}
           >
-            Cursor
+            <CursorArrowRippleIcon className="h-full w-full p-1" />
           </button>
           <button
-            className="mr-3 h-[4vh] w-[7vh] cursor-pointer rounded-xl bg-gray-200 font-bold shadow dark:bg-gray-800 dark:text-white"
+            className="mr-8 flex h-[4vh] w-[4vh] cursor-pointer items-center justify-center rounded-xl bg-gray-200 p-1 shadow dark:bg-gray-800 dark:text-white"
             onClick={() => setOptionPage("Scroll")}
           >
-            Scroll
+            <ArrowsUpDownIcon className="h-full w-full p-1" />
           </button>
         </div>
       </div>
