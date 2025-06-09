@@ -10,7 +10,7 @@ export default function OptionsList({ name }) {
     const selectedHotKey = e.target.value;
 
     setHotkey(selectedHotKey);
-    sendMessage({ type: "control", name, value: selectedHotKey.charCodeAt(0), clientId });
+    sendMessage(JSON.stringify({ type: "hotkey", name, value: selectedHotKey.charCodeAt(0), clientId }));
   };
 
   return (

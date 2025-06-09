@@ -1,5 +1,7 @@
 import Quartz
 
+let uuid = "abc123"
+
 let port = 8080
 let websocketURL = URL(string: "ws://43.203.38.121:\(port)")!
 let webSocketTask = URLSession(configuration: .default).webSocketTask(with: websocketURL)
@@ -10,9 +12,28 @@ struct ServerMessage: Codable {
     let value: Double?
 }
 
-func sendMotionData(pitch: Double, yaw: Double) {
-    let payload: [String: Double] = ["pitch": pitch, "yaw": yaw]
+func sendPairingMessage() {
+    let payload: [String: String] = [
+        "type": "register-swift",
+        "clientId": uuid
+    ]
 
+    if let data = try? JSONSerialization.data(withJSONObject: payload),
+       let jsonString = String(data: data, encoding: .utf8) {
+        let message = URLSessionWebSocketTask.Message.string(jsonString)
+        webSocketTask.send(message) { error in
+            if let error = error {
+                print("❌ 페어링 메시지 전송 에러: \(error)")
+            } else {
+                print("✅ 페어링 메시지 전송 성공")
+            }
+        }
+    }
+}
+
+func sendMotionData(pitch: Double, yaw: Double) {
+    let payload: [String: Any] = ["type": "motion", "clientId": uuid, "pitch": pitch, "yaw": yaw]
+    
     if let data = try? JSONSerialization.data(withJSONObject: payload),
        let jsonString = String(data: data, encoding: .utf8) {
         let message = URLSessionWebSocketTask.Message.string(jsonString)
@@ -35,17 +56,21 @@ func receiveDecodedData() {
                 if let data = text.data(using: .utf8) {
                     do {
                         let decoded = try JSONDecoder().decode(ServerMessage.self, from: data)
-                        if decoded.type == "number", let num = decoded.value, let name = decoded.name {
+                        if decoded.type == "control", let num = decoded.value, let name = decoded.name {
                             if name == "Cursor Sensitivity" {
                                 cursorSensitivity = num
                             } else if name == "Cursor Reaction Speed" {
                                 filterAlpha = num / 10
                             } else if name == "Scroll Speed" {
                                 scrollSensitivity = invertedValue(sliderValue: num, minValue: 550, maxValue: 50)
-                            } else if name == "Toggle Mode" {
+                            }
+                         }
+                        
+                        if decoded.type == "hotkey", let num = decoded.value, let name = decoded.name {
+                            if name == "Toggle Mode" {
                                 keyCodes.toggleMode = Int(num)
                             } else if name == "Left Click" {
-                                keyCodes.leftClick = Int(num)
+                                keyCodes.leftClick = Int(num) - 65
                             } else if name == "Right Click" {
                                 keyCodes.rightClick = Int(num)
                             } else if name == "Pause Cursor" {
