@@ -10,12 +10,7 @@ export default function InstructionPageLayout() {
     navigate("/option-page");
   };
 
-  const pageOrder = [
-    "/instruction-page/page-1",
-    "/instruction-page/page-2",
-    "/instruction-page/page-3",
-    "/instruction-page/page-4",
-  ];
+  const pageOrder = ["/instruction-page/page-1", "/instruction-page/page-2"];
 
   const currentIndex = pageOrder.indexOf(location.pathname);
 

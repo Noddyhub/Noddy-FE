@@ -12,8 +12,8 @@ import VirtualArrowKeys from "@/components/VirtualArrowKeys";
 export default function App() {
   const { isThemeDark, setIsThemeDark } = useThemeStore();
   const valueRotatingModelBackward = 0.5;
-  const valueMovingCameraUp = 40;
-  const valueMovingModelDown = -2;
+  const valueMovingCameraUp = 30;
+  const valueMovingModelDown = -1.5;
 
   return (
     <>
@@ -54,24 +54,6 @@ export default function App() {
                 <div className="flex w-[45vh] items-center justify-center rounded-xl px-4 pt-4 text-center text-xl font-bold dark:text-white">
                   방향키를 눌러서 커서를 세부조정 해보세요.
                 </div>
-              </>
-            }
-          />
-          <Route
-            path="page-3"
-            element={
-              <>
-                <DetailedInstructionPageLayout rounded="4xl" />
-                <div className="flex w-[45vh] items-center justify-center rounded-xl px-4 pt-4 text-center text-xl font-bold dark:text-white"></div>
-              </>
-            }
-          />
-          <Route
-            path="page-4"
-            element={
-              <>
-                <DetailedInstructionPageLayout rounded="4xl" />
-                <div className="flex w-[45vh] items-center justify-center rounded-xl px-4 pt-4 text-center text-xl font-bold dark:text-white"></div>
               </>
             }
           />
