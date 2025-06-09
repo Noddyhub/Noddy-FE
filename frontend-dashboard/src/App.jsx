@@ -7,6 +7,7 @@ import StartPageLayout from "@/layouts/StartPageLayout";
 import DetailedInstructionPageLayout from "@/layouts/DetailedInstructionPageLayout";
 import Model3D from "@/components/Model3D";
 import VirtualWindow from "@/components/VirtualWindow";
+import VirtualArrowKeys from "@/components/VirtualArrowKeys";
 
 export default function App() {
   const { isThemeDark, setIsThemeDark } = useThemeStore();
@@ -48,9 +49,10 @@ export default function App() {
             path="page-2"
             element={
               <>
+                <VirtualArrowKeys />
                 <DetailedInstructionPageLayout rounded="4xl" />
                 <div className="flex w-[45vh] items-center justify-center rounded-xl px-4 pt-4 text-center text-xl font-bold dark:text-white">
-                  위 이미지를 참고해 정면을 바라봐 주세요.
+                  방향키를 눌러서 커서를 세부조정 해보세요.
                 </div>
               </>
             }
@@ -60,9 +62,7 @@ export default function App() {
             element={
               <>
                 <DetailedInstructionPageLayout rounded="4xl" />
-                <div className="flex w-[45vh] items-center justify-center rounded-xl px-4 pt-4 text-center text-xl font-bold dark:text-white">
-                  위 이미지를 참고해 정면을 바라봐 주세요.
-                </div>
+                <div className="flex w-[45vh] items-center justify-center rounded-xl px-4 pt-4 text-center text-xl font-bold dark:text-white"></div>
               </>
             }
           />
@@ -71,9 +71,7 @@ export default function App() {
             element={
               <>
                 <DetailedInstructionPageLayout rounded="4xl" />
-                <div className="flex w-[45vh] items-center justify-center rounded-xl px-4 pt-4 text-center text-xl font-bold dark:text-white">
-                  위 이미지를 참고해 정면을 바라봐 주세요.
-                </div>
+                <div className="flex w-[45vh] items-center justify-center rounded-xl px-4 pt-4 text-center text-xl font-bold dark:text-white"></div>
               </>
             }
           />
