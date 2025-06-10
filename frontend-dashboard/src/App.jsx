@@ -17,7 +17,6 @@ export default function App() {
 
   return (
     <>
-      <GoogleOauth></GoogleOauth>
       <div className="absolute -z-100 h-[100vh] w-[50vh] bg-gray-50 dark:bg-gray-700"></div>
       <ThemeToggleButton />
       <Routes>
@@ -56,6 +55,7 @@ export default function App() {
         </Route>
         <Route path="/option-page" element={<OptionPageLayout />} />
         <Route path="/oauth-success" element={<OAuthSuccessPage />} />
+        <Route path="/oauth" element={<GoogleOauth />} />
       </Routes>
     </>
   );
