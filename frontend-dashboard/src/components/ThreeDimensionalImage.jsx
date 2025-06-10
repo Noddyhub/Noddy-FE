@@ -1,9 +1,9 @@
 import { Canvas } from "@react-three/fiber";
 import { useThemeStore } from "@/stores/useThemeStore";
 
-export default function ThreeDimensionalImage(options) {
+export default function ThreeDimensionalImage(props) {
   const isThemeDark = useThemeStore((state) => state.isThemeDark);
-  const { rounded, model, cameraRotation } = options;
+  const { rounded, model, cameraRotation } = props;
 
   return (
     <Canvas
