@@ -12,8 +12,8 @@ import VirtualArrowKeys from "@/components/VirtualArrowKeys";
 export default function App() {
   const { isThemeDark, setIsThemeDark } = useThemeStore();
   const valueRotatingModelBackward = 0.5;
-  const valueMovingCameraUp = 30;
-  const valueMovingModelDown = -1.5;
+  const valueMovingCameraUp = 20;
+  const valueMovingModelDown = -1.6;
 
   return (
     <>
