@@ -11,9 +11,9 @@ import VirtualArrowKeys from "@/components/VirtualArrowKeys";
 
 export default function App() {
   const { isThemeDark, setIsThemeDark } = useThemeStore();
-  const valueRotatingModelBackward = 0.5;
-  const valueMovingCameraUp = 20;
-  const valueMovingModelDown = -1.6;
+  const VALUE_ROTATING_MODEL_BACKWARD = 0.5;
+  const VALUE_MOVING_MODEL_DOWN = -1.6;
+  const VALUE_MOVING_CAMERA_UP = 20;
 
   return (
     <>
@@ -36,8 +36,10 @@ export default function App() {
                 <VirtualWindow />
                 <DetailedInstructionPageLayout
                   rounded="4xl"
-                  model={<Model3D direction={valueRotatingModelBackward} modelTranslationY={valueMovingModelDown} />}
-                  cameraRotation={valueMovingCameraUp}
+                  model={
+                    <Model3D direction={VALUE_ROTATING_MODEL_BACKWARD} modelTranslationY={VALUE_MOVING_MODEL_DOWN} />
+                  }
+                  cameraRotation={VALUE_MOVING_CAMERA_UP}
                 />
                 <div className="flex w-[45vh] items-center justify-center rounded-2xl px-4 pt-4 text-center text-xl font-bold dark:text-white">
                   위 이미지를 참고해 정면을 바라봐 주세요.
