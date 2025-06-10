@@ -9,7 +9,8 @@ export default function useSocket() {
 
   useEffect(() => {
     const getClientId = async () => {
-      const clientId = "abc123";
+      const clientId = localStorage.getItem("token");
+
       if (!clientId) return;
 
       setClientId(clientId);
