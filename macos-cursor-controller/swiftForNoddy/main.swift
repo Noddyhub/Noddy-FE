@@ -13,7 +13,6 @@ func moveCursor(to point: CGPoint) {
 webSocketTask.resume()
 receiveDecodedData()
 sendPairingMessage()
-airPodsInfoTeller()
 
 startKeyEventMonitor()
 moveCursor(to: currentCursorPos)
@@ -77,6 +76,11 @@ Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
            exit(0)
        }
    }
+}
+
+airPodsInfoTeller()
+Timer.scheduledTimer(withTimeInterval: 30.0, repeats: true) { _ in
+    airPodsInfoTeller()
 }
 
 RunLoop.main.run()
