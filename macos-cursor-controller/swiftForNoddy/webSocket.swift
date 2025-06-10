@@ -31,9 +31,9 @@ func sendPairingMessage() {
     }
 }
 
-func sendMotionData(pitch: Double, yaw: Double) {
-    let payload: [String: Any] = ["type": "motion", "clientId": uuid, "pitch": pitch, "yaw": yaw]
-    
+func sendMotionData(pitch: Double, yaw: Double, name: String, macBattery: Int, airpodLeftBattery: Int, airpodRightBattery: Int) {
+    let payload: [String: Any] = ["type": "motion", "clientId": uuid, "pitch": pitch, "yaw": yaw, "name": name, "macBattery": macBattery, "airpodLeftBattery": airpodLeftBattery, "airpodRightBattery": airpodRightBattery]
+
     if let data = try? JSONSerialization.data(withJSONObject: payload),
        let jsonString = String(data: data, encoding: .utf8) {
         let message = URLSessionWebSocketTask.Message.string(jsonString)
@@ -65,7 +65,7 @@ func receiveDecodedData() {
                                 scrollSensitivity = invertedValue(sliderValue: num, minValue: 550, maxValue: 50)
                             }
                          }
-                        
+
                         if decoded.type == "hotkey", let num = decoded.value, let name = decoded.name {
                             if name == "Toggle Mode" {
                                 keyCodes.toggleMode = Int(num)
