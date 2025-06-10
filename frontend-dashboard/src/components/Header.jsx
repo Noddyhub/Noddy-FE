@@ -1,8 +1,8 @@
-import { useMovementStore } from "@/stores/useMovementStore";
+import { usePageStore } from "@/stores/usePageStore";
 import { CursorArrowRippleIcon, ArrowsUpDownIcon } from "@heroicons/react/20/solid";
 
 export default function Header() {
-  const setOptionPage = useMovementStore((state) => state.setOptionPage);
+  const setOptionPage = usePageStore((state) => state.setOptionPage);
 
   return (
     <>

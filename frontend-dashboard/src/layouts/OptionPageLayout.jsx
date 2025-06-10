@@ -1,4 +1,4 @@
-import { useMovementStore } from "@/stores/useMovementStore";
+import { usePageStore } from "@/stores/usePageStore";
 import Body from "@/components/Body";
 import CursorModeOptions from "@/pages/cursorMode/CursorModeOptions";
 import Footer from "@/components/Footer";
@@ -6,7 +6,7 @@ import Header from "@/components/Header";
 import ScrollModeOptions from "@/pages/scrollMode/ScrollModeOptions";
 
 export default function OptionPageLayout() {
-  const optionPage = useMovementStore((state) => state.optionPage);
+  const optionPage = usePageStore((state) => state.optionPage);
 
   const renderOption = () => {
     switch (optionPage) {

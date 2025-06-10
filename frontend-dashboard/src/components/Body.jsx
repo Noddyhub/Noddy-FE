@@ -1,7 +1,7 @@
-import { useMovementStore } from "@/stores/useMovementStore";
+import { usePageStore } from "@/stores/usePageStore";
 
 export default function Body({ children }) {
-  const optionPage = useMovementStore((state) => state.optionPage);
+  const optionPage = usePageStore((state) => state.optionPage);
 
   return (
     <>
