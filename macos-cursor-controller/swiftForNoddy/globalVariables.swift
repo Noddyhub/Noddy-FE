@@ -1,5 +1,11 @@
 import Quartz
 
+// airPodsInfoTeller.swift (AirPods Information)
+var airPodsName = ""
+var airPodsLeftBattery: Int?
+var airPodsRightBattery: Int?
+var MacBattery = 0
+
 // motionManager.swift (Motion Data)
 var isMotionPaused = false
 var pitchForScroll: CGFloat = 0

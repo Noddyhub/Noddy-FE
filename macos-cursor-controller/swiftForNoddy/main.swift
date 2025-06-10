@@ -13,6 +13,7 @@ func moveCursor(to point: CGPoint) {
 webSocketTask.resume()
 receiveDecodedData()
 sendPairingMessage()
+airPodsInfoTeller()
 
 startKeyEventMonitor()
 moveCursor(to: currentCursorPos)
@@ -45,7 +46,10 @@ motionManager.startDeviceMotionUpdates(to: .main) { motion, error in
 
     pitchForScroll = mappedY
 
-    sendMotionData(pitch: pitch, yaw: yaw)
+    let decimalProcessedPitch = Double(Int(normalizedPitch * 100)) / 100
+    let decimalProcessedYaw = Double(Int(normalizedYaw * 100)) / 100
+
+    sendMotionData(pitch: decimalProcessedPitch, yaw: decimalProcessedYaw, name: airPodsName, macBattery: MacBattery, airpodLeftBattery: airPodsLeftBattery ?? 0, airpodRightBattery: airPodsRightBattery ?? 0)
 
     targetCursorPos = CGPoint(x: mappedX, y: mappedY)
 }
@@ -63,16 +67,16 @@ Timer.scheduledTimer(withTimeInterval: 1.0 / 60.0, repeats: true) { _ in
 }
 
 Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { _ in
-    let timeSinceLastMotion = Date().timeIntervalSince(lastMotionTimestamp)
-    let maxInactiveDuration: TimeInterval = 2.0
+   let timeSinceLastMotion = Date().timeIntervalSince(lastMotionTimestamp)
+   let maxInactiveDuration: TimeInterval = 2.0
 
-    if timeSinceLastMotion > maxInactiveDuration {
-        if isWearingAirPods {
-            isWearingAirPods = false
-            print("에어팟 감지 안됨. 프로그램 종료.")
-            exit(0)
-        }
-    }
+   if timeSinceLastMotion > maxInactiveDuration {
+       if isWearingAirPods {
+           isWearingAirPods = false
+           print("에어팟 감지 안됨. 프로그램 종료.")
+           exit(0)
+       }
+   }
 }
 
 RunLoop.main.run()
