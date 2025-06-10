@@ -8,6 +8,6 @@ export const useDeviceInfoStore = create((set) => ({
 
   setAirPodsName: (airPodsName) => set({ airPodsName }),
   setAirPodsLeftBattery: (airPodsLeftBattery) => set({ airPodsLeftBattery }),
-  setairPodsRightBattery: (airPodsRightBattery) => set({ airPodsRightBattery }),
+  setAirPodsRightBattery: (airPodsRightBattery) => set({ airPodsRightBattery }),
   setMacBattery: (macBattery) => set({ macBattery }),
 }));
