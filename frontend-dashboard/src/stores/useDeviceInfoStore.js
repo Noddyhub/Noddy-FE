@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 export const useDeviceInfoStore = create((set) => ({
-  airPodsName: "N/A",
+  airPodsName: "AirPods",
   airPodsLeftBattery: 0,
   airPodsRightBattery: 0,
   macBattery: 0,
