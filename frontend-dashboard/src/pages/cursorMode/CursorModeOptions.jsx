@@ -4,20 +4,8 @@ import ControlSlider from "@/components/ControlSlider";
 export default function CursorModeOptions() {
   return (
     <>
-      <ControlSlider
-        name={"Cursor Sensitivity"}
-        min={3}
-        max={10}
-        step={0.1}
-        defaultValue={6}
-      />
-      <ControlSlider
-        name={"Cursor Reaction Speed"}
-        min={1}
-        max={10}
-        step={1}
-        defaultValue={5}
-      />
+      <ControlSlider name={"Cursor Sensitivity"} min={1} max={10} step={1} defaultValue={5} />
+      <ControlSlider name={"Cursor Reaction Speed"} min={1} max={10} step={1} defaultValue={5} />
       <ControlKey name={"Toggle Mode"} />
       <ControlKey name={"Left Click"} />
       <ControlKey name={"Right Click"} />
