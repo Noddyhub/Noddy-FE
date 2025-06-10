@@ -4,12 +4,12 @@ import { useFrame } from "@react-three/fiber";
 import { useThemeStore } from "@/stores/useThemeStore";
 import { useMovementStore } from "@/stores/useMovementStore";
 
-export default function Model3D(options) {
+export default function Model3D(props) {
   const { scene } = useGLTF("/headImage.gltf");
   const modelRef = useRef();
   const isThemeDark = useThemeStore((state) => state.isThemeDark);
   const { pitch, yaw } = useMovementStore();
-  const { direction, modelTranslationY } = options;
+  const { direction, modelTranslationY } = props;
   const rotatingDirection = direction === 3.8 ? 1 : -1;
 
   useEffect(() => {
