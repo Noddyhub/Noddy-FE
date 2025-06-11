@@ -17,7 +17,7 @@ export default function useSocket() {
 
       setClientId(clientId);
 
-      socketRef.current = new WebSocket(`ws://${import.meta.env.VITE_EC2_PUBLIC_IP}:${import.meta.env.VITE_EC2_PORT}`);
+      socketRef.current = new WebSocket(`wss://${import.meta.env.VITE_API_ENDPOINT}`);
       const socket = socketRef.current;
 
       socket.onopen = () => {
