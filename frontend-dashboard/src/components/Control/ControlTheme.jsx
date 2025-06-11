@@ -1,7 +1,7 @@
 import { useThemeStore } from "@/stores/useThemeStore";
 import { MoonIcon, SunIcon } from "@heroicons/react/20/solid";
 
-export default function ThemeToggleButton() {
+export default function ControlTheme() {
   const { isThemeDark, setIsThemeDark } = useThemeStore();
 
   return (

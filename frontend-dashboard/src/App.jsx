@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import InstructionPageLayout from "@/layouts/InstructionPageLayout";
 import OptionPageLayout from "@/layouts/OptionPage/OptionPageLayout";
 import StartPageLayout from "@/layouts/StartPageLayout";
-import ThemeToggleButton from "@/components/ThemeToggleButton";
+import ControlTheme from "@/components/Control/ControlTheme";
 import DetailedInstructionPageLayout from "@/layouts/DetailedInstructionPageLayout";
 import Model3D from "@/components/3D/Model3D";
 import VirtualWindow from "@/components/VirtualImage/VirtualWindow";
@@ -18,7 +18,7 @@ export default function App() {
   return (
     <>
       <div className="absolute -z-100 h-[100vh] w-[50vh] bg-gray-50 dark:bg-gray-700"></div>
-      <ThemeToggleButton />
+      <ControlTheme />
       <Routes>
         <Route path="/" element={<StartPageLayout />} />
         <Route path="/instruction-page" element={<InstructionPageLayout />}>
