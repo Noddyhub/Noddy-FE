@@ -45,10 +45,10 @@ motionManager.startDeviceMotionUpdates(to: .main) { motion, error in
 
     pitchForScroll = mappedY
 
-    let decimalProcessedPitch = Double(Int(normalizedPitch * 100)) / 100
-    let decimalProcessedYaw = Double(Int(normalizedYaw * 100)) / 100
+    let truncatedPitch = Double(Int(normalizedPitch * 100)) / 100
+    let truncatedYaw = Double(Int(normalizedYaw * 100)) / 100
 
-    sendMotionData(pitch: decimalProcessedPitch, yaw: decimalProcessedYaw, name: airPodsName, macBattery: MacBattery, airpodLeftBattery: airPodsLeftBattery ?? 0, airpodRightBattery: airPodsRightBattery ?? 0)
+    sendMotionData(pitch: truncatedPitch, yaw: truncatedYaw, name: airPodsName, macBattery: MacBattery, airpodLeftBattery: airPodsLeftBattery ?? 0, airpodRightBattery: airPodsRightBattery ?? 0)
 
     targetCursorPos = CGPoint(x: mappedX, y: mappedY)
 }
