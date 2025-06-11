@@ -1,5 +1,5 @@
-import ThreeDimensionalImage from "@/components/ThreeDimensionalImage";
-import Model3D from "@/components/Model3D";
+import ThreeDimensionalImage from "@/components/3D/ThreeDimensionalImage";
+import Model3D from "@/components/3D/Model3D";
 import DeviceInfo from "@/components/DeviceInfo";
 
 export default function Footer() {
