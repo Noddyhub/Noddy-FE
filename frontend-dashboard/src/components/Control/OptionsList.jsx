@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useSocket from "../hooks/useSocket";
+import useSocket from "@/hooks/useSocket";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 export default function OptionsList({ name }) {
