@@ -36,6 +36,7 @@ class ToolBarViewController: NSViewController {
         moveCursorDownPopUp.removeAllItems()
         moveCursorLeftPopUp.removeAllItems()
         moveCursorRightPopUp.removeAllItems()
+
         toggleModePopUp.addItems(withTitles: Array(keyNameToCode.keys).sorted())
         leftClickPopUp.addItems(withTitles: Array(keyNameToCode.keys).sorted())
         rightClickPopUp.addItems(withTitles: Array(keyNameToCode.keys).sorted())
@@ -45,6 +46,14 @@ class ToolBarViewController: NSViewController {
         moveCursorLeftPopUp.addItems(withTitles: Array(keyNameToCode.keys).sorted())
         moveCursorRightPopUp.addItems(withTitles: Array(keyNameToCode.keys).sorted())
 
+        toggleModePopUp.selectItem(withTitle: "Tab")
+        leftClickPopUp.selectItem(withTitle: "F9")
+        rightClickPopUp.selectItem(withTitle: "F10")
+        pauseControlPopUp.selectItem(withTitle: "F11")
+        moveCursorUpPopUp.selectItem(withTitle: "ArrowUp")
+        moveCursorDownPopUp.selectItem(withTitle: "ArrowDown")
+        moveCursorLeftPopUp.selectItem(withTitle: "ArrowLeft")
+        moveCursorRightPopUp.selectItem(withTitle: "ArrowRight")
     }
 
     @IBAction func cursorSensitivityChanged(_ sender: NSSlider) {
@@ -110,7 +119,6 @@ class ToolBarViewController: NSViewController {
             keyCodes.yawRight = keyCode
         }
     }
-
 }
 
 extension ToolBarViewController {
