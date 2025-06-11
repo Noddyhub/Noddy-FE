@@ -37,14 +37,14 @@ class ToolBarViewController: NSViewController {
         moveCursorLeftPopUp.removeAllItems()
         moveCursorRightPopUp.removeAllItems()
 
-        toggleModePopUp.addItems(withTitles: Array(keyNameToCode.keys).sorted())
-        leftClickPopUp.addItems(withTitles: Array(keyNameToCode.keys).sorted())
-        rightClickPopUp.addItems(withTitles: Array(keyNameToCode.keys).sorted())
-        pauseControlPopUp.addItems(withTitles: Array(keyNameToCode.keys).sorted())
-        moveCursorUpPopUp.addItems(withTitles: Array(keyNameToCode.keys).sorted())
-        moveCursorDownPopUp.addItems(withTitles: Array(keyNameToCode.keys).sorted())
-        moveCursorLeftPopUp.addItems(withTitles: Array(keyNameToCode.keys).sorted())
-        moveCursorRightPopUp.addItems(withTitles: Array(keyNameToCode.keys).sorted())
+        toggleModePopUp.addItems(withTitles: sortedKeyNames)
+        leftClickPopUp.addItems(withTitles: sortedKeyNames)
+        rightClickPopUp.addItems(withTitles: sortedKeyNames)
+        pauseControlPopUp.addItems(withTitles: sortedKeyNames)
+        moveCursorUpPopUp.addItems(withTitles: sortedKeyNames)
+        moveCursorDownPopUp.addItems(withTitles: sortedKeyNames)
+        moveCursorLeftPopUp.addItems(withTitles: sortedKeyNames)
+        moveCursorRightPopUp.addItems(withTitles: sortedKeyNames)
 
         toggleModePopUp.selectItem(withTitle: "Tab")
         leftClickPopUp.selectItem(withTitle: "F9")
@@ -119,6 +119,7 @@ class ToolBarViewController: NSViewController {
             keyCodes.yawRight = keyCode
         }
     }
+
 }
 
 extension ToolBarViewController {

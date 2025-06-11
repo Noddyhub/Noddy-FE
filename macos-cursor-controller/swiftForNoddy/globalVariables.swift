@@ -59,9 +59,8 @@ let keyNameToCode: [String: Int] = [
     "A": 0, "S": 1, "D": 2, "F": 3, "H": 4, "G": 5, "Z": 6, "X": 7,
     "C": 8, "V": 9, "B": 11, "Q": 12, "W": 13, "E": 14, "R": 15,
     "Y": 16, "T": 17, "1": 18, "2": 19, "3": 20, "4": 21, "6": 22,
-    "5": 23, "9": 25, "7": 26, "8": 28, "0": 29,
-    "]": 30, "O": 31, "U": 32, "I": 34, "P": 35,
-    "L": 37, "J": 38, "K": 40, "N": 45, "M": 46, "Tab": 48,
+    "5": 23, "9": 25, "7": 26, "8": 28, "0": 29, "O": 31, "U": 32,
+    "I": 34, "P": 35, "L": 37, "J": 38, "K": 40, "N": 45, "M": 46, "Tab": 48,
 
     // Arrow Keys
     "ArrowUp": 126, "ArrowDown": 125, "ArrowLeft": 123, "ArrowRight": 124,
@@ -81,3 +80,25 @@ let keyNameToCode: [String: Int] = [
     "KeypadDecimal": 65, "KeypadDivide": 75, "KeypadMultiply": 67,
     "KeypadMinus": 78, "KeypadPlus": 69, "KeypadEquals": 81
 ]
+
+func customSortedKeyNames(from keys: [String]) -> [String] {
+    return keys.sorted { a, b in
+        let isASingleAlpha = a.count == 1 && a.range(of: "[A-Za-z]", options: .regularExpression) != nil
+        let isBSingleAlpha = b.count == 1 && b.range(of: "[A-Za-z]", options: .regularExpression) != nil
+
+        if isASingleAlpha != isBSingleAlpha {
+            return isASingleAlpha
+        }
+
+        let isANumber = Int(a) != nil
+        let isBNumber = Int(b) != nil
+
+        if isANumber != isBNumber {
+            return isANumber
+        }
+
+        return a < b
+    }
+}
+
+let sortedKeyNames = customSortedKeyNames(from: Array(keyNameToCode.keys))
