@@ -1,4 +1,4 @@
-import ThreeDimensionalImage from "@/components/ThreeDimensionalImage";
+import ThreeDimensionalImage from "@/components/3D/ThreeDimensionalImage";
 
 export default function DetailedInstructionPageLayout(props) {
   const { rounded, model, cameraRotation } = props;
