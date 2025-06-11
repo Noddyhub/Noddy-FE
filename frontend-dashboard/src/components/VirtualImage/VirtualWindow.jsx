@@ -1,5 +1,4 @@
 import { useMovementStore } from "@/stores/useMovementStore";
-import { CursorArrowRippleIcon } from "@heroicons/react/20/solid";
 import windowBackground from "@/assets/windowBackground.jpg";
 import cursor from "@/assets/cursor.png";
 
