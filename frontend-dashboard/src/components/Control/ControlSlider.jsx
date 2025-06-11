@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useSocket from "../hooks/useSocket";
+import useSocket from "@/hooks/useSocket";
 
 export default function ControlSlider(props) {
   const { name, min, max, step, defaultValue } = props;
