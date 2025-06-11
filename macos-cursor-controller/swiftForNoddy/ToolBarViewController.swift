@@ -120,6 +120,9 @@ class ToolBarViewController: NSViewController {
         }
     }
 
+    @IBAction func quitApp(_ sender: Any) {
+        NSApp.terminate(nil)
+    }
 }
 
 extension ToolBarViewController {
