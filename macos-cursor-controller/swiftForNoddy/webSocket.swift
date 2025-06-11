@@ -64,7 +64,7 @@ func receiveDecodedData() {
                             } else if name == "Scroll Speed" {
                                 scrollSensitivity = invertedValue(sliderValue: num, minValue: 550, maxValue: 50)
                             }
-                         }
+                        }
 
                         if decoded.type == "hotkey", let num = decoded.value, let name = decoded.name {
                             if name == "Toggle Mode" {
