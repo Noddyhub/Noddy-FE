@@ -7,7 +7,7 @@ import DetailedInstructionPageLayout from "@/layouts/DetailedInstructionPageLayo
 import Model3D from "@/components/Model3D";
 import VirtualWindow from "@/components/VirtualWindow";
 import VirtualArrowKeys from "@/components/VirtualArrowKeys";
-import GoogleOauth from "@/pages/login/GoogleOauth";
+import GoogleOAuth from "@/pages/login/GoogleOAuth";
 import OAuthSuccessPage from "@/pages/login/OAuthSuccessPage";
 
 export default function App() {
@@ -55,7 +55,7 @@ export default function App() {
         </Route>
         <Route path="/option-page" element={<OptionPageLayout />} />
         <Route path="/oauth-success" element={<OAuthSuccessPage />} />
-        <Route path="/oauth" element={<GoogleOauth />} />
+        <Route path="/oauth" element={<GoogleOAuth />} />
       </Routes>
     </>
   );
