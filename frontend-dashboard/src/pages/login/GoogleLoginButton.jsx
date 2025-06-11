@@ -2,16 +2,16 @@ import { FcGoogle } from "react-icons/fc";
 
 export default function GoogleLoginButton() {
   const handleLogin = () => {
-    window.location.href = "http://localhost:8080/auth/google";
+    window.location.href = `${import.meta.env.VITE_API_ENDPOINT}/auth/google`;
   };
 
   return (
     <button
       onClick={handleLogin}
-      className="flex items-center gap-3 px-5 py-3 bg-white border border-gray-300 rounded-xl shadow hover:shadow-md transition duration-200"
+      className="flex items-center gap-3 rounded-xl border border-gray-300 bg-white px-5 py-3 shadow transition duration-200 hover:shadow-md"
     >
       <FcGoogle className="text-2xl" />
-      <span className="text-gray-800 font-medium">Google로 로그인</span>
+      <span className="font-medium text-gray-800">Google로 로그인</span>
     </button>
   );
 }
