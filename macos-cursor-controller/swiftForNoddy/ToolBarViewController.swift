@@ -18,13 +18,13 @@ class ToolBarViewController: NSViewController {
 
         cursorSensitivitySlider.minValue = 1
         cursorSensitivitySlider.maxValue = 10
-        cursorSensitivitySlider.doubleValue = 5
+        cursorSensitivitySlider.doubleValue = cursorSensitivity
         cursorSensitivitySlider.numberOfTickMarks = 11
         cursorSensitivitySlider.allowsTickMarkValuesOnly = true
 
         cursorReactionSpeedSlider.minValue = 0.1
         cursorReactionSpeedSlider.maxValue = 1
-        cursorReactionSpeedSlider.doubleValue = 0.5
+        cursorReactionSpeedSlider.doubleValue = filterAlpha
         cursorReactionSpeedSlider.numberOfTickMarks = 11
         cursorReactionSpeedSlider.allowsTickMarkValuesOnly = true
 
@@ -114,10 +114,13 @@ class ToolBarViewController: NSViewController {
 }
 
 extension ToolBarViewController {
+    // MARK: Storyboard instantiation
     static func freshController() -> ToolBarViewController {
+        //1.
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
+        //2.
         let identifier = NSStoryboard.SceneIdentifier("ToolBarViewController")
-
+        //3.
         guard let viewcontroller = storyboard.instantiateController(withIdentifier: identifier) as? ToolBarViewController else {
             fatalError("Why cant i find ToolBarViewController? - Check Main.storyboard")
         }
