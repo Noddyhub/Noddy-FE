@@ -1,5 +1,5 @@
-import ControlKey from "@/components/ControlKey";
-import ControlSlider from "@/components/ControlSlider";
+import ControlKey from "@/components/Control/ControlKey";
+import ControlSlider from "@/components/Control/ControlSlider";
 
 export default function CursorModeOptions() {
   return (

@@ -1,4 +1,4 @@
-import OptionsList from "@/components/OptionsList";
+import OptionsList from "@/components/Control/OptionsList";
 
 export default function ControlKey({ name }) {
   return (
