@@ -1,12 +1,12 @@
 import { Routes, Route } from "react-router-dom";
 import InstructionPageLayout from "@/layouts/InstructionPageLayout";
-import OptionPageLayout from "@/layouts/OptionPageLayout";
+import OptionPageLayout from "@/layouts/OptionPage/OptionPageLayout";
 import StartPageLayout from "@/layouts/StartPageLayout";
 import ThemeToggleButton from "@/components/ThemeToggleButton";
 import DetailedInstructionPageLayout from "@/layouts/DetailedInstructionPageLayout";
-import Model3D from "@/components/Model3D";
-import VirtualWindow from "@/components/VirtualWindow";
-import VirtualArrowKeys from "@/components/VirtualArrowKeys";
+import Model3D from "@/components/3D/Model3D";
+import VirtualWindow from "@/components/VirtualImage/VirtualWindow";
+import VirtualArrowKeys from "@/components/VirtualImage/VirtualArrowKeys";
 import GoogleOAuth from "@/pages/login/GoogleOAuth";
 import OAuthSuccessPage from "@/pages/login/OAuthSuccessPage";
 
