@@ -18,21 +18,20 @@ export default function OAuthSuccessPage() {
       if (callbackId) {
         (async () => {
           try {
-            const res = await fetch(`http://${import.meta.env.VITE_EC2_PUBLIC_IP}:${import.meta.env.VITE_EC2_PORT}/api/token`, {
+            const res = await fetch(`https://${import.meta.env.VITE_API_ENDPOINT}/api/token`, {
               method: "POST",
               headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
               },
               body: JSON.stringify({
                 callbackId,
-                token
-              })
-            })
+                token,
+              }),
+            });
 
             if (!res.ok) {
               throw new Error("❌ 서버 응답 실패");
             }
-
           } catch (err) {
             console.error("❌ 서버에 토큰 전달 실패:", err);
           }
@@ -53,10 +52,7 @@ export default function OAuthSuccessPage() {
   return (
     <div className="flex flex-col items-center justify-center text-center">
       <p>로그인 완료! 앱으로 이동하려면 아래 버튼을 눌러주세요</p>
-      <button
-        onClick={handleAppLaunch}
-        className="mt-4 rounded bg-blue-500 px-4 py-2 text-white"
-      >
+      <button onClick={handleAppLaunch} className="mt-4 rounded bg-blue-500 px-4 py-2 text-white">
         앱 실행하기
       </button>
     </div>
