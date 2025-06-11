@@ -3,7 +3,7 @@ name: Deploy React App to S3 + CloudFront
 on:
   push:
     branches:
-      - develop
+      - feature/deployBug-55
 
 jobs:
   deploy:
@@ -17,6 +17,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22.11.0
+
+      - name: Create .env.production file
+        working-directory: frontend-dashboard
+        run: |
+          echo "VITE_API_ENDPOINT=https://api.noddy.co.kr" > .env.production
 
       - name: Install dependencies
         working-directory: frontend-dashboard
