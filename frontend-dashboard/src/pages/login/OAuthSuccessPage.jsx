@@ -18,7 +18,7 @@ export default function OAuthSuccessPage() {
       if (callbackId) {
         (async () => {
           try {
-            const res = await fetch(`https://${import.meta.env.VITE_API_ENDPOINT}/api/token`, {
+            const res = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/token`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
