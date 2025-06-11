@@ -17,7 +17,7 @@ export default function useSocket() {
 
       setClientId(clientId);
 
-      socketRef.current = new WebSocket(`wss://${import.meta.env.VITE_API_ENDPOINT}`);
+      socketRef.current = new WebSocket(`wss://api.noddy.co.kr`);
       const socket = socketRef.current;
 
       socket.onopen = () => {
