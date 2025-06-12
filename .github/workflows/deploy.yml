@@ -41,6 +41,7 @@ jobs:
         run: |
           echo "🔍 Build 결과물 내 API 주소 검색:"
           grep -r "https://api.noddy.co.kr" dist || echo "❌ [경고] API endpoint가 번들에 포함되지 않았습니다!"
+          grep -r "wss://api.noddy.co.kr" dist || echo "❌ [경고] Socket endpoint가 번들에 포함되지 않았습니다!"
 
       - name: Deploy to S3
         uses: jakejarvis/s3-sync-action@v0.5.1
