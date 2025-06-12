@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useMovementStore } from "@/stores/useMovementStore";
 import { useDeviceInfoStore } from "@/stores/useDeviceInfoStore";
-import fetchClientId from "@/api/fetchClientId";
 
 export default function useSocket() {
   const [clientId, setClientId] = useState(null);
@@ -17,7 +16,7 @@ export default function useSocket() {
 
       setClientId(clientId);
 
-      socketRef.current = new WebSocket(`${import.meta.env.VITE_SOCKET_ENPOINT}`);
+      socketRef.current = new WebSocket(`${import.meta.env.VITE_SOCKET_ENDPOINT}`);
       const socket = socketRef.current;
 
       socket.onopen = () => {

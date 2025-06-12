@@ -22,7 +22,7 @@ jobs:
         working-directory: frontend-dashboard
         run: |
           echo "VITE_API_ENDPOINT=https://api.noddy.co.kr" > .env.production
-          echo "VITE_SOCKET_ENPOINT=wss://api.noddy.co.kr" > .env.production
+          echo "VITE_SOCKET_ENDPOINT=wss://api.noddy.co.kr" > .env.production
 
       - name: Show .env.production contents
         working-directory: frontend-dashboard
