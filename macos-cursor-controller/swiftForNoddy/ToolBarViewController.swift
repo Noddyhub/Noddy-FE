@@ -14,6 +14,10 @@ class ToolBarViewController: NSViewController {
     @IBOutlet weak var moveCursorLeftPopUp: NSPopUpButton!
     @IBOutlet weak var moveCursorRightPopUp: NSPopUpButton!
 
+    // scroll mode
+    @IBOutlet weak var scrollSensitivitySlider: NSSlider!
+    @IBOutlet weak var pauseScrollPopUp: NSPopUpButton!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -29,6 +33,12 @@ class ToolBarViewController: NSViewController {
         setPopupButton(moveCursorDownPopUp, selectedItems: "ArrowDown")
         setPopupButton(moveCursorLeftPopUp, selectedItems: "ArrowLeft")
         setPopupButton(moveCursorRightPopUp, selectedItems: "ArrowRight")
+
+        //scroll mode
+        setSlider(scrollSensitivitySlider, min: 50, max: 550, value: scrollSensitivity, ticks: 11, bool: false)
+
+        setPopupButton(pauseScrollPopUp, selectedItems: "Q")
+    }
 
     // cursor mode
     @IBAction func cursorSensitivityChanged(_ sender: NSSlider) {
@@ -92,6 +102,18 @@ class ToolBarViewController: NSViewController {
 
         if let keyCode = keyNameToCode[selectedKey] {
             keyCodes.yawRight = keyCode
+        }
+    }
+
+    // scroll mode
+    @IBAction func scrollSpeedChanged(_ sender: NSSlider) {
+        scrollSensitivity = sender.doubleValue
+    }
+    @IBAction func toggleScrollHotkeyChanged(_ sender: NSPopUpButton) {
+        guard let selectedKey = sender.titleOfSelectedItem else { return }
+
+        if let keyCode = keyNameToCode[selectedKey] {
+            keyCodes.toggleScroll = keyCode
         }
     }
 
