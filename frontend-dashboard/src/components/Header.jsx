@@ -7,17 +7,17 @@ export default function Header() {
   return (
     <>
       <div className="h-[10vh] w-[50vh] rounded-2xl">
-        <div className="flex justify-center text-4xl font-extrabold dark:text-white">Noddy</div>
+        <div className="flex justify-center text-4xl font-extrabold tracking-tight dark:text-white">Noddy</div>
         <div className="mt-[1.5vh] flex h-[3vh] w-[50vh]">
           <button
             className="mr-3 ml-auto flex h-[4vh] w-[4vh] cursor-pointer items-center justify-center rounded-xl bg-gray-200 p-1 shadow dark:bg-gray-800 dark:text-white"
-            onClick={() => setOptionPage("Cursor")}
+            onClick={() => setOptionPage("커서")}
           >
             <CursorArrowRippleIcon className="h-full w-full p-1" />
           </button>
           <button
             className="mr-8 flex h-[4vh] w-[4vh] cursor-pointer items-center justify-center rounded-xl bg-gray-200 p-1 shadow dark:bg-gray-800 dark:text-white"
-            onClick={() => setOptionPage("Scroll")}
+            onClick={() => setOptionPage("스크롤")}
           >
             <ArrowsUpDownIcon className="h-full w-full p-1" />
           </button>

@@ -9,13 +9,13 @@ export default function ControlSlider(props) {
   const handleSliderChange = (e) => {
     if (!clientId) return;
     const sliderValue = Number(e.target.value);
-    setValue(e.target.value);
+    setValue(sliderValue);
     sendMessage(JSON.stringify({ type: "control", name, value: sliderValue, clientId }));
   };
 
   return (
     <div className="mb-2 flex w-[45vh] flex-row items-center justify-between rounded-2xl px-2">
-      <div className="mt-2 mb-2 ml-2 font-medium dark:text-white">
+      <div className="mt-2 mb-2 ml-2 text-lg font-semibold dark:text-white">
         {name} : <span className="font-bold">{value}</span>
       </div>
       <div className="flex flex-row">
@@ -25,7 +25,7 @@ export default function ControlSlider(props) {
           min={min}
           max={max}
           step={step}
-          defaultValue={defaultValue}
+          value={value}
           onChange={handleSliderChange}
         />
       </div>

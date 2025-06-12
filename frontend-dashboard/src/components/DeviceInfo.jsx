@@ -8,11 +8,11 @@ function AirPodsInfo() {
       <div className="flex h-[3vh] items-center text-xl font-bold">{airPodsName}</div>
       <div className="flex h-[6vh] flex-col justify-center">
         <div>
-          <span className="font-semibold">Left: </span>
+          <span className="font-semibold">L 유닛 배터리: </span>
           {airPodsLeftBattery}%
         </div>
         <div>
-          <span className="font-semibold">Right: </span>
+          <span className="font-semibold">R 유닛 배터리: </span>
           {airPodsRightBattery}%
         </div>
       </div>
@@ -28,7 +28,7 @@ function MacInfo() {
       <div className="flex h-[3vh] items-center text-xl font-bold">Mac</div>
       <div className="flex h-[6vh] flex-col justify-center">
         <div>
-          <span className="font-semibold">Battery: </span>
+          <span className="font-semibold">본체 배터리: </span>
           {macBattery}%
         </div>
       </div>

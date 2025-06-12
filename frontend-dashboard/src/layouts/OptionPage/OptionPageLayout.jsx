@@ -10,9 +10,9 @@ export default function OptionPageLayout() {
 
   const renderOption = () => {
     switch (optionPage) {
-      case "Cursor":
+      case "커서":
         return <CursorModeOptions />;
-      case "Scroll":
+      case "스크롤":
         return <ScrollModeOptions />;
     }
   };
