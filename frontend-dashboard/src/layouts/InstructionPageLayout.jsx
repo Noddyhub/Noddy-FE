@@ -36,22 +36,22 @@ export default function InstructionPageLayout() {
           <button
             onClick={goToPreviousPage}
             disabled={currentIndex === 0}
-            className="cursor-pointer rounded-xl bg-gray-200 px-4 py-2 font-bold shadow disabled:opacity-50 dark:bg-gray-800 dark:text-white"
+            className="cursor-pointer rounded-xl bg-gray-200 px-4 py-2 font-bold tracking-widest shadow disabled:opacity-50 dark:bg-gray-800 dark:text-white"
           >
-            Prev
+            이전
           </button>
           <button
             onClick={goToNextPage}
             disabled={currentIndex === pageOrder.length - 1}
-            className="cursor-pointer rounded-xl bg-gray-200 px-4 py-2 font-bold shadow disabled:opacity-50 dark:bg-gray-800 dark:text-white"
+            className="cursor-pointer rounded-xl bg-gray-200 px-4 py-2 font-bold tracking-widest shadow disabled:opacity-50 dark:bg-gray-800 dark:text-white"
           >
-            Next
+            다음
           </button>
           <button
-            className="cursor-pointer rounded-xl bg-gray-200 px-4 py-2 font-bold shadow dark:bg-gray-800 dark:text-white"
+            className="cursor-pointer rounded-xl bg-gray-200 px-4 py-2 font-bold tracking-widest shadow dark:bg-gray-800 dark:text-white"
             onClick={skipPages}
           >
-            Skip
+            넘기기
           </button>
         </div>
       </div>
