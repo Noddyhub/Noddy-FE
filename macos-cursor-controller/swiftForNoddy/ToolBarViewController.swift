@@ -1,6 +1,7 @@
 import Cocoa
 
 class ToolBarViewController: NSViewController {
+    // cursor mode
     @IBOutlet weak var cursorSensitivitySlider: NSSlider!
     @IBOutlet weak var cursorReactionSpeedSlider: NSSlider!
 
@@ -16,46 +17,20 @@ class ToolBarViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        cursorSensitivitySlider.minValue = 1
-        cursorSensitivitySlider.maxValue = 10
-        cursorSensitivitySlider.doubleValue = cursorSensitivity
-        cursorSensitivitySlider.numberOfTickMarks = 11
-        cursorSensitivitySlider.allowsTickMarkValuesOnly = true
+        //cursor mode
+        setSlider(cursorSensitivitySlider, min: 1, max: 10, value: cursorSensitivity, ticks: 11, bool: true)
+        setSlider(cursorReactionSpeedSlider, min: 0.1, max: 1, value: filterAlpha, ticks: 11, bool: true)
 
-        cursorReactionSpeedSlider.minValue = 0.1
-        cursorReactionSpeedSlider.maxValue = 1
-        cursorReactionSpeedSlider.doubleValue = filterAlpha
-        cursorReactionSpeedSlider.numberOfTickMarks = 11
-        cursorReactionSpeedSlider.allowsTickMarkValuesOnly = true
+        setPopupButton(toggleModePopUp, selectedItems: "Tab")
+        setPopupButton(leftClickPopUp, selectedItems: "F9")
+        setPopupButton(rightClickPopUp, selectedItems: "F10")
+        setPopupButton(pauseControlPopUp, selectedItems: "F11")
+        setPopupButton(moveCursorUpPopUp, selectedItems: "ArrowUp")
+        setPopupButton(moveCursorDownPopUp, selectedItems: "ArrowDown")
+        setPopupButton(moveCursorLeftPopUp, selectedItems: "ArrowLeft")
+        setPopupButton(moveCursorRightPopUp, selectedItems: "ArrowRight")
 
-        toggleModePopUp.removeAllItems()
-        leftClickPopUp.removeAllItems()
-        rightClickPopUp.removeAllItems()
-        pauseControlPopUp.removeAllItems()
-        moveCursorUpPopUp.removeAllItems()
-        moveCursorDownPopUp.removeAllItems()
-        moveCursorLeftPopUp.removeAllItems()
-        moveCursorRightPopUp.removeAllItems()
-
-        toggleModePopUp.addItems(withTitles: sortedKeyNames)
-        leftClickPopUp.addItems(withTitles: sortedKeyNames)
-        rightClickPopUp.addItems(withTitles: sortedKeyNames)
-        pauseControlPopUp.addItems(withTitles: sortedKeyNames)
-        moveCursorUpPopUp.addItems(withTitles: sortedKeyNames)
-        moveCursorDownPopUp.addItems(withTitles: sortedKeyNames)
-        moveCursorLeftPopUp.addItems(withTitles: sortedKeyNames)
-        moveCursorRightPopUp.addItems(withTitles: sortedKeyNames)
-
-        toggleModePopUp.selectItem(withTitle: "Tab")
-        leftClickPopUp.selectItem(withTitle: "F9")
-        rightClickPopUp.selectItem(withTitle: "F10")
-        pauseControlPopUp.selectItem(withTitle: "F11")
-        moveCursorUpPopUp.selectItem(withTitle: "ArrowUp")
-        moveCursorDownPopUp.selectItem(withTitle: "ArrowDown")
-        moveCursorLeftPopUp.selectItem(withTitle: "ArrowLeft")
-        moveCursorRightPopUp.selectItem(withTitle: "ArrowRight")
-    }
-
+    // cursor mode
     @IBAction func cursorSensitivityChanged(_ sender: NSSlider) {
         cursorSensitivity = sender.doubleValue
     }
@@ -120,22 +95,38 @@ class ToolBarViewController: NSViewController {
         }
     }
 
+    // terminate button
     @IBAction func quitApp(_ sender: Any) {
         NSApp.terminate(nil)
     }
 }
 
 extension ToolBarViewController {
-    // MARK: Storyboard instantiation
     static func freshController() -> ToolBarViewController {
-        //1.
+
         let storyboard = NSStoryboard(name: NSStoryboard.Name("Main"), bundle: nil)
-        //2.
+
         let identifier = NSStoryboard.SceneIdentifier("ToolBarViewController")
-        //3.
+
         guard let viewcontroller = storyboard.instantiateController(withIdentifier: identifier) as? ToolBarViewController else {
             fatalError("Why cant i find ToolBarViewController? - Check Main.storyboard")
         }
         return viewcontroller
+    }
+}
+
+private extension ToolBarViewController {
+    func setSlider(_ slider: NSSlider, min: Double, max: Double, value: Double, ticks: Int, bool: Bool) {
+        slider.minValue = min
+        slider.maxValue = max
+        slider.doubleValue = value
+        slider.numberOfTickMarks = ticks
+        slider.allowsTickMarkValuesOnly = bool
+    }
+
+    func setPopupButton(_ popupButton: NSPopUpButton, selectedItems: String) {
+        popupButton.removeAllItems()
+        popupButton.addItems(withTitles: sortedKeyNames)
+        popupButton.selectItem(withTitle: selectedItems)
     }
 }
