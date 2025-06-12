@@ -1,11 +1,8 @@
 import { FcGoogle } from "react-icons/fc";
 
 export default function GoogleLoginButton() {
-  const API_ENDPOINT = import.meta.env.VITE_API_ENDPOINT;
-
   const handleLogin = () => {
-    const redirectUrl = `${API_ENDPOINT}/auth/google`;
-    window.location.href = redirectUrl;
+    window.location.href = `${import.meta.env.VITE_API_ENDPOINT}/auth/google`;
   };
 
   return (
