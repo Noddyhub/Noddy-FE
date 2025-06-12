@@ -7,6 +7,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     let popover = NSPopover()
 
+    var eventMonitor: Any?
+
     func applicationDidFinishLaunching(_ notification: Notification) {
         if let button = statusItem.button {
             button.image = NSImage(named:NSImage.Name("StatusBarButtonImage"))
@@ -18,21 +20,30 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     @objc func togglePopover(_ sender: Any?) {
-      if popover.isShown {
-        closePopover(sender: sender)
-      } else {
-        showPopover(sender: sender)
-      }
+        if popover.isShown {
+            closePopover(sender: sender)
+        } else {
+            showPopover(sender: sender)
+        }
     }
 
     func showPopover(sender: Any?) {
-      if let button = statusItem.button {
-          popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
-      }
+        if let button = statusItem.button {
+            popover.show(relativeTo: button.bounds, of: button, preferredEdge: NSRectEdge.minY)
+
+            eventMonitor = NSEvent.addGlobalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown]) { [weak self] event in
+                self?.closePopover(sender: nil)
+            }
+        }
     }
 
     func closePopover(sender: Any?) {
-      popover.performClose(sender)
+        if let monitor = eventMonitor {
+            NSEvent.removeMonitor(monitor)
+            eventMonitor = nil
+        }
+
+        popover.performClose(sender)
     }
 }
 
