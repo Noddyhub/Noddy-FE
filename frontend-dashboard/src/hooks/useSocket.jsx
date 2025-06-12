@@ -25,6 +25,12 @@ export default function useSocket() {
       };
 
       socket.onmessage = (event) => {
+        console.log("pitch 데이터 수신됨: ", event.data.pitch);
+        console.log("yaw 데이터 수신됨: ", event.data.yaw);
+        console.log("macBaattery 데이터 수신됨: ", event.data.macBattery);
+        console.log("name 데이터 수신됨: ", event.data.name);
+        console.log("airpodLeftBattery 데이터 수신됨: ", event.data.airpodLeftBattery);
+        console.log("airpodRightBattery 데이터 수신됨: ", event.data.airpodRightBattery);
         try {
           const message = JSON.parse(event.data);
           setPitch(message.pitch);
