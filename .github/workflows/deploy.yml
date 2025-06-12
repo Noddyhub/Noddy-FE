@@ -18,12 +18,6 @@ jobs:
         with:
           node-version: 22.11.0
 
-      - name: Create .env.production file
-        working-directory: frontend-dashboard
-        run: |
-          echo "VITE_API_ENDPOINT=https://api.noddy.co.kr" > .env.production
-          echo "VITE_SOCKET_ENDPOINT=wss://api.noddy.co.kr" >> .env.production
-
       - name: Show .env.production contents
         working-directory: frontend-dashboard
         run: cat .env.production
