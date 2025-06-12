@@ -41,63 +41,63 @@ class ToolBarViewController: NSViewController {
     }
 
     // cursor mode
-    @IBAction func cursorSensitivityChanged(_ sender: NSSlider) {
+    @IBAction func changeCursorSensitivity(_ sender: NSSlider) {
         cursorSensitivity = sender.doubleValue
     }
-    @IBAction func cursorReactionSpeedChanged(_ sender: NSSlider) {
+    @IBAction func changeCursorReactionSpeed(_ sender: NSSlider) {
         filterAlpha = sender.doubleValue
     }
 
-    @IBAction func toggleModeHotkeyChanged(_ sender: NSPopUpButton) {
+    @IBAction func changeToggleModeHotkey(_ sender: NSPopUpButton) {
         guard let selectedKey = sender.titleOfSelectedItem else { return }
 
         if let keyCode = keyNameToCode[selectedKey] {
             keyCodes.toggleMode = keyCode
         }
     }
-    @IBAction func leftClickHotkeyChanged(_ sender: NSPopUpButton) {
+    @IBAction func changeLeftClickHotkey(_ sender: NSPopUpButton) {
         guard let selectedKey = sender.titleOfSelectedItem else { return }
 
         if let keyCode = keyNameToCode[selectedKey] {
             keyCodes.leftClick = keyCode
         }
     }
-    @IBAction func rightClickHotkeyChanged(_ sender: NSPopUpButton) {
+    @IBAction func changeRightClickHotkey(_ sender: NSPopUpButton) {
         guard let selectedKey = sender.titleOfSelectedItem else { return }
 
         if let keyCode = keyNameToCode[selectedKey] {
             keyCodes.rightClick = keyCode
         }
     }
-    @IBAction func pauseControlHotkeyChanged(_ sender: NSPopUpButton) {
+    @IBAction func changePauseControlHotkey(_ sender: NSPopUpButton) {
         guard let selectedKey = sender.titleOfSelectedItem else { return }
 
         if let keyCode = keyNameToCode[selectedKey] {
             keyCodes.motionPause = keyCode
         }
     }
-    @IBAction func moveCursorUpHotkeyChanged(_ sender: NSPopUpButton) {
+    @IBAction func changeMoveCursorUpHotkey(_ sender: NSPopUpButton) {
         guard let selectedKey = sender.titleOfSelectedItem else { return }
 
         if let keyCode = keyNameToCode[selectedKey] {
             keyCodes.pitchUp = keyCode
         }
     }
-    @IBAction func moveCursorDownHotkeyChanged(_ sender: NSPopUpButton) {
+    @IBAction func changeMoveCursorDownHotkey(_ sender: NSPopUpButton) {
         guard let selectedKey = sender.titleOfSelectedItem else { return }
 
         if let keyCode = keyNameToCode[selectedKey] {
             keyCodes.pitchDown = keyCode
         }
     }
-    @IBAction func moveCursorLeftHotkeyChanged(_ sender: NSPopUpButton) {
+    @IBAction func changeMoveCursorLeftHotkey(_ sender: NSPopUpButton) {
         guard let selectedKey = sender.titleOfSelectedItem else { return }
 
         if let keyCode = keyNameToCode[selectedKey] {
             keyCodes.yawLeft = keyCode
         }
     }
-    @IBAction func moveCursorRightHotkeyChanged(_ sender: NSPopUpButton) {
+    @IBAction func changeMoveCursorRightHotkey(_ sender: NSPopUpButton) {
         guard let selectedKey = sender.titleOfSelectedItem else { return }
 
         if let keyCode = keyNameToCode[selectedKey] {
@@ -106,10 +106,10 @@ class ToolBarViewController: NSViewController {
     }
 
     // scroll mode
-    @IBAction func scrollSpeedChanged(_ sender: NSSlider) {
+    @IBAction func changeScrollSpeed(_ sender: NSSlider) {
         scrollSensitivity = sender.doubleValue
     }
-    @IBAction func toggleScrollHotkeyChanged(_ sender: NSPopUpButton) {
+    @IBAction func changeToggleScrollHotkey(_ sender: NSPopUpButton) {
         guard let selectedKey = sender.titleOfSelectedItem else { return }
 
         if let keyCode = keyNameToCode[selectedKey] {
