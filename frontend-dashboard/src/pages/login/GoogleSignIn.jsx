@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import GoogleLoginButton from "./GoogleLoginButton";
 
-export default function GoogleOAuth() {
+export default function GoogleSignIn() {
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const callbackId = urlParams.get("callbackId");
