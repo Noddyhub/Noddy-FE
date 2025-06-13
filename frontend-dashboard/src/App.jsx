@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import InstructionPageLayout from "@/layouts/InstructionPageLayout";
 import OptionPageLayout from "@/layouts/OptionPage/OptionPageLayout";
 import StartPageLayout from "@/layouts/StartPageLayout";
@@ -9,8 +10,10 @@ import VirtualWindow from "@/components/VirtualImage/VirtualWindow";
 import VirtualArrowKeys from "@/components/VirtualImage/VirtualArrowKeys";
 import GoogleSignIn from "@/pages/login/GoogleSignIn";
 import OAuthSuccessPage from "@/pages/login/OAuthSuccessPage";
+import "@/utils/i18n";
 
 export default function App() {
+  const { t } = useTranslation();
   const VALUE_ROTATING_MODEL_BACKWARD = 0.5;
   const VALUE_MOVING_MODEL_DOWN = -1.6;
   const VALUE_MOVING_CAMERA_UP = 20;
@@ -35,7 +38,7 @@ export default function App() {
                   cameraRotation={VALUE_MOVING_CAMERA_UP}
                 />
                 <div className="flex w-[45vh] items-center justify-center rounded-2xl px-4 pt-4 text-center text-xl font-bold dark:text-white">
-                  위 이미지를 참고해 정면을 바라봐 주세요.
+                  {t("cursorGuide")}
                 </div>
               </>
             }
@@ -47,7 +50,7 @@ export default function App() {
                 <VirtualArrowKeys />
                 <DetailedInstructionPageLayout rounded="4xl" />
                 <div className="flex w-[45vh] items-center justify-center rounded-xl px-4 pt-4 text-center text-xl font-bold dark:text-white">
-                  방향키를 눌러서 커서를 세부조정 해보세요.
+                  {t("directionKeyGuide")}
                 </div>
               </>
             }

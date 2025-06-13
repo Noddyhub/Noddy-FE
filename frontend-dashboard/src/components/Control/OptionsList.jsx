@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import useSocket from "@/hooks/useSocket";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 export default function OptionsList({ name }) {
   const [hotKey, setHotkey] = useState("");
   const { sendMessage, clientId } = useSocket();
+  const { t } = useTranslation();
 
   const handleSelectChange = (e) => {
     const selectedHotKey = e.target.value;
@@ -23,7 +25,7 @@ export default function OptionsList({ name }) {
         onChange={handleSelectChange}
       >
         <option value="" disabled>
-          단축키 선택
+          {t("shortcutSelection")}
         </option>
         <option value="A">A</option>
         <option value="B">B</option>
