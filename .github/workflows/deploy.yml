@@ -30,12 +30,6 @@ jobs:
         working-directory: frontend-dashboard
         run: npm run build
 
-      - name: ✅ Check API endpoint in build output
-        working-directory: frontend-dashboard
-        run: |
-          echo "VITE_API_ENDPOINT=https://api.noddy.co.kr" > .env.production
-          echo "VITE_SOCKET_ENDPOINT=wss://api.noddy.co.kr" >> .env.production
-
       - name: Deploy to S3
         uses: jakejarvis/s3-sync-action@v0.5.1
         with:
