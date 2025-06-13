@@ -18,6 +18,12 @@ jobs:
         with:
           node-version: 22.11.0
 
+      - name: Create .env.production fileAdd commentMore actions
+        working-directory: frontend-dashboard
+        run: |
+          echo "VITE_API_ENDPOINT=${{ secrets.VITE_API_ENDPOINT }}" > .env.production
+          echo "VITE_SOCKET_ENDPOINT=${{ secrets.VITE_SOCKET_ENDPOINT }}" >> .env.production
+
       - name: Show .env.production contents
         working-directory: frontend-dashboard
         run: cat .env.production
