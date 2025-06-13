@@ -1,7 +1,9 @@
 import { useNavigate, useLocation, Outlet } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import useSocket from "../hooks/useSocket";
 
 export default function InstructionPageLayout() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   useSocket();
@@ -38,20 +40,20 @@ export default function InstructionPageLayout() {
             disabled={currentIndex === 0}
             className="cursor-pointer rounded-xl bg-gray-200 px-4 py-2 font-bold tracking-widest shadow disabled:opacity-50 dark:bg-gray-800 dark:text-white"
           >
-            이전
+            {t("prev")}
           </button>
           <button
             onClick={goToNextPage}
             disabled={currentIndex === pageOrder.length - 1}
             className="cursor-pointer rounded-xl bg-gray-200 px-4 py-2 font-bold tracking-widest shadow disabled:opacity-50 dark:bg-gray-800 dark:text-white"
           >
-            다음
+            {t("next")}
           </button>
           <button
             className="cursor-pointer rounded-xl bg-gray-200 px-4 py-2 font-bold tracking-widest shadow dark:bg-gray-800 dark:text-white"
             onClick={skipPages}
           >
-            넘기기
+            {t("skip")}
           </button>
         </div>
       </div>

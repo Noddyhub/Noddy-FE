@@ -1,6 +1,8 @@
+import { useTranslation } from "react-i18next";
 import { useDeviceInfoStore } from "@/stores/useDeviceInfoStore";
 
 function AirPodsInfo() {
+  const { t } = useTranslation();
   const { airPodsName, airPodsLeftBattery, airPodsRightBattery } = useDeviceInfoStore();
 
   return (
@@ -8,7 +10,7 @@ function AirPodsInfo() {
       <div className="flex h-[3vh] items-center text-xl font-bold">{airPodsName}</div>
       <div className="flex h-[7.5vh] flex-col justify-center">
         <div className="flex flex-col items-center">
-          <div className="mb-0.5 text-xs font-semibold">L 유닛 배터리</div>
+          <div className="mb-0.5 text-xs font-semibold">{t("leftUnitBattery")}</div>
           <div className="mb-1.5 h-2 w-18 rounded bg-gray-300">
             <div
               className="h-full rounded"
@@ -18,7 +20,7 @@ function AirPodsInfo() {
               }}
             />
           </div>
-          <div className="mb-0.5 text-xs font-semibold">R 유닛 배터리</div>
+          <div className="mb-0.5 text-xs font-semibold">{t("rightUnitBattery")}</div>
           <div className="h-2 w-18 rounded bg-gray-300">
             <div
               className="h-full rounded"
@@ -35,6 +37,7 @@ function AirPodsInfo() {
 }
 
 function MacInfo() {
+  const { t } = useTranslation();
   const macBattery = useDeviceInfoStore((state) => state.macBattery);
 
   return (
@@ -42,7 +45,7 @@ function MacInfo() {
       <div className="flex h-[3vh] items-center text-xl font-bold">Mac</div>
       <div className="flex h-[7.5vh] flex-col justify-center">
         <div className="flex flex-col items-center">
-          <div className="mb-0.5 font-semibold">본체 배터리</div>
+          <div className="mb-0.5 font-semibold">{t("macBattery")}</div>
           <div className="h-2 w-18 rounded bg-gray-300">
             <div
               className="h-full rounded"

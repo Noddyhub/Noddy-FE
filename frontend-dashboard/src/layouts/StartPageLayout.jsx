@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import AirPodsImage from "@/assets/AirPodsImage.png";
 
 export default function StartPageLayout() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const handleStartClick = () => {
@@ -16,7 +18,7 @@ export default function StartPageLayout() {
         className="mt-10 cursor-pointer rounded-xl bg-gray-200 px-4 py-2 text-2xl font-medium tracking-widest shadow dark:bg-gray-800 dark:text-white"
         onClick={handleStartClick}
       >
-        시작
+        {t("start")}
       </button>
     </>
   );
