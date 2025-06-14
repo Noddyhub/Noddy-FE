@@ -21,27 +21,9 @@ export default function VirtualKeyboard({ handleButtonPress }) {
   return (
     <div className="absolute right-0 z-100 mt-2 flex w-[40vh] items-center justify-center rounded-lg bg-gray-300 p-2 text-[1.2vh] font-semibold shadow dark:bg-gray-600">
       <div className="grid gap-1">
-        <KeyboardStlye
-          keys={Object.keys(keyNameToKeyCode.functionKeys)}
-          values={Object.values(keyNameToKeyCode.functionKeys)}
-        />
-        <KeyboardStlye keys={Object.keys(keyNameToKeyCode.numbers)} values={Object.values(keyNameToKeyCode.numbers)} />
-        <KeyboardStlye
-          keys={Object.keys(keyNameToKeyCode.alphabetLine1)}
-          values={Object.values(keyNameToKeyCode.alphabetLine1)}
-        />
-        <KeyboardStlye
-          keys={Object.keys(keyNameToKeyCode.alphabetLine2)}
-          values={Object.values(keyNameToKeyCode.alphabetLine2)}
-        />
-        <KeyboardStlye
-          keys={Object.keys(keyNameToKeyCode.alphabetLine3)}
-          values={Object.values(keyNameToKeyCode.alphabetLine3)}
-        />
-        <KeyboardStlye
-          keys={Object.keys(keyNameToKeyCode.tabAndArrowKeys)}
-          values={Object.values(keyNameToKeyCode.tabAndArrowKeys)}
-        />
+        {Object.entries(keyNameToKeyCode).map(([keysGroupName, keysList]) => (
+          <KeyboardStlye key={keysGroupName} keys={Object.keys(keysList)} values={Object.values(keysList)} />
+        ))}
       </div>
     </div>
   );
