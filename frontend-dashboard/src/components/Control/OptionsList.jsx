@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import useSocket from "@/hooks/useSocket";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import { keyNameToKeyCode } from "@/constants/keyCodes";
 
 export default function OptionsList({ name }) {
   const [hotKey, setHotkey] = useState("");
@@ -27,13 +28,9 @@ export default function OptionsList({ name }) {
         <option value="" disabled>
           {t("shortcutSelection")}
         </option>
-        <option value="A">A</option>
-        <option value="B">B</option>
-        <option value="C">C</option>
-        <option value="D">D</option>
-        <option value="E">E</option>
-        <option value="F">F</option>
-        <option value="G">G</option>
+        {Object.entries(keyNameToKeyCode).map(([key, value]) => (
+          <option key={value}>{key}</option>
+        ))}
       </select>
       <ChevronDownIcon className="pointer-events-none absolute top-1/2 right-2 h-4 w-4 -translate-y-1/2 text-gray-500" />
     </div>
