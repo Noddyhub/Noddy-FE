@@ -36,7 +36,6 @@ export const keyNameToKeyCode = {
   K: 40,
   N: 45,
   M: 46,
-  Tab: 48,
 
   // Arrow Keys
   ArrowUp: 126,
@@ -59,30 +58,11 @@ export const keyNameToKeyCode = {
   F12: 111,
 
   // Other Special Keys
+  Tab: 48,
   PageUp: 116,
   PageDown: 121,
   Home: 115,
   End: 119,
   Insert: 114,
   Delete: 117,
-
-  // Keypad
-  Keypad0: 82,
-  Keypad1: 83,
-  Keypad2: 84,
-  Keypad3: 85,
-  Keypad4: 86,
-  Keypad5: 87,
-  Keypad6: 88,
-  Keypad7: 89,
-  Keypad8: 91,
-  Keypad9: 92,
-  KeypadClear: 71,
-  KeypadEnter: 76,
-  KeypadDecimal: 65,
-  KeypadDivide: 75,
-  KeypadMultiply: 67,
-  KeypadMinus: 78,
-  KeypadPlus: 69,
-  KeypadEquals: 81,
 };
