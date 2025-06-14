@@ -1,10 +1,6 @@
 import { keyNameToKeyCode } from "@/constants/keyCodes";
 
-export default function VirtualKeyboard() {
-  const handleClick = (value) => {
-    console.log(value);
-  };
-
+export default function VirtualKeyboard({ handleButtonPress }) {
   const KeyboardStlye = ({ keys, values }) => {
     return (
       <div className="grid auto-cols-max grid-flow-col justify-center gap-1 text-black dark:text-white">
@@ -13,7 +9,7 @@ export default function VirtualKeyboard() {
             key={key}
             value={values[index]}
             className="flex h-7 w-6 cursor-pointer items-center justify-center rounded bg-white px-2 shadow-inner hover:bg-gray-200 dark:bg-gray-700"
-            onClick={() => handleClick(values[index])}
+            onClick={() => handleButtonPress(values[index])}
           >
             {key}
           </div>

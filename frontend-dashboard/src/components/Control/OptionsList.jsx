@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import useSocket from "@/hooks/useSocket";
-import { keyNameToKeyCode } from "@/constants/keyCodes";
 import VirtualKeyboard from "@/components/VirtualImage/VirtualKeyboard";
 
 export default function OptionsList({ name }) {
@@ -30,8 +29,8 @@ export default function OptionsList({ name }) {
     };
   }, [showDropdown]);
 
-  const handleSelectChange = (e) => {
-    const selectedHotKey = e.target.value;
+  const handleButtonPress = (value) => {
+    const selectedHotKey = value;
     setHotkey(selectedHotKey);
     sendMessage(JSON.stringify({ type: "hotkey", name, value: selectedHotKey.charCodeAt(0), clientId }));
   };
@@ -44,7 +43,7 @@ export default function OptionsList({ name }) {
       >
         {t("shortcutSelection")}
       </button>
-      {showDropdown && <VirtualKeyboard />}
+      {showDropdown && <VirtualKeyboard handleButtonPress={handleButtonPress} />}
     </div>
   );
 }
