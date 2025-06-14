@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import useSocket from "@/hooks/useSocket";
 import { keyNameToKeyCode } from "@/constants/keyCodes";
@@ -9,6 +9,26 @@ export default function OptionsList({ name }) {
   const { sendMessage, clientId } = useSocket();
   const { t } = useTranslation();
 
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    if (showDropdown) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showDropdown]);
+
   const handleSelectChange = (e) => {
     const selectedHotKey = e.target.value;
     setHotkey(selectedHotKey);
@@ -16,7 +36,7 @@ export default function OptionsList({ name }) {
   };
 
   return (
-    <div className="relative">
+    <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setShowDropdown((prev) => !prev)}
         className="w-[12.5vh] cursor-pointer rounded-lg bg-gray-200 py-0.5 shadow dark:bg-gray-800 dark:text-white"
