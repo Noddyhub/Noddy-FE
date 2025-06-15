@@ -13,6 +13,8 @@ export default function OAuthSuccessPage() {
     if (token) {
       localStorage.setItem("token", token);
       const user = jwtDecode(token);
+      const name = user.name;
+      const email = user.email;
       console.log("✅ 로그인한 사용자:", user);
 
       if (user?.locale) {
@@ -32,6 +34,8 @@ export default function OAuthSuccessPage() {
               body: JSON.stringify({
                 callbackId,
                 token,
+                name,
+                email,
               }),
             });
 
