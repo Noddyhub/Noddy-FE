@@ -2,14 +2,13 @@ import useSocket from "@/hooks/useSocket";
 import { keyNameToKeyCode } from "@/constants/keyCodes";
 import { useHotkeyStore } from "@/stores/useHotkeyStore";
 
-export default function VirtualKeyboard({ name, setHotkey }) {
+export default function VirtualKeyboard({ name }) {
   const { sendMessage, clientId } = useSocket();
   const { assignedHotkeys, setAssignedHotkeys } = useHotkeyStore();
 
   const handleButtonPress = (key, value) => {
     const selectedHotkey = value;
-    setHotkey(key);
-    setAssignedHotkeys(key);
+    setAssignedHotkeys({ [name]: key });
     sendMessage(JSON.stringify({ type: "hotkey", name, value: selectedHotkey, clientId }));
   };
 
@@ -18,7 +17,7 @@ export default function VirtualKeyboard({ name, setHotkey }) {
       <div className="grid auto-cols-max grid-flow-col justify-center gap-1 text-black dark:text-white">
         {keys.map((key, index) => {
           const value = values[index];
-          const isAssigned = assignedHotkeys?.includes(key);
+          const isAssigned = Object.values(assignedHotkeys).includes(key);
 
           return (
             <div

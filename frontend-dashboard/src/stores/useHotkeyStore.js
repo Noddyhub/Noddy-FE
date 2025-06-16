@@ -1,10 +1,15 @@
 import { create } from "zustand";
 
 export const useHotkeyStore = create((set) => ({
-  assignedHotkeys: [],
+  assignedHotkeys: {},
 
   setAssignedHotkeys: (newHotkey) =>
-    set((state) => ({
-      assignedHotkeys: [...state.assignedHotkeys, newHotkey],
-    })),
+    set((state) => {
+      const name = Object.keys(newHotkey);
+      const key = newHotkey[name];
+      const updatedHotkeys = { ...state.assignedHotkeys };
+      updatedHotkeys[name] = key;
+
+      return { assignedHotkeys: updatedHotkeys };
+    }),
 }));
