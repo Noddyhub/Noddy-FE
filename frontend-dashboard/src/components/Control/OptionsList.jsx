@@ -1,10 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import useSocket from "@/hooks/useSocket";
 import VirtualKeyboard from "@/components/VirtualImage/VirtualKeyboard";
 
 export default function OptionsList({ name }) {
-  const [hotKey, setHotkey] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
   const { sendMessage, clientId } = useSocket();
   const { t } = useTranslation();
@@ -29,12 +27,6 @@ export default function OptionsList({ name }) {
     };
   }, [showDropdown]);
 
-  const handleButtonPress = (value) => {
-    const selectedHotKey = value;
-    setHotkey(selectedHotKey);
-    sendMessage(JSON.stringify({ type: "hotkey", name, value: selectedHotKey.charCodeAt(0), clientId }));
-  };
-
   return (
     <div className="relative" ref={dropdownRef}>
       <button
@@ -43,7 +35,7 @@ export default function OptionsList({ name }) {
       >
         {t("shortcutSelection")}
       </button>
-      {showDropdown && <VirtualKeyboard handleButtonPress={handleButtonPress} />}
+      {showDropdown && <VirtualKeyboard name={name} />}
     </div>
   );
 }

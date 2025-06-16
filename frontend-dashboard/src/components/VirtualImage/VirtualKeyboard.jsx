@@ -1,6 +1,14 @@
+import useSocket from "@/hooks/useSocket";
 import { keyNameToKeyCode } from "@/constants/keyCodes";
 
-export default function VirtualKeyboard({ handleButtonPress }) {
+export default function VirtualKeyboard({ name }) {
+  const { sendMessage, clientId } = useSocket();
+
+  const handleButtonPress = (value) => {
+    const selectedHotKey = value;
+    sendMessage(JSON.stringify({ type: "hotkey", name, value: selectedHotKey, clientId }));
+  };
+
   const KeyboardStlye = ({ keys, values }) => {
     return (
       <div className="grid auto-cols-max grid-flow-col justify-center gap-1 text-black dark:text-white">
