@@ -1,15 +1,17 @@
 import { useState } from "react";
 import useSocket from "@/hooks/useSocket";
+import useUserSetting from "@/hooks/useSocket";
 
 export default function ControlSlider(props) {
-  const { name, min, max, step, defaultValue } = props;
+  const { KeyName, name, min, max, step, defaultValue } = props;
   const { sendMessage, clientId } = useSocket();
-  const [value, setValue] = useState(defaultValue);
+  const { value, updateSetting } = useUserSetting(KeyName, defaultValue);
 
   const handleSliderChange = (e) => {
     if (!clientId) return;
+
     const sliderValue = Number(e.target.value);
-    setValue(sliderValue);
+    updateSetting(sliderValue);
     sendMessage(JSON.stringify({ type: "control", name, value: sliderValue, clientId }));
   };
 
