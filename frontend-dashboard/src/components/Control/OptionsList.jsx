@@ -4,7 +4,6 @@ import VirtualKeyboard from "@/components/VirtualImage/VirtualKeyboard";
 
 export default function OptionsList({ name }) {
   const [showDropdown, setShowDropdown] = useState(false);
-  const { sendMessage, clientId } = useSocket();
   const { t } = useTranslation();
 
   const dropdownRef = useRef(null);

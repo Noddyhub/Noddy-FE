@@ -7,9 +7,9 @@ export default function VirtualKeyboard({ name }) {
   const { assignedHotkeys, setAssignedHotkeys } = useHotkeyStore();
 
   const handleButtonPress = (key, value) => {
-    const selectedHotkey = value;
+    const selectedHotkeyKeycode = value;
     setAssignedHotkeys({ [name]: key });
-    sendMessage(JSON.stringify({ type: "hotkey", name, value: selectedHotkey, clientId }));
+    sendMessage(JSON.stringify({ type: "hotkey", name, value: selectedHotkeyKeycode, clientId }));
   };
 
   const KeyboardStlye = ({ keys, values }) => {
