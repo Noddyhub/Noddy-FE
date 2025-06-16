@@ -41,5 +41,5 @@ export default function useUserSetting(key, defaultValue) {
     }
   };
 
-  return [value, updateSetting];
+  return { value, updateSetting };
 }
