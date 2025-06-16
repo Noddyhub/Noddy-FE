@@ -1,27 +1,36 @@
 import useSocket from "@/hooks/useSocket";
 import { keyNameToKeyCode } from "@/constants/keyCodes";
+import { useHotkeyStore } from "@/stores/useHotkeyStore";
 
-export default function VirtualKeyboard({ name }) {
+export default function VirtualKeyboard({ name, setHotkey }) {
   const { sendMessage, clientId } = useSocket();
+  const { assignedHotkeys, setAssignedHotkeys } = useHotkeyStore();
 
-  const handleButtonPress = (value) => {
-    const selectedHotKey = value;
-    sendMessage(JSON.stringify({ type: "hotkey", name, value: selectedHotKey, clientId }));
+  const handleButtonPress = (key, value) => {
+    const selectedHotkey = value;
+    setHotkey(key);
+    setAssignedHotkeys(key);
+    sendMessage(JSON.stringify({ type: "hotkey", name, value: selectedHotkey, clientId }));
   };
 
   const KeyboardStlye = ({ keys, values }) => {
     return (
       <div className="grid auto-cols-max grid-flow-col justify-center gap-1 text-black dark:text-white">
-        {keys.map((key, index) => (
-          <div
-            key={key}
-            value={values[index]}
-            className="flex h-7 w-6 cursor-pointer items-center justify-center rounded bg-white px-2 shadow-inner hover:bg-gray-200 dark:bg-gray-700"
-            onClick={() => handleButtonPress(values[index])}
-          >
-            {key}
-          </div>
-        ))}
+        {keys.map((key, index) => {
+          const value = values[index];
+          const isAssigned = assignedHotkeys?.includes(key);
+
+          return (
+            <div
+              key={key}
+              value={value}
+              className={`flex h-7 w-6 items-center justify-center rounded px-2 shadow-inner ${isAssigned ? "cursor-pointer bg-gray-400 opacity-50" : "cursor-pointer bg-white hover:bg-gray-200 dark:bg-gray-700"} `}
+              onClick={() => handleButtonPress(key, value)}
+            >
+              {key}
+            </div>
+          );
+        })}
       </div>
     );
   };
