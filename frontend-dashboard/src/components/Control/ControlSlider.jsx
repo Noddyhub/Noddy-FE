@@ -1,6 +1,5 @@
-import { useState } from "react";
 import useSocket from "@/hooks/useSocket";
-import useUserSetting from "@/hooks/useSocket";
+import useUserSetting from "@/hooks/useUserSetting";
 
 export default function ControlSlider(props) {
   const { KeyName, name, min, max, step, defaultValue } = props;
