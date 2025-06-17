@@ -1,7 +1,7 @@
 import OptionsList from "@/components/Control/OptionsList";
 import { useHotkeyStore } from "@/stores/useHotkeyStore";
 
-export default function ControlKey({ name }) {
+export default function ControlKey({ KeyName, name }) {
   const assignedHotkeys = useHotkeyStore((state) => state.assignedHotkeys);
 
   return (
@@ -10,7 +10,7 @@ export default function ControlKey({ name }) {
         {name} : <span className="font-bold">{assignedHotkeys[name]}</span>
       </div>
       <div>
-        <OptionsList name={name} />
+        <OptionsList KeyName={KeyName} name={name} />
       </div>
     </div>
   );
