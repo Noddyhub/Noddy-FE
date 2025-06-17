@@ -23,14 +23,14 @@ export default function CursorModeOptions() {
         step={1}
         defaultValue={5}
       />
-      <ControlKey KeyName="toggleMode" name={t("toggleMode")} />
-      <ControlKey KeyName="leftClick" name={t("leftClick")} />
-      <ControlKey KeyName="rightClick" name={t("rightClick")} />
-      <ControlKey KeyName="cursorPause" name={t("cursorPause")} />
-      <ControlKey KeyName="cursorUp" name={t("cursorUp")} />
-      <ControlKey KeyName="cursorDown" name={t("cursorDown")} />
-      <ControlKey KeyName="cursorLeft" name={t("cursorLeft")} />
-      <ControlKey KeyName="cursorRight" name={t("cursorRight")} />
+      <ControlKey KeyName="toggleMode" name={t("toggleMode")} defaultValue={"TAB"} />
+      <ControlKey KeyName="leftClick" name={t("leftClick")} defaultValue={"F9"} />
+      <ControlKey KeyName="rightClick" name={t("rightClick")} defaultValue={"F10"} />
+      <ControlKey KeyName="cursorPause" name={t("cursorPause")} defaultValue={"F11"} />
+      <ControlKey KeyName="cursorUp" name={t("cursorUp")} defaultValue={"↑"} />
+      <ControlKey KeyName="cursorDown" name={t("cursorDown")} defaultValue={"↓"} />
+      <ControlKey KeyName="cursorLeft" name={t("cursorLeft")} defaultValue={"←"} />
+      <ControlKey KeyName="cursorRight" name={t("cursorRight")} defaultValue={"→"} />
     </>
   );
 }

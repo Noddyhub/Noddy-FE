@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-import i18n from "@/utils/i18n";
 
 export default function OAuthSuccessPage() {
   const navigate = useNavigate();
@@ -17,11 +16,6 @@ export default function OAuthSuccessPage() {
       const email = user.email;
       localStorage.setItem("email", email);
       console.log("✅ 로그인한 사용자:", user);
-
-      if (user?.locale) {
-        i18n.changeLanguage(user.locale);
-        console.log("사용자 locale: ", user.locale);
-      }
 
       const callbackId = localStorage.getItem("callbackId");
       if (callbackId) {
