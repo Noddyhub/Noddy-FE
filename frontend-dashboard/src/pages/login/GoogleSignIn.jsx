@@ -1,7 +1,10 @@
 import { useEffect } from "react";
 import GoogleLoginButton from "./GoogleLoginButton";
+import { useTranslation } from "react-i18next";
 
 export default function GoogleSignIn() {
+  const { t } = useTranslation();
+
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const callbackId = urlParams.get("callbackId");
@@ -13,9 +16,9 @@ export default function GoogleSignIn() {
   }, []);
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center gap-5">
-      <h2 className="text-2xl font-semibold">로그인</h2>
-      <p className="text-gray-600">Google 계정으로 로그인하고 macOS 앱과 연결하세요.</p>
+    <div className="flex h-screen flex-col items-center justify-center gap-5 dark:text-white">
+      <h2 className="text-2xl font-semibold">{t("signIn")}</h2>
+      <p className="text-gray-600 dark:text-gray-200">{t("signInInstruction")}</p>
       <GoogleLoginButton />
     </div>
   );
