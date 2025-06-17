@@ -37,7 +37,7 @@ export default function App() {
                   }
                   cameraRotation={VALUE_MOVING_CAMERA_UP}
                 />
-                <div className="flex w-[45vh] items-center justify-center rounded-2xl px-4 pt-4 text-center text-xl font-bold dark:text-white">
+                <div className="flex w-[45vh] items-center justify-center rounded-2xl px-4 pt-4 text-center text-lg font-bold whitespace-pre-line dark:text-white">
                   {t("cursorGuide")}
                 </div>
               </>
@@ -49,7 +49,7 @@ export default function App() {
               <>
                 <VirtualArrowKeys />
                 <DetailedInstructionPageLayout rounded="4xl" />
-                <div className="flex w-[45vh] items-center justify-center rounded-xl px-4 pt-4 text-center text-xl font-bold dark:text-white">
+                <div className="flex w-[45vh] items-center justify-center rounded-xl px-4 pt-4 text-center text-lg font-bold whitespace-pre-line dark:text-white">
                   {t("directionKeyGuide")}
                 </div>
               </>

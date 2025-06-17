@@ -6,8 +6,8 @@ const resources = {
   en: {
     translation: {
       start: "START",
-      cursorGuide: "Please refer to the image above and look at the front",
-      directionKeyGuide: "Press the arrow keys to fine-tune the cursor",
+      cursorGuide: "Using the given image above,\nlook straight at the center of the screen",
+      directionKeyGuide: "Use the arrow keys\nto adjust your cursor position",
       prev: "Prev",
       next: "Next",
       skip: "Skip",
