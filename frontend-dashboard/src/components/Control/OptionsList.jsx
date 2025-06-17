@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import VirtualKeyboard from "@/components/VirtualImage/VirtualKeyboard";
 
-export default function OptionsList({ keyName, name, defaultValue, handleButtonPress }) {
+export default function OptionsList({ name, handleButtonPress }) {
   const [showDropdown, setShowDropdown] = useState(false);
   const { t } = useTranslation();
 
@@ -34,14 +34,7 @@ export default function OptionsList({ keyName, name, defaultValue, handleButtonP
       >
         {t("shortcutSelection")}
       </button>
-      {showDropdown && (
-        <VirtualKeyboard
-          keyName={keyName}
-          name={name}
-          defaultValue={defaultValue}
-          handleButtonPress={handleButtonPress}
-        />
-      )}
+      {showDropdown && <VirtualKeyboard name={name} handleButtonPress={handleButtonPress} />}
     </div>
   );
 }

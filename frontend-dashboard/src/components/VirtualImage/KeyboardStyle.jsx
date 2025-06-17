@@ -1,23 +1,13 @@
 import useSocket from "@/hooks/useSocket";
 import { useHotkeyStore } from "@/stores/useHotkeyStore";
-import useUserSetting from "@/hooks/useUserSetting";
-import { useEffect } from "react";
 
-export default function KeyboardStyle({ keyName, keys, values, name, defaultValue, handleButtonPress }) {
+export default function KeyboardStyle({ keys, values, name, handleButtonPress }) {
   const { sendMessage, clientId } = useSocket();
-  const { assignedHotkeys, setAssignedHotkeys } = useHotkeyStore();
-  // const { value, updateSetting } = useUserSetting(keyName, defaultValue);
-
-  useEffect(() => {
-    setAssignedHotkeys({ [keyName]: value });
-  }, []);
+  const { assignedHotkeys } = useHotkeyStore();
 
   const handleButton = (key, buttonValue) => {
     const selectedHotkeyKeycode = buttonValue;
-    console.log("in handleButtonPress KEY: ", key);
 
-    // setAssignedHotkeys({ [keyName]: key });
-    //updateSetting(key);
     handleButtonPress(key);
     sendMessage(JSON.stringify({ type: "hotkey", name, value: selectedHotkeyKeycode, clientId }));
   };
@@ -33,7 +23,7 @@ export default function KeyboardStyle({ keyName, keys, values, name, defaultValu
             key={key}
             value={value}
             className={`flex h-7 w-6 items-center justify-center rounded px-2 shadow-inner ${isAssigned ? "cursor-pointer bg-gray-400 opacity-50" : "cursor-pointer bg-white hover:bg-gray-200 dark:bg-gray-700"} `}
-            onClick={() => handleButton(key, value)} // key: "A", value: 65
+            onClick={() => handleButton(key, value)}
           >
             {key}
           </div>

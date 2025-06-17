@@ -1,16 +1,12 @@
-import { useEffect } from "react";
 import OptionsList from "@/components/Control/OptionsList";
 import { useHotkeyStore } from "@/stores/useHotkeyStore";
 
-export default function ControlKey({ KeyName, name, defaultValue }) {
-  const assignedHotkeys = useHotkeyStore((state) => state.assignedHotkeys);
+export default function ControlKey({ keyName, name, defaultValue }) {
   const { value, updateSetting } = useUserSetting(keyName, defaultValue);
 
-  useEffect(() => {
-    if (value !== undefined) {
-      updateSetting(assignedHotkeys[keyName]);
-    }
-  }, [value]);
+  const handleKeyValue = (key) => {
+    updateSetting(key);
+  };
 
   return (
     <div className="mb-2 flex w-[45vh] flex-row items-center justify-between rounded-2xl px-2">
@@ -18,7 +14,7 @@ export default function ControlKey({ KeyName, name, defaultValue }) {
         {name} : <span className="font-bold">{assignedHotkeys[KeyName]}</span>
       </div>
       <div>
-        <OptionsList KeyName={KeyName} name={name} defaultValue={defaultValue} />
+        <OptionsList name={name} handleButtonPress={handleKeyValue} />
       </div>
     </div>
   );
