@@ -6,7 +6,7 @@ export default function useSocket() {
   const [clientId, setClientId] = useState(null);
   const socketRef = useRef(null);
   const { setPitch, setYaw } = useMovementStore();
-  const { setMacBattery, setAirPodsName, setAirPodsLeftBattery, setAirPodsRightBattery } = useDeviceInfoStore();
+  const { setMacBattery, setAirPodsName, setRunningTime } = useDeviceInfoStore();
 
   useEffect(() => {
     const getClientId = async () => {
@@ -32,8 +32,7 @@ export default function useSocket() {
           setYaw(message.yaw);
           setMacBattery(message.macBattery);
           setAirPodsName(message.name);
-          setAirPodsLeftBattery(message.airpodLeftBattery);
-          setAirPodsRightBattery(message.airpodRightBattery);
+          setRunningTime(message.time);
         } catch (e) {
           console.warn("❗데이터 타입이 JSON이 아닙니다.", event.data);
           return;
