@@ -1,8 +1,10 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import { useTranslation } from "react-i18next";
 
 export default function OAuthSuccessPage() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,7 +45,7 @@ export default function OAuthSuccessPage() {
         })();
       }
     } else {
-      navigate("/");
+      // navigate("/");
     }
   }, []);
 
@@ -55,10 +57,13 @@ export default function OAuthSuccessPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center text-center">
-      <p>로그인 완료! 앱으로 이동하려면 아래 버튼을 눌러주세요</p>
-      <button onClick={handleAppLaunch} className="mt-4 rounded bg-blue-500 px-4 py-2 text-white">
-        앱 실행하기
+    <div className="flex flex-col items-center justify-center text-center whitespace-pre-line dark:text-white">
+      <p>{t("signInSuccess")}</p>
+      <button
+        onClick={handleAppLaunch}
+        className="dark:text-whit mt-4 cursor-pointer rounded-xl bg-gray-200 px-4 py-2 shadow transition duration-200 hover:shadow-md dark:bg-gray-800"
+      >
+        {t("signInSuccessButton")}
       </button>
     </div>
   );
