@@ -30,7 +30,7 @@ export default function OptionsList({ name, handleButtonPress }) {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setShowDropdown((prev) => !prev)}
-        className="w-[12.5vh] cursor-pointer rounded-lg bg-gray-200 py-0.5 shadow dark:bg-gray-800 dark:text-white"
+        className="w-[12.5vh] cursor-pointer rounded-lg bg-gray-200 py-0.5 shadow transition duration-300 hover:shadow-md dark:bg-gray-800 dark:text-white"
       >
         {t("shortcutSelection")}
       </button>

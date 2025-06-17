@@ -38,19 +38,19 @@ export default function InstructionPageLayout() {
           <button
             onClick={goToPreviousPage}
             disabled={currentIndex === 0}
-            className="cursor-pointer rounded-xl bg-gray-200 px-4 py-2 font-bold tracking-widest shadow disabled:opacity-50 dark:bg-gray-800 dark:text-white"
+            className="cursor-pointer rounded-xl bg-gray-200 px-4 py-2 font-bold tracking-widest shadow transition duration-300 hover:shadow-md disabled:opacity-50 dark:bg-gray-800 dark:text-white"
           >
             {t("prev")}
           </button>
           <button
             onClick={goToNextPage}
             disabled={currentIndex === pageOrder.length - 1}
-            className="cursor-pointer rounded-xl bg-gray-200 px-4 py-2 font-bold tracking-widest shadow disabled:opacity-50 dark:bg-gray-800 dark:text-white"
+            className="cursor-pointer rounded-xl bg-gray-200 px-4 py-2 font-bold tracking-widest shadow transition duration-300 hover:shadow-md disabled:opacity-50 dark:bg-gray-800 dark:text-white"
           >
             {t("next")}
           </button>
           <button
-            className="cursor-pointer rounded-xl bg-gray-200 px-4 py-2 font-bold tracking-widest shadow dark:bg-gray-800 dark:text-white"
+            className="cursor-pointer rounded-xl bg-gray-200 px-4 py-2 font-bold tracking-widest shadow transition duration-300 hover:shadow-md dark:bg-gray-800 dark:text-white"
             onClick={skipPages}
           >
             {t("skip")}

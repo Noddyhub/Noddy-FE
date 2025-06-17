@@ -3,7 +3,7 @@ import KeyboardStyle from "@/components/VirtualImage/KeyboardStyle";
 
 export default function VirtualKeyboard({ name, handleButtonPress }) {
   return (
-    <div className="absolute right-0 z-100 mt-2 flex w-[40vh] items-center justify-center rounded-lg bg-gray-300 p-2 text-[1.2vh] font-semibold shadow dark:bg-gray-600">
+    <div className="absolute right-0 z-100 mt-2 flex w-[40vh] items-center justify-center rounded-lg bg-gray-300 p-2 text-[1.2vh] font-semibold shadow transition duration-300 dark:bg-gray-600">
       <div className="grid gap-1">
         {Object.entries(keyNameToKeyCode).map(([keysGroupName, keysList]) => (
           <KeyboardStyle
