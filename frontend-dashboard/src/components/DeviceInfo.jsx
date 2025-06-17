@@ -32,9 +32,9 @@ function AppInfo() {
 
   return (
     <div className="flex h-[12vh] w-[17vh] flex-col items-center justify-center rounded-2xl bg-gray-200 text-sm dark:bg-gray-800 dark:text-white">
-      <div className="flex h-[3vh] items-center text-lg font-bold">{t("runningTime")}</div>
+      <div className="flex h-[3vh] items-center text-sm font-bold">{t("runningTime")}</div>
       <div className="flex h-[6vh] flex-col justify-center">
-        <div className="flex flex-col items-center">{runningTime}</div>
+        <div className="flex flex-col items-center text-lg font-semibold">{runningTime}</div>
       </div>
     </div>
   );
