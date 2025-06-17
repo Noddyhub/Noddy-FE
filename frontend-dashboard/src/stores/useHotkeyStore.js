@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import useUserSetting from "../hooks/useUserSetting";
 
 export const useHotkeyStore = create((set) => ({
   assignedHotkeys: {

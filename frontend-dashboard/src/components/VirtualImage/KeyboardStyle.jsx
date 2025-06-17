@@ -6,7 +6,7 @@ import { useEffect } from "react";
 export default function KeyboardStyle({ KeyName, keys, values, name, defaultValue }) {
   const { sendMessage, clientId } = useSocket();
   const { assignedHotkeys, setAssignedHotkeys } = useHotkeyStore();
-  const { value, updateSetting } = useUserSetting(keyName, defaultValue);
+  // const { value, updateSetting } = useUserSetting(keyName, defaultValue);
 
   useEffect(() => {
     setAssignedHotkeys({ [keyName]: value });
