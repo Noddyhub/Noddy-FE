@@ -9,9 +9,7 @@ export default function KeyboardStyle({ KeyName, keys, values, name, defaultValu
   const { value, updateSetting } = useUserSetting(keyName, defaultValue);
 
   useEffect(() => {
-    if (value !== undefined && keyName) {
-      setAssignedHotkeys({ [keyName]: value });
-    }
+    setAssignedHotkeys({ [keyName]: value });
   }, []);
 
   const handleButtonPress = (key, value) => {
