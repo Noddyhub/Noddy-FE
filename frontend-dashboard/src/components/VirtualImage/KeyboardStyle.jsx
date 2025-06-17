@@ -1,13 +1,21 @@
 import useSocket from "@/hooks/useSocket";
 import { useHotkeyStore } from "@/stores/useHotkeyStore";
+import useUserSetting from "@/hooks/useUserSetting";
+import { useEffect } from "react";
 
-export default function KeyboardStyle({ keys, values, name }) {
+export default function KeyboardStyle({ KeyName, keys, values, name, defaultValue }) {
   const { sendMessage, clientId } = useSocket();
-  const { assignedHotkeys, setAssignedHotkeys } = useHotkeyStore();
+  const { value, updateSetting } = useUserSetting(KeyName, defaultValue);
+  const { setAssignedHotkeys, assignedHotkeys } = useHotkeyStore();
+
+  useEffect(() => {
+    setAssignedHotkeys((prev) => ({ ...prev, [KeyName]: value }));
+  }, []);
 
   const handleButtonPress = (key, value) => {
     const selectedHotkeyKeycode = value;
-    setAssignedHotkeys({ [name]: key });
+
+    updateSetting(key);
     sendMessage(JSON.stringify({ type: "hotkey", name, value: selectedHotkeyKeycode, clientId }));
   };
 
