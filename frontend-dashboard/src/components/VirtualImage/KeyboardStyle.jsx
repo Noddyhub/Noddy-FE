@@ -5,11 +5,13 @@ import { useEffect } from "react";
 
 export default function KeyboardStyle({ KeyName, keys, values, name, defaultValue }) {
   const { sendMessage, clientId } = useSocket();
-  const { value, updateSetting } = useUserSetting(KeyName, defaultValue);
-  const { setAssignedHotkeys, assignedHotkeys } = useHotkeyStore();
+  const { assignedHotkeys, setAssignedHotkeys } = useHotkeyStore();
+  const { value, updateSetting } = useUserSetting(keyName, defaultValue);
 
   useEffect(() => {
-    setAssignedHotkeys((prev) => ({ ...prev, [KeyName]: value }));
+    if (value !== undefined && keyName) {
+      setAssignedHotkeys({ [keyName]: value });
+    }
   }, []);
 
   const handleButtonPress = (key, value) => {
