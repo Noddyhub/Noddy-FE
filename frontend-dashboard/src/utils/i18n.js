@@ -26,7 +26,7 @@ const resources = {
       scroll: "Scroll",
       scrollSpeed: "Scroll Speed",
       scrollPause: "Pause Scroll",
-      macBattery: "battery",
+      macBattery: "Battery",
     },
   },
   ko: {
