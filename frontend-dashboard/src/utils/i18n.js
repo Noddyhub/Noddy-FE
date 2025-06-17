@@ -27,6 +27,7 @@ const resources = {
       scrollSpeed: "Scroll Speed",
       scrollPause: "Pause Scroll",
       macBattery: "Battery",
+      runningTime: "Running Time",
     },
   },
   ko: {
@@ -52,7 +53,8 @@ const resources = {
       scroll: "스크롤",
       scrollSpeed: "스크롤 속도",
       scrollPause: "스크롤 일시정지",
-      macBattery: "본체 배터리",
+      macBattery: "배터리",
+      runningTime: "앱 실행시간",
     },
   },
 };
