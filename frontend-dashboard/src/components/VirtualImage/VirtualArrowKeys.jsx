@@ -26,7 +26,7 @@ export default function VirtualArrowKeys() {
 
   return (
     <div className="absolute z-50">
-      <div className="grid h-40 w-40 grid-cols-3 grid-rows-3 gap-0.75">
+      <div className="grid h-40 w-40 grid-cols-3 grid-rows-3 gap-0.75 transition duration-300">
         <div></div>
         <div
           className={`-z-50 flex items-center justify-center rounded border-b-10 border-gray-600 bg-gray-300 text-xl font-bold text-black transition-all ${pressedKey === "ArrowUp" ? "translate-y-1 bg-gray-400 shadow-inner" : ""}`}

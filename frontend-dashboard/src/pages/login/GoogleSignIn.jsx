@@ -17,8 +17,8 @@ export default function GoogleSignIn() {
 
   return (
     <div className="flex h-screen flex-col items-center justify-center gap-5 dark:text-white">
-      <h2 className="text-2xl font-semibold">{t("signIn")}</h2>
-      <p className="text-gray-600 dark:text-gray-200">{t("signInInstruction")}</p>
+      <h2 className="text-2xl font-semibold transition duration-300">{t("signIn")}</h2>
+      <p className="text-gray-600 transition duration-300 dark:text-gray-200">{t("signInInstruction")}</p>
       <GoogleLoginButton />
     </div>
   );

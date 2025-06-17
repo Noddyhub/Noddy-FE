@@ -17,7 +17,7 @@ export default function ControlKey({ keyName, name, defaultValue }) {
 
   return (
     <div className="mb-2 flex w-[45vh] flex-row items-center justify-between rounded-2xl px-2">
-      <div className="mt-2 mb-2 ml-2 text-lg font-semibold dark:text-white">
+      <div className="mt-2 mb-2 ml-2 text-lg font-semibold transition duration-300 dark:text-white">
         {name} : <span className="font-bold">{value}</span>
       </div>
       <div>

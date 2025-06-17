@@ -45,7 +45,7 @@ export default function OAuthSuccessPage() {
         })();
       }
     } else {
-      // navigate("/");
+      navigate("/");
     }
   }, []);
 
@@ -57,11 +57,11 @@ export default function OAuthSuccessPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center text-center whitespace-pre-line dark:text-white">
+    <div className="flex flex-col items-center justify-center text-center whitespace-pre-line transition duration-300 dark:text-white">
       <p>{t("signInSuccess")}</p>
       <button
         onClick={handleAppLaunch}
-        className="dark:text-whit mt-4 cursor-pointer rounded-xl bg-gray-200 px-4 py-2 shadow transition duration-200 hover:shadow-md dark:bg-gray-800"
+        className="dark:text-whit mt-4 cursor-pointer rounded-xl bg-gray-200 px-4 py-2 font-semibold shadow transition duration-300 hover:shadow-md dark:bg-gray-800"
       >
         {t("signInSuccessButton")}
       </button>

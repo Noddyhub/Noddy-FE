@@ -7,7 +7,7 @@ export default function Body({ children }) {
 
   return (
     <>
-      <div className="mt-2 mb-2 flex justify-center text-2xl font-bold tracking-widest dark:text-white">
+      <div className="mt-2 mb-2 flex justify-center text-2xl font-bold tracking-widest transition duration-300 dark:text-white">
         {t(optionPage)}
       </div>
       <div className="m-2 flex h-[30vh] w-[50vh] flex-col items-center justify-start overflow-y-auto rounded-2xl">

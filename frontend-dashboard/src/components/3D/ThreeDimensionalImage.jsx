@@ -12,7 +12,7 @@ export default function ThreeDimensionalImage(props) {
       style={{
         background: isThemeDark ? "white" : "black",
       }}
-      className={`rounded-${rounded ? rounded : "2xl"}`}
+      className={`rounded-${rounded ? rounded : "2xl"} transition duration-300`}
     >
       <hemisphereLight args={["#ffffff", "#444444", 1.5]} position={[0, 20, 0]} />
       {model}
