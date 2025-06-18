@@ -9,11 +9,10 @@ export default function ControlKey({ keyName, name, defaultValue }) {
 
   useEffect(() => {
     setAssignedHotkeys({ [keyName]: value });
-  }, []);
+  }, [value]);
 
   const handleKeyValue = (key) => {
     updateSetting(key);
-    setAssignedHotkeys({ [keyName]: key });
   };
 
   return (
