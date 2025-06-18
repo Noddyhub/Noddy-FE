@@ -3,7 +3,7 @@ import Model3D from "@/components/3D/Model3D";
 import DeviceInfo from "@/components/DeviceInfo";
 
 export default function Footer() {
-  const VALUE_ROTATING_MODEL_FORWARD = 4.2;
+  const VALUE_ROTATING_MODEL_FORWARD = 3.65;
 
   return (
     <div className="mt-[2vh] flex w-[45vh] items-center justify-between rounded-2xl px-2">
