@@ -10,7 +10,9 @@ export default function Model3D(props) {
   const isThemeDark = useThemeStore((state) => state.isThemeDark);
   const { pitch, yaw } = useMovementStore();
   const { direction, modelTranslationY } = props;
-  const ROTATING_DIRECTION = direction === 4.2 ? 1 : -1;
+  const ROTATING_DIRECTION = direction === 3.65 ? 1 : -1;
+  const ROTATION_SCALE_X = 0.4;
+  const ROTATION_SCALE_Y = 1.0;
 
   useEffect(() => {
     scene.traverse((child) => {
@@ -22,8 +24,8 @@ export default function Model3D(props) {
 
   useFrame(() => {
     if (modelRef.current) {
-      modelRef.current.rotation.x = ROTATING_DIRECTION * (pitch - 0.5) * window.innerWidth * 0.0004;
-      modelRef.current.rotation.y = ROTATING_DIRECTION * (yaw - direction) * window.innerHeight * 0.001;
+      modelRef.current.rotation.x = ROTATING_DIRECTION * (pitch - 0.5) * ROTATION_SCALE_X;
+      modelRef.current.rotation.y = ROTATING_DIRECTION * (yaw - direction) * ROTATION_SCALE_Y;
     }
   });
 
