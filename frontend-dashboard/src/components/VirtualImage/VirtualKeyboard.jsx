@@ -8,6 +8,7 @@ export default function VirtualKeyboard({ name, handleButtonPress }) {
         {Object.entries(keyNameToKeyCode).map(([keysGroupName, keysList]) => (
           <KeyboardStyle
             keys={Object.keys(keysList)}
+            key={keysGroupName}
             values={Object.values(keysList)}
             name={name}
             handleButtonPress={handleButtonPress}
