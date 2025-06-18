@@ -33,6 +33,7 @@ const resources = {
       signInSuccess: "Sign in successful!\nTap the button below to proceed to the app.",
       signInSuccessButton: "Launch the app",
       runningTime: "Running Time",
+      download: "Download noddy",
     },
   },
   ko: {
@@ -65,6 +66,7 @@ const resources = {
       signInSuccess: "로그인 완료!\n앱으로 이동하려면 아래 버튼을 눌러주세요",
       signInSuccessButton: "앱 실행하기",
       runningTime: "앱 실행시간",
+      download: "noddy를 사용해보세요",
     },
   },
 };
