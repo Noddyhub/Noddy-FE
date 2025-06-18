@@ -2,9 +2,9 @@ import useSocket from "@/hooks/useSocket";
 import useUserSetting from "@/hooks/useUserSetting";
 
 export default function ControlSlider(props) {
-  const { KeyName, name, min, max, step, defaultValue } = props;
+  const { keyName, name, min, max, step, defaultValue } = props;
   const { sendMessage, clientId } = useSocket();
-  const { value, updateSetting } = useUserSetting(KeyName, defaultValue);
+  const { value, updateSetting } = useUserSetting(keyName, defaultValue);
 
   const handleSliderChange = (e) => {
     if (!clientId) return;
