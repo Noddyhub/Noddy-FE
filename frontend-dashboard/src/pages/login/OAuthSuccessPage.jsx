@@ -45,7 +45,7 @@ export default function OAuthSuccessPage() {
         })();
       }
     } else {
-      navigate("/");
+      navigate("/main");
     }
   }, []);
 
@@ -53,7 +53,7 @@ export default function OAuthSuccessPage() {
     const token = localStorage.getItem("token");
     if (!token) return;
 
-    navigate("/");
+    navigate("/main");
   };
 
   return (

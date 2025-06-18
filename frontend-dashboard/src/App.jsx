@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import InstructionPageLayout from "@/layouts/InstructionPageLayout";
 import OptionPageLayout from "@/layouts/OptionPage/OptionPageLayout";
@@ -24,7 +24,9 @@ export default function App() {
       <div className="absolute -z-100 h-[100vh] w-[50vh] bg-gray-50 transition duration-300 dark:bg-gray-700"></div>
       <ControlTheme />
       <Routes>
-        <Route path="/" element={<StartPageLayout />} />
+        <Route path="/" element={<Navigate to="/download" replace />} />
+        <Route path="/download" element={<AppDeploy />} />
+        <Route path="/main" element={<StartPageLayout />} />
         <Route path="/instruction-page" element={<InstructionPageLayout />}>
           <Route
             path="page-1"
@@ -60,7 +62,6 @@ export default function App() {
         <Route path="/option-page" element={<OptionPageLayout />} />
         <Route path="/oauth-success" element={<OAuthSuccessPage />} />
         <Route path="/oauth" element={<GoogleSignIn />} />
-        <Route path="/download" element={<AppDeploy />} />
       </Routes>
     </>
   );
