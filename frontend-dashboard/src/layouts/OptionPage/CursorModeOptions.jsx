@@ -9,7 +9,7 @@ export default function CursorModeOptions() {
     <>
       <ControlSlider
         name={t("cursorSensitivity")}
-        KeyName="cursorSensitivity"
+        keyName="cursorSensitivity"
         min={1}
         max={10}
         step={1}
@@ -17,20 +17,20 @@ export default function CursorModeOptions() {
       />
       <ControlSlider
         name={t("cursorReactionSpeed")}
-        KeyName="cursorReactionSpeed"
+        keyName="cursorReactionSpeed"
         min={1}
         max={10}
         step={1}
         defaultValue={5}
       />
-      <ControlKey KeyName="toggleMode" name={t("toggleMode")} defaultValue={"TAB"} />
-      <ControlKey KeyName="leftClick" name={t("leftClick")} defaultValue={"F9"} />
-      <ControlKey KeyName="rightClick" name={t("rightClick")} defaultValue={"F10"} />
-      <ControlKey KeyName="cursorPause" name={t("cursorPause")} defaultValue={"F11"} />
-      <ControlKey KeyName="cursorUp" name={t("cursorUp")} defaultValue={"↑"} />
-      <ControlKey KeyName="cursorDown" name={t("cursorDown")} defaultValue={"↓"} />
-      <ControlKey KeyName="cursorLeft" name={t("cursorLeft")} defaultValue={"←"} />
-      <ControlKey KeyName="cursorRight" name={t("cursorRight")} defaultValue={"→"} />
+      <ControlKey keyName="toggleMode" name={t("toggleMode")} defaultValue={"TAB"} />
+      <ControlKey keyName="leftClick" name={t("leftClick")} defaultValue={"F9"} />
+      <ControlKey keyName="rightClick" name={t("rightClick")} defaultValue={"F10"} />
+      <ControlKey keyName="cursorPause" name={t("cursorPause")} defaultValue={"F11"} />
+      <ControlKey keyName="cursorUp" name={t("cursorUp")} defaultValue={"↑"} />
+      <ControlKey keyName="cursorDown" name={t("cursorDown")} defaultValue={"↓"} />
+      <ControlKey keyName="cursorLeft" name={t("cursorLeft")} defaultValue={"←"} />
+      <ControlKey keyName="cursorRight" name={t("cursorRight")} defaultValue={"→"} />
     </>
   );
 }

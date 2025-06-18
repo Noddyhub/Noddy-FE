@@ -7,8 +7,8 @@ export default function SliderModeOptions() {
 
   return (
     <>
-      <ControlSlider KeyName="scrollSpeed" name={t("scrollSpeed")} min={50} max={550} step={10} defaultValue={300} />
-      <ControlKey KeyName="scrollPause" name={t("scrollPause")} />
+      <ControlSlider keyName="scrollSpeed" name={t("scrollSpeed")} min={50} max={550} step={10} defaultValue={300} />
+      <ControlKey keyName="scrollPause" name={t("scrollPause")} />
     </>
   );
 }
