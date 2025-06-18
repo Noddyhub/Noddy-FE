@@ -16,7 +16,7 @@ export default function useUserSetting(key, defaultValue) {
           setValue(data[key]);
         }
       } catch (err) {
-        console.error("설정 불러오기 실피", err);
+        console.error("설정 불러오기 실패", err);
       }
     };
 
@@ -25,6 +25,7 @@ export default function useUserSetting(key, defaultValue) {
 
   const updateSetting = async (newValue) => {
     setValue(newValue);
+
     if (!email || !key) return;
     try {
       await fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/settings`, {
@@ -41,5 +42,5 @@ export default function useUserSetting(key, defaultValue) {
     }
   };
 
-  return [value, updateSetting];
+  return { value, updateSetting };
 }
