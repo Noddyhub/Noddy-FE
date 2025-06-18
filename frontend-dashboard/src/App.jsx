@@ -10,6 +10,7 @@ import VirtualWindow from "@/components/VirtualImage/VirtualWindow";
 import VirtualArrowKeys from "@/components/VirtualImage/VirtualArrowKeys";
 import GoogleSignIn from "@/pages/login/GoogleSignIn";
 import OAuthSuccessPage from "@/pages/login/OAuthSuccessPage";
+import AppDeploy from "@/pages/deploy/AppDeploy";
 import "@/utils/i18n";
 
 export default function App() {
@@ -59,6 +60,7 @@ export default function App() {
         <Route path="/option-page" element={<OptionPageLayout />} />
         <Route path="/oauth-success" element={<OAuthSuccessPage />} />
         <Route path="/oauth" element={<GoogleSignIn />} />
+        <Route path="/download" element={<AppDeploy />} />
       </Routes>
     </>
   );
