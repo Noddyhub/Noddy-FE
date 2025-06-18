@@ -10,7 +10,7 @@ export default function Model3D(props) {
   const isThemeDark = useThemeStore((state) => state.isThemeDark);
   const { pitch, yaw } = useMovementStore();
   const { direction, modelTranslationY } = props;
-  const rotatingDirection = direction === 3.8 ? 1 : -1;
+  const rotatingDirection = direction === 4.2 ? 1 : -1;
 
   useEffect(() => {
     scene.traverse((child) => {
