@@ -1,17 +1,7 @@
 import { create } from "zustand";
-import useUserSetting from "../hooks/useUserSetting";
 
 export const useHotkeyStore = create((set) => ({
-  assignedHotkeys: {
-    toggleMode: "TAB",
-    leftClick: "F9",
-    rightClick: "F10",
-    cursorPause: "F11",
-    cursorUp: "↑",
-    cursorDown: "↓",
-    cursorLeft: "←",
-    cursorRight: "→",
-  },
+  assignedHotkeys: {},
 
   setAssignedHotkeys: (newHotkey) =>
     set((state) => {

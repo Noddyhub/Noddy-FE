@@ -1,11 +1,19 @@
+import { useEffect } from "react";
+import { useHotkeyStore } from "@/stores/useHotkeyStore";
 import OptionsList from "@/components/Control/OptionsList";
 import { useHotkeyStore } from "@/stores/useHotkeyStore";
 
 export default function ControlKey({ keyName, name, defaultValue }) {
   const { value, updateSetting } = useUserSetting(keyName, defaultValue);
+  const setAssignedHotkeys = useHotkeyStore((state) => state.setAssignedHotkeys);
+
+  useEffect(() => {
+    setAssignedHotkeys({ [keyName]: value });
+  }, []);
 
   const handleKeyValue = (key) => {
     updateSetting(key);
+    setAssignedHotkeys({ [keyName]: key });
   };
 
   return (
