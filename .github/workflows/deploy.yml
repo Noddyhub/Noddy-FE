@@ -3,7 +3,7 @@ name: Deploy React App to S3 + CloudFront
 on:
   push:
     branches:
-      - develop
+      - main
 
 jobs:
   deploy:
@@ -19,26 +19,21 @@ jobs:
           node-version: 22.11.0
 
       - name: Create .env.production fileAdd commentMore actions
-        working-directory: frontend-dashboard
         run: |
           echo "VITE_API_ENDPOINT=${{ secrets.VITE_API_ENDPOINT }}" > .env.production
           echo "VITE_SOCKET_ENDPOINT=${{ secrets.VITE_SOCKET_ENDPOINT }}" >> .env.production
           echo "VITE_SERVICE_DMG_URL=${{ secrets.VITE_SERVICE_DMG_URL }}" >> .env.production
 
       - name: Show .env.production contents
-        working-directory: frontend-dashboard
         run: cat .env.production
 
       - name: Install dependencies
-        working-directory: frontend-dashboard
         run: npm ci
 
       - name: Build React app
-        working-directory: frontend-dashboard
         run: npm run build
 
       - name: ✅ Check API endpoint in build output
-        working-directory: frontend-dashboard
         run: |
           echo "VITE_API_ENDPOINT=${{ secrets.VITE_API_ENDPOINT }}" > .env.production
           echo "VITE_SOCKET_ENDPOINT=${{ secrets.VITE_SOCKET_ENDPOINT }}" >> .env.production
@@ -52,7 +47,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
-          SOURCE_DIR: frontend-dashboard/dist
+          SOURCE_DIR: dist
 
       - name: Invalidate CloudFront cache
         uses: chetan/invalidate-cloudfront-action@v2

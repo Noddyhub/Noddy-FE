@@ -21,11 +21,9 @@ export default function useSocket() {
 
       socket.onopen = () => {
         socket.send(JSON.stringify({ type: "register-react", clientId }));
-        console.log("✅ React 클라이언트 ID 전송:", clientId);
       };
 
       socket.onmessage = (event) => {
-        console.log("데이터 수신됨: ", event.data);
         try {
           const message = JSON.parse(event.data);
           setPitch(message.pitch);
@@ -34,16 +32,8 @@ export default function useSocket() {
           setAirPodsName(message.name);
           setRunningTime(message.time);
         } catch (e) {
-          console.warn("❗데이터 타입이 JSON이 아닙니다.", event.data);
           return;
         }
-      };
-
-      socket.onerror = (err) => {
-        console.error("WebSocket 에러:", err);
-      };
-      socket.onclose = () => {
-        console.log("WebSocket 연결 종료");
       };
     };
 
@@ -54,10 +44,7 @@ export default function useSocket() {
 
   const sendMessage = (message) => {
     if (socketRef.current && socketRef.current.readyState === WebSocket.OPEN) {
-      console.log(message);
       socketRef.current.send(message);
-    } else {
-      console.warn("⚠️ WebSocket이 아직 열리지 않았습니다.");
     }
   };
 

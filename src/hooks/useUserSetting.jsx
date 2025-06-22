@@ -8,15 +8,11 @@ export default function useUserSetting(key, defaultValue) {
     if (!email || !key) return;
 
     const fetchSetting = async () => {
-      try {
-        const res = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/settings?email=${email}`);
-        const data = await res.json();
+      const res = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/settings?email=${email}`);
+      const data = await res.json();
 
-        if (data && data[key] !== undefined) {
-          setValue(data[key]);
-        }
-      } catch (err) {
-        console.error("설정 불러오기 실패", err);
+      if (data && data[key] !== undefined) {
+        setValue(data[key]);
       }
     };
 
@@ -27,19 +23,16 @@ export default function useUserSetting(key, defaultValue) {
     setValue(newValue);
 
     if (!email || !key) return;
-    try {
-      await fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/settings`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          key,
-          value: newValue,
-        }),
-      });
-    } catch (err) {
-      console.error("설정 저장 실패: ", err);
-    }
+
+    await fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/settings`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email,
+        key,
+        value: newValue,
+      }),
+    });
   };
 
   return { value, updateSetting };

@@ -17,30 +17,25 @@ export default function OAuthSuccessPage() {
       const name = user.name;
       const email = user.email;
       localStorage.setItem("email", email);
-      console.log("✅ 로그인한 사용자:", user);
 
       const callbackId = localStorage.getItem("callbackId");
       if (callbackId) {
         (async () => {
-          try {
-            const res = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/token`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                callbackId,
-                token,
-                name,
-                email,
-              }),
-            });
+          const res = await fetch(`${import.meta.env.VITE_API_ENDPOINT}/api/token`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              callbackId,
+              token,
+              name,
+              email,
+            }),
+          });
 
-            if (!res.ok) {
-              throw new Error("❌ 서버 응답 실패");
-            }
-          } catch (err) {
-            console.error("❌ 서버에 토큰 전달 실패:", err);
+          if (!res.ok) {
+            throw new Error("서버 응답 실패");
           }
         })();
       }

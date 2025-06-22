@@ -11,7 +11,6 @@ export default function GoogleSignIn() {
 
     if (callbackId) {
       localStorage.setItem("callbackId", callbackId);
-      console.log("✅ callbackId 저장됨:", callbackId);
     }
   }, []);
 
