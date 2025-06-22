@@ -7,11 +7,7 @@ export default function AppDeploy() {
   return (
     <div className="flex h-screen flex-col items-center justify-center gap-5 dark:text-white">
       <button>
-        <a
-          href="https://noddy-app.s3.ap-northeast-2.amazonaws.com/Noddy.dmg"
-          className="flex items-center justify-center"
-          download
-        >
+        <a href={import.meta.env.VITE_SERVICE_DMG_URL} className="flex items-center justify-center" download>
           <img src={logoImg} className="w-[20%]" alt="LogoImg" />
         </a>
       </button>
