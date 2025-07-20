@@ -47,7 +47,7 @@
 
 ## 1. 머리 움직임을 어떻게 컴퓨터 커서 움직임으로 바꿀까?
 
-### 1.1 `CMHeadphoneMotionManager`는 어떤 데이터를 활용한 자이로스코프 데이터 추출
+### 1.1 `CMHeadphoneMotionManager`를 활용한 자이로스코프 데이터 추출
 
 `CMHeadphoneMotionManager`는 에어팟을 착용한 사용자의 머리 움직임을 측정할 수 있는 Swift 언어 내 Core Motion API로 에어팟에 내장된 자이로스코프와 가속도계 센서를 활용한 데이터를 제공합니다.
 
@@ -76,13 +76,13 @@ attitude.yaw     // -1.5707963267948966
 attitude.roll    // 0.987654321
 ```
 
-### 1.3 커서의 노이즈 처리를 위한 필터링 작업
+## 2. 커서의 노이즈 처리를 위한 필터링 작업
 
 위와 같이 필터링되지 않은 `pitch`와 `yaw` 값은 사용자의 의도와 무관한 작은 떨림이나 움직임까지도 데이터로 수집하여 커서가 불안정하게 흔들리거나 튀는 현상을 발생시킵니다. 이는 사용자 입장에서 원하지 않는 상황에서도 커서가 계속해서 움직이고, 정확한 조작이 어렵기 만들기 때문에 서비스와 사용자 간의 인터랙션을 저하시킬 수 있는 요인이었습니다.
 
 저희는 위 문제를 해결하기 위해, 다음과 같은 단계를 거쳐 머리 움직임을 부드럽고 자연스럽게 화면 좌표에 대응하도록 설계했습니다:
 
-### 2-1 센서 값 필터링
+### 2.1 센서 값 필터링
 
 ```swift
 filteredPitch = filteredPitch + filterAlpha * (pitch - filteredPitch)
@@ -93,7 +93,7 @@ filteredYaw = filteredYaw + filterAlpha * (yaw - filteredYaw)
   갑작스러운 움직임이나 노이즈 완화
 - `filterAlpha` 값으로 필터의 민감도를 조절
 
-### 2-2 움직임 임계값(데드존) 설정
+### 2.2 움직임 임계값(데드존) 설정
 
 ```swift
 let movementThreshold = 0.0088
@@ -104,7 +104,7 @@ let finalYaw = abs(filteredYaw) < movementThreshold ? 0 : filteredYaw
 - 작은 움직임을 무시해 커서가 사소하게 흔들리지 않도록 함
 - 사용자가 실제로 "머리를 움직였다" 싶은 수준 이상에서만 커서가 움직이도록 설정(QA 테스트를 진행하여 임의의 값 설정)
 
-### 2-3 좌표계 정규화
+### 2.3 좌표계 정규화
 
 ```swift
 let normalizePi: Double = .pi / cursorSensitivity
@@ -117,7 +117,7 @@ let normalizedYaw = ((finalYaw) + normalizePi) / (2 * normalizePi) + yawOffset
 - 초기 기준값 보정을 위해 `pitchOffset`, `yawOffset`을 더함
 - (사용자가 화면 정중앙을 바라볼 때 커서가 화면 중앙 (0,0)에 위치)
 
-### 2-4 화면 해상도에 맞춰 매핑
+### 2.4 화면 해상도에 맞춰 매핑
 
 ```swift
 let mappedX = screenWidth * CGFloat(normalizedYaw)
@@ -128,7 +128,7 @@ let mappedY = screenHeight * (1 - CGFloat(normalizedPitch))
 - `pitch`는 화면의 Y축, `yaw`는 X축에 대응
 - 화면 해상도(`screenWidth`, `screenHeight`)에 따라 자동으로 맞춰짐
 
-### 2-5 결과
+### 2.5 결과
 
 이 과정을 통해:
 
@@ -204,7 +204,7 @@ static func simulateDragWhileMouseDown(duration: TimeInterval = 1.0, interval: T
 
 ---
 
-### 2-1 구현 개요
+### 2.1 구현 개요
 
 | 파일명                        | 역할                                                    |
 | :---------------------------- | :------------------------------------------------------ |
@@ -216,7 +216,7 @@ static func simulateDragWhileMouseDown(duration: TimeInterval = 1.0, interval: T
 
 ---
 
-### 2-2 사용자 경험 측면의 기능
+### 2.2 사용자 경험 측면의 기능
 
 - 사용자가 머리를 어느 방향으로 움직이면 커서가 어떻게 이동하는지
   → 실시간으로 3D 가이드 모델을 통해 시각화
@@ -226,7 +226,7 @@ static func simulateDragWhileMouseDown(duration: TimeInterval = 1.0, interval: T
 
 ---
 
-### 2-3 사용자 입장에서의 장점
+### 2.3 사용자 입장에서의 장점
 
 - 머리 움직임과 화면 커서 사이의 매핑을 쉽게 이해
 - 민감도·조작 모드를 바꿔가며 즉시 체감 가능
@@ -234,7 +234,7 @@ static func simulateDragWhileMouseDown(duration: TimeInterval = 1.0, interval: T
 
 ---
 
-### 2-4 추가 구현 디테일
+### 2.4 추가 구현 디테일
 
 - GLTF / GLB 형식의 경량 3D 모델 로드
 - React 상태 관리 라이브러리와 연동 → 민감도, 모드 변경 시 실시간 렌더
@@ -242,7 +242,7 @@ static func simulateDragWhileMouseDown(duration: TimeInterval = 1.0, interval: T
 
 ---
 
-### 2-5 코드
+### 2.5 코드
 
 ```jsx
 // ThreeDimensionalImage.jsx
@@ -283,9 +283,9 @@ export default function Model3D() {
 - 머리 움직임에서 얻은 `pitch`, `yaw` 값을 전역 상태(`useMotionStore`)에 저장
 - 3D 모델의 `rotation` props에 적용 → 실시간으로 가이드 모델이 사용자 머리 움직임과 동기화
 
-## 2. 스크롤 모드 구현
+## 3. 스크롤 모드 구현
 
-### 2.1 문제점: 문서 탐색의 불편함
+### 3.1 문제점: 문서 탐색의 불편함
 
 에어팟 기반의 커서 제어 시스템을 구현하는 과정에서, 단순한 커서 이동 만으로 웹 페이지나 긴 문서를 편리하게 탐색하기 어렵다는 문제를 발견했습니다.
 
@@ -294,7 +294,7 @@ export default function Model3D() {
 이 과정은 머리 움직임만으로 정밀하게 커서를 조작해야 하기 때문에 시간이 오래 걸리고, 원하는 위치에 커서를 정확히 위치시키기 어려우며,
 한 번의 스크롤로 충분하지 않을 경우 여러 번 고개를 움직여야 하는 불편함이 따릅니다.
 
-### 2.2 해결 방법: 고개 각도 기반 속도 조절 + 스크롤 모드 분리
+### 3.2 해결 방법: 고개 각도 기반 속도 조절 + 스크롤 모드 분리
 
 <스크롤 전용 모드 분리>
 앞서 언급한 문제점을 해결하기 위해 커서 이동과 스크롤 기능을 명확하게 분리하는 구조로 시스템을 재설계하였습니다.
@@ -312,7 +312,7 @@ export default function Model3D() {
 이 방식은 사용자가 페이지를 빠르게 훓어보고 싶을 때와, 내용을 천천히 읽고 싶을 때를 구분해 정확하게 사용자의 의도를 반영할 수 있도록 도와줍니다.
 또한, 속도가 정해진 것이 아니라 실시간으로 사용자 움직임에 반응하므로, 더욱 직관적이고 몰입감 있는 스크롤 경험을 제공할 수 있게 되었습니다.
 
-## 3. 다국어 지원
+## 4. 다국어 지원
 
 모든 UI 텍스트가 고정된 한국어로 작성되어 있어, 비한국어권 사용자들이 서비스를 사용하는 데 어려움이 있었습니다. 특히 브라우저 언어 설정이 영어인 사용자들이 처음 페이지를 접했을 때, 자연스럽게 이해하기 어려운 불편함이 있었습니다.
 
@@ -358,8 +358,6 @@ export default i18n;
 # 💥 트러블 슈팅
 
 # ⚒️ 리팩토링
-
-## TypeScript 적용
 
 # 🎯 기능
 
