@@ -73,7 +73,6 @@
 ```swift
 attitude.pitch   // 0.123456789012345
 attitude.yaw     // -1.5707963267948966
-attitude.roll    // 0.987654321
 ```
 
 ## 2. 커서의 노이즈 처리를 위한 필터링 작업
@@ -158,14 +157,14 @@ let mappedY = screenHeight * (1 - CGFloat(normalizedPitch))
 
 ---
 
-### 구현 방식 요약
+### 1.1 구현 방식
 
 - Quartz API의 `CGEvent` 로 마우스 클릭/드래그 이벤트 생성
 - `clickCount` 와 `NSEvent.doubleClickInterval` 로 더블클릭 감지
 - 드래그는 `leftMouseDown` 이후 일정 간격으로 `leftMouseDragged` 이벤트 발생
 - Space, Shift, Esc, +, - 등의 전역 단축키로 기능 제어
 
-### 코드
+### 1.2 코드
 
 ```swift
 static func leftMouseDownAtCursor() {
@@ -202,8 +201,6 @@ static func simulateDragWhileMouseDown(duration: TimeInterval = 1.0, interval: T
 머리 움직임 기반 커서 조작을 처음 접하는 사용자들이 더 빠르고 직관적으로 이해할 수 있도록,
 **three.js 기반의 3D 가이드 모델**을 제공합니다.
 
----
-
 ### 2.1 구현 개요
 
 | 파일명                        | 역할                                                    |
@@ -214,8 +211,6 @@ static func simulateDragWhileMouseDown(duration: TimeInterval = 1.0, interval: T
 - `@react-three/fiber`, `@react-three/drei` 등 three.js 생태계 라이브러리 사용
 - React 컴포넌트 구조로 손쉽게 상태 관리 및 UI와 연동
 
----
-
 ### 2.2 사용자 경험 측면의 기능
 
 - 사용자가 머리를 어느 방향으로 움직이면 커서가 어떻게 이동하는지
@@ -224,23 +219,17 @@ static func simulateDragWhileMouseDown(duration: TimeInterval = 1.0, interval: T
 - 민감도 설정 변경 시 3D 가이드 모델도 즉시 반응 → 사용자가 체감 가능
 - 가이드 모델을 회전/확대·축소할 수 있어, 다양한 각도에서 확인 가능
 
----
-
 ### 2.3 사용자 입장에서의 장점
 
 - 머리 움직임과 화면 커서 사이의 매핑을 쉽게 이해
 - 민감도·조작 모드를 바꿔가며 즉시 체감 가능
 - 초보자도 빠르게 적응 가능, 진입장벽 감소
 
----
-
 ### 2.4 추가 구현 디테일
 
 - GLTF / GLB 형식의 경량 3D 모델 로드
 - React 상태 관리 라이브러리와 연동 → 민감도, 모드 변경 시 실시간 렌더
 - 다크 모드·라이트 모드 테마와도 연동
-
----
 
 ### 2.5 코드
 
@@ -309,18 +298,26 @@ export default function Model3D() {
 - 고개를 살짝 숙이면 -> 페이지가 천천히 스크롤되고
 - 고개를 크게 숙이면 -> 패아자거 뻐루개 스크롤되는 구조입니다.
 
-이 방식은 사용자가 페이지를 빠르게 훓어보고 싶을 때와, 내용을 천천히 읽고 싶을 때를 구분해 정확하게 사용자의 의도를 반영할 수 있도록 도와줍니다.
+### 3.3 결과
+
+위 방식은 사용자가 페이지를 빠르게 훓어보고 싶을 때와, 내용을 천천히 읽고 싶을 때를 구분해 정확하게 사용자의 의도를 반영할 수 있도록 도와줍니다.
 또한, 속도가 정해진 것이 아니라 실시간으로 사용자 움직임에 반응하므로, 더욱 직관적이고 몰입감 있는 스크롤 경험을 제공할 수 있게 되었습니다.
 
 ## 4. 다국어 지원
 
+### 4.1 문제점: 제한적인 언어 지원
+
 모든 UI 텍스트가 고정된 한국어로 작성되어 있어, 비한국어권 사용자들이 서비스를 사용하는 데 어려움이 있었습니다. 특히 브라우저 언어 설정이 영어인 사용자들이 처음 페이지를 접했을 때, 자연스럽게 이해하기 어려운 불편함이 있었습니다.
+
+### 4.2 해결 방법: 브라우저 사용자 언어 설정 인식
 
 이 문제를 해결하기 위해 브라우저의 navigator.language 객체를 활용하여 사용자의 현재 브라우저 언어를 기준으로 서비스를 제공할 수 있도록 다국어 지원 기능을 도입했습니다. i18next, react-i18next, 그리고 i18next-browser-languagedetector 라이브러리를 사용하여 사용자의 브라우저 언어를 자동으로 감지하고, 해당 언어에 맞는 UI 텍스트를 동적으로 적용하도록 구성했습니다.
 
 그 결과, 사용자는 별도의 설정 없이도 자신의 브라우저 언어에 맞는 UI를 즉시 확인할 수 있게 되었고, 보다 자연스럽고 직관적인 사용자 경험을 제공할 수 있게 되었습니다.
 
-```
+### 4.3 코드
+
+```jsx
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
@@ -348,6 +345,7 @@ i18n
 export default i18n;
 ```
 
+### 4.4 결과
 단순히 navigator.language만 사용하는 경우, 언어 감지는 가능하지만 매끄러운 언어 리소스 관리나 번역 적용 등이 어려웠습니다.
 감지된 언어에 따라 UI 텍스트를 바꾸려면, 각 컴포넌트마다 조건문(if, switch)을 직접 써야 했고 사용자의 언어가 바뀌어도 컴포넌트가 자동으로 UI를 갱신해주지 않기 때문에 직접 리렌더링을 트리거하여야 했습니다. 따라서, i18next, react-i18next, i18next-browser-languagedetector 등의 라이브러리를 함께 사용하였으며 다음과 같은 이점을 얻을 수 있었습니다.
 
