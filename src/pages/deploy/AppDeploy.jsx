@@ -1,4 +1,4 @@
-import logoImg from "../../../public/noddyLogo.png";
+import logoImg from "../../../public/Noddy-logo.png";
 import { useTranslation } from "react-i18next";
 
 export default function AppDeploy() {

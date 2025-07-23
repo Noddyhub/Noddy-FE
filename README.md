@@ -1,6 +1,6 @@
 # Noddy
 
-![Noddy Main Image](/public/noddyMainImage.png)
+![Noddy Main Image](/public/Noddy-main-image.png)
 
 **Noddy**는 AirPods의 모션 센서를 활용해, 머리 움직임만으로도 Mac에서 마우스 커서를 자연스럽게 제어할 수 있도록 만든 앱입니다.
 단축키로 클릭·드래그 같은 마우스 기능을 수행하고, 웹 대시보드에서 민감도·조작 모드 같은 설정을 실시간으로 변경할 수 있습니다.
@@ -48,6 +48,19 @@
 
 # 📖 프리뷰
 
+### 🎥 에어팟과 머리의 움직임을 통한 커서 조작 영상
+
+<video controls src="public/Noddy-demo-video.mov" title="Title"></video>
+
+### 📸 웹페이지 스크린샷
+
+![alt preview-1](public/Noddy-preview-1.jpeg)
+![alt preview-2](public/Noddy-preview-2.jpeg)
+
+### 📸 앱 툴바 스크린샷
+
+![alt preview-3](public/Noddy-preview-3.jpeg)
+
 # 💻 개발
 
 ## 1. 머리 움직임을 어떻게 컴퓨터 커서 움직임으로 바꿀까?
@@ -59,7 +72,9 @@
 자이로스코프는 3축(x, y, z) 방향의 회전율(angular velocity) 을 측정할 수 있으며,
 이를 통해 사용자가 고개를 어느 방향으로 얼마나 빠르게 움직이고 있는지를 실시간으로 파악할 수 있습니다.
 
-해당 API가 제공하는 주요 데이터로는:
+<video controls src="public/Noddy-motion-data.mov"></video>
+
+해당 API가 제공하는 데이터 중 주요 데이터로는:
 
 - `roll`: 좌우 기울기
 - `pitch`: 상하 기울기
@@ -134,16 +149,19 @@ let mappedY = screenHeight * (1 - CGFloat(normalizedPitch))
 
 ### 2.5 결과
 
-이 과정을 통해:
+<video controls src="public/Noddy-coordinate.mov"></video>
+
+위 과정을 통해 다음과 같은 성능 및 사용자 경험 최적화를 이루었습니다:
 
 - 사용자가 화면의 정중앙을 바라볼 때 커서가 화면 중앙에 위치
 - 머리를 좌우로 돌리면 `yaw`가 변해 커서가 X축으로 이동
 - 머리를 위아래로 움직이면 `pitch`가 변해 커서가 Y축으로 이동
+- **Low-pass filter** 적용으로 커서가 노이즈에 흔들리거나 튀는 현상을 최소화
+- **데드존** 설정으로 사용자가 의도하지 않은 작은 움직임을 무시 → 커서의 안정성 확보
+- 필요한 값만 실시간 계산하고, 불필요한 연산을 제거 → CPU 사용량과 지연(latency) 감소
 - 너무 작은 움직임은 무시, 빠른 움직임은 부드럽게 처리
 
 결과적으로, 머리 움직임만으로도 자연스럽고 직관적으로 커서를 조작할 수 있게 되었습니다.
-
-# 🚀 최적화
 
 # 👌 사용자 경험
 
@@ -455,6 +473,34 @@ static func simulateDragWhileMouseDown(
 - 기존 JavaScript 코드의 동작을 유지하면서 점진적으로 타입을 적용
 - 먼저 핵심 컴포넌트와 상태 관리(store)부터 타입 적용 시작
 - 이후 유틸 함수, 훅, 전역 설정 등으로 점차 확대
+
+## 2. 전역 상태 관리
+
+프로젝트 초기에는 각 컴포넌트 내부에서 `useState`를 사용해 상태를 관리했습니다.
+하지만 개발이 진행되면서 여러 컴포넌트 간에 같은 데이터를 공유해야 하고, 구조가 복잡해지면서
+props drilling, 불필요한 리렌더링, 예기치 못한 버그 등이 발생했습니다.
+
+### 2.1 전역 상태와 지역 상태 분리
+
+이 문제를 해결하기 위해 전역적으로 필요한 상태와, 컴포넌트 내부에서만 필요한 지역 상태를 분리했습니다.
+모든 상태를 전역으로 관리하면 유지보수성이 떨어질 수 있으므로, **기능별로 별도의 store 파일**을 만들어 관리했습니다.
+
+### 2.2 어떤 데이터를 전역 상태로 관리했는가?
+
+- 여러 컴포넌트에서 동시에 구독·사용해야 하는 상태 (예: pitch, yaw 같은 센서 데이터)
+- props drilling이 발생했던 설정 값들 (민감도, 모드 등)
+
+### 2.3 구조화 과정
+
+- 기능별로 store 파일을 분리 (`useMotionStore`, `useSettingsStore` 등)
+- 컴포넌트에서 직접 필요한 전역 상태만 구독 → 불필요한 리렌더링 방지
+- 전역 상태 변경 시, 웹 대시보드나 3D 가이드 모델 등에서도 즉시 반영되도록 설계
+
+### 2.4 결과
+
+- 코드 가독성과 유지보수성 향상
+- props drilling 제거
+- 상태 변경이 실시간으로 UI에 반영 → 사용자 경험 개선
 
 # 🎯 기능
 
