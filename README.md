@@ -163,6 +163,46 @@ let mappedY = screenHeight * (1 - CGFloat(normalizedPitch))
 
 결과적으로, 머리 움직임만으로도 자연스럽고 직관적으로 커서를 조작할 수 있게 되었습니다.
 
+## 3. 커서 데이터 조작을 위한 웹 대시보드 개발
+
+AirPods의 모션 데이터를 활용해 커서를 조작하는 시스템은 각 사용자마다 고유한 움직임 습관(고개 각도, 반응 속도 등)을 반영할 수 있어야 한다고 판단하였습니다.
+기본 설정만으로는 사용자마다 커서가 너무 빠르거나, 느리거나, 혹은 데드존 영역이 적절하지 않다고 느낄 수 있었고, 이러한 문제는 정적인 설정값만으로 해결하기 어렵다는 한계가 있었습니다.
+따라서 사용자가 직접 민감도와 데드존, 기준 각도 등을 실시간으로 조정하고 결과를 즉시 확인할 수 있는 대시보드의 필요성을 느꼈으며 이를 위해 웹 기반 대시보드를 도입하게 되었습니다.
+
+### 3.1 왜 웹 대시보드였나
+
+- 즉시 접근성
+  사용자는 별도의 앱 설치 과정 없이, 웹 브라우저를 통해 즉시 대시보드에 접근할 수 있습니다.
+  Swift 앱은 백그라운드에서 실행된 상태로 유지되며, 사용자는 브라우저를 통해 민감도, 데드존, 기준 각도 등의 설정을 실시간으로 조정할 수 있습니다.
+  이러한 구조는 복잡한 설정 변경 과정 없이 직관적이고 유연한 사용자 경험을 제공하며, 전체 서비스와 접근성과 활용도를 향상시키기 위함입니다.
+
+### 3.2 Swift에서 수집한 Motion 데이터를 웹에서 조작하기
+
+브라우저에서 즉시 Motion 데이터(pitch, yaw)를 조작하기 위해서는, Swift 앱에서 수집한 모션 데이터 값을 실시간으로 수정하거나 제어할 수 있어야 합니다.
+이를 위해 WebSocket 기반의 양방향 통신 구조를 도입하여, Swift 앱에서 수집한 모션 데이터를 웹 대시보드로 실시간 전송하고, 반대로 대시보드에서 조작한 설정값은 다시 Swift 앱에 즉시 반영되도록 구현하였습니다.
+
+각 플랫폼 혹은 서버의 역할은 아래와 같습니다.
+
+<Swift 앱>
+
+- CMHeadphoneMotionManager를 통해 AirPods의 pitch, yaw 데이터를 실시간 수집
+- WebSocket 통신은 Swift의 WebSocket 클라이언트 API인 URLSessionWebSocketTask 기반으로 구현
+- 수집된 데이터를 JSON 포맷으로 가공하여 WebSocket 클라이언트를 통해 서버로 전송
+- 웹으로 부터 수신된 명령(예: 커서 감도 변경, 모드 전환 등)은 macOS에서 로컬 커서 이동, 스크롤 등으로 즉시 반영
+
+<WebSocket Server(AWS EC2)>
+
+- AWS EC2 인스턴스에 WebSocket 서버(Node.js 기반) 별도 구축
+- 클라이언트(Swift 또는 React) 연결을 관리하며, 수신 메시지를 구분/브로드캐스트
+- Swift에서 수신한 모션 데이터를 React 대시보드로 전파
+- React에서 설정값 변경 시, 이를 Swift 앱으로 전송하여 동작 제어
+
+<웹 대시보드>
+
+- useSocket 커스텀 훅을 통해 WebSocket 서버에 연결
+- Swift 앱에서 전송된 모션 데이터를 수신하여 실시간으로 커서 조작에 반영
+- 사용자가 대시보드에서 설정값(커서 민감도, 스크롤 모드 변환 등)을 조정하면 WebSocket을 통해 서버로 전송 → 서버에서 Swift 앱으로 전달되어 즉시 반영됨
+
 # 👌 사용자 경험
 
 ## 1. 키보드 단축키를 활용한 마우스 기능 제공
@@ -334,11 +374,7 @@ export default function Model3D() {
 
 ### 4.2 해결 방법: 브라우저 사용자 언어 설정 인식
 
-이 문제를 해결하기 위해 브라우저의 navigator.language 객체를 활용하여 사용자의 현재 브라우저 언어를 기준으로 서비스를 제공할 수 있도록 다국어 지원 기능을 도입했습니다. i18next, react-i18next, 그리고 i18next-browser-languagedetector 라이브러리를 사용하여 사용자의 브라우저 언어를 자동으로 감지하고, 해당 언어에 맞는 UI 텍스트를 동적으로 적용하도록 구성했습니다.
-
-그 결과, 사용자는 별도의 설정 없이도 자신의 브라우저 언어에 맞는 UI를 즉시 확인할 수 있게 되었고, 보다 자연스럽고 직관적인 사용자 경험을 제공할 수 있게 되었습니다.
-
-### 4.3 코드
+이 문제를 해결하기 위해 브라우저의 navigator.language 객체를 활용하여 사용자의 현재 브라우저 언어를 기준으로 서비스를 제공할 수 있도록 다국어 지원 기능을 도입했습니다.
 
 ```jsx
 import i18n from "i18next";
@@ -368,10 +404,8 @@ i18n
 export default i18n;
 ```
 
-### 4.4 결과
-
-단순히 navigator.language만 사용하는 경우, 언어 감지는 가능하지만 매끄러운 언어 리소스 관리나 번역 적용 등이 어려웠습니다.
-감지된 언어에 따라 UI 텍스트를 바꾸려면, 각 컴포넌트마다 조건문(if, switch)을 직접 써야 했고 사용자의 언어가 바뀌어도 컴포넌트가 자동으로 UI를 갱신해주지 않기 때문에 직접 리렌더링을 트리거하여야 했습니다. 따라서, i18next, react-i18next, i18next-browser-languagedetector 등의 라이브러리를 함께 사용하였으며 다음과 같은 이점을 얻을 수 있었습니다.
+그러나, 단순히 navigator.language만 사용하는 경우, 언어 감지는 가능하지만 매끄러운 언어 리소스 관리나 번역 적용 등이 어려웠습니다.
+감지된 언어에 따라 UI 텍스트를 바꾸려면, 각 컴포넌트마다 조건문(if, switch)을 직접 써야 했고 사용자의 언어가 바뀌어도 컴포넌트가 자동으로 UI를 갱신해주지 않기 때문에 직접 리렌더링을 트리거하여야 했습니다. 따라서, `i18next,` `react-i18next`, `i18next-browser-languagedetector` 등의 라이브러리를 함께 사용하였으며 다음과 같은 이점을 얻을 수 있었습니다.
 
 - 언어 리소스를 모듈화하여 관리할 수 있어 유지보수가 쉬워졌고,
 - React 컴포넌트 내부에서 손쉽게 번역 문자열을 불러오고 적용할 수 있으며,
@@ -530,6 +564,33 @@ props drilling, 불필요한 리렌더링, 예기치 못한 버그 등이 발생
   - three.js를 활용한 사용자의 머리 방향과 실시간 동기화되는 가상 헤드 이미지 제공
 
 # 📚 기술 스택
+
+<div>
+  <h3>macOS</h3>
+    <img src="https://img.shields.io/badge/SWIFT-F05138?style=for-the-badge&logo=swift&logoColor=white">
+
+  <h3>Client</h3>
+    <img src="https://img.shields.io/badge/javascript-ECDC5A?style=for-the-badge&logo=javascript&logoColor=black">
+    <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
+    <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=Vite&logoColor=white" />
+    <img src="https://img.shields.io/badge/Tailwind CSS-06B6D4?style=for-the-badge&logo=Tailwind CSS&logoColor=white"/>
+    <img src="https://img.shields.io/badge/%20ZUSTAND-FF7B00?style=for-the-badge&logo=ZUSTAND%20EC2&logoColor=white">
+  <br>
+
+  <h3>Server</h3>
+    <img src="https://img.shields.io/badge/Node.js-5FA04E?style=for-the-badge&logo=Node.js&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Express-676767?style=for-the-badge&logo=Express&logoColor=white"/>
+    <img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=MongoDB&logoColor=white"/>
+  <br>
+
+  <h3>Deployment</h3>
+    <img src="https://img.shields.io/badge/Amazon%20EC2-FD911E?style=for-the-badge&logo=Amazon%20EC2&logoColor=white">
+    <img src="https://img.shields.io/badge/Amazon%20S3-569A31?style=for-the-badge&logo=Amazon%20S3&logoColor=white">
+    <img src="https://img.shields.io/badge/Amazon%20ROUTE 53-456990?style=for-the-badge&logo=Amazon%20ROUTE53&logoColor=white">
+    <img src="https://img.shields.io/badge/Amazon%20CLOUDFRONT-8709AA?style=for-the-badge&logo=Amazon%20CLOUDFRONT&logoColor=white">
+  <br>
+</div>
+  <br>
 
 # 🗓️ 기간
 
