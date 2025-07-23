@@ -3,7 +3,6 @@
   "semi": true,
   "trailingComma": "all",
   "printWidth": 120,
-  "parser": "babel",
   "bracketSpacing": true,
   "bracketSameLine": false,
   "plugins": [
