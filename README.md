@@ -50,7 +50,7 @@
 
 ### 🎥 에어팟과 머리의 움직임을 통한 커서 조작 영상
 
-<video controls src="public/Noddy-demo-video.mov" title="Title"></video>
+![Demo](public/Noddy-demo-video.gif)
 
 ### 📸 웹페이지 스크린샷
 
@@ -72,7 +72,7 @@
 자이로스코프는 3축(x, y, z) 방향의 회전율(angular velocity) 을 측정할 수 있으며,
 이를 통해 사용자가 고개를 어느 방향으로 얼마나 빠르게 움직이고 있는지를 실시간으로 파악할 수 있습니다.
 
-<video controls src="public/Noddy-motion-data.mov"></video>
+![Demo](public/Noddy-motion-data.gif)
 
 해당 API가 제공하는 데이터 중 주요 데이터로는:
 
@@ -149,7 +149,7 @@ let mappedY = screenHeight * (1 - CGFloat(normalizedPitch))
 
 ### 2.5 결과
 
-<video controls src="public/Noddy-coordinate.mov"></video>
+![Demo](public/Noddy-coordinate.gif)
 
 위 과정을 통해 다음과 같은 성능 및 사용자 경험 최적화를 이루었습니다:
 
