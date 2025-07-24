@@ -560,37 +560,38 @@ props drilling, 불필요한 리렌더링, 예기치 못한 버그 등이 발생
 - 안내 페이지
   - 커서 조작에 대한 간단한 사용방법 제공
 - 옵션 페이지
+
   - 앱 도구막대에서 제공하던 동일한 커서 옵션 설정 기능 제공
   - three.js를 활용한 사용자의 머리 방향과 실시간 동기화되는 가상 헤드 이미지 제공
 
 # 📚 기술 스택
 
-<div>
-  <h3>macOS</h3>
-    <img src="https://img.shields.io/badge/SWIFT-F05138?style=for-the-badge&logo=swift&logoColor=white">
+### macOS
 
-  <h3>Client</h3>
-    <img src="https://img.shields.io/badge/javascript-ECDC5A?style=for-the-badge&logo=javascript&logoColor=black">
-    <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black" />
-    <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=Vite&logoColor=white" />
-    <img src="https://img.shields.io/badge/Tailwind CSS-06B6D4?style=for-the-badge&logo=Tailwind CSS&logoColor=white"/>
-    <img src="https://img.shields.io/badge/%20ZUSTAND-FF7B00?style=for-the-badge&logo=ZUSTAND%20EC2&logoColor=white">
-  <br>
+![Swift](https://img.shields.io/badge/SWIFT-F05138?style=for-the-badge&logo=swift&logoColor=white)
 
-  <h3>Server</h3>
-    <img src="https://img.shields.io/badge/Node.js-5FA04E?style=for-the-badge&logo=Node.js&logoColor=white"/>
-    <img src="https://img.shields.io/badge/Express-676767?style=for-the-badge&logo=Express&logoColor=white"/>
-    <img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=MongoDB&logoColor=white"/>
-  <br>
+### Client
 
-  <h3>Deployment</h3>
-    <img src="https://img.shields.io/badge/Amazon%20EC2-FD911E?style=for-the-badge&logo=Amazon%20EC2&logoColor=white">
-    <img src="https://img.shields.io/badge/Amazon%20S3-569A31?style=for-the-badge&logo=Amazon%20S3&logoColor=white">
-    <img src="https://img.shields.io/badge/Amazon%20ROUTE 53-456990?style=for-the-badge&logo=Amazon%20ROUTE53&logoColor=white">
-    <img src="https://img.shields.io/badge/Amazon%20CLOUDFRONT-8709AA?style=for-the-badge&logo=Amazon%20CLOUDFRONT&logoColor=white">
-  <br>
-</div>
-  <br>
+![JavaScript](https://img.shields.io/badge/javascript-ECDC5A?style=for-the-badge&logo=javascript&logoColor=black)
+![React](https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=Vite&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-06B6D4?style=for-the-badge&logo=Tailwind%20CSS&logoColor=white)
+![Zustand](https://img.shields.io/badge/%20ZUSTAND-FF7B00?style=for-the-badge&logo=ZUSTAND%20EC2&logoColor=white)
+![i18next](https://img.shields.io/badge/i18next-26A69A?style=for-the-badge&logo=i18next&logoColor=white)
+![threejs](https://img.shields.io/badge/three.js-000000?style=for-the-badge&logo=three.js&logoColor=white&logoSize=30)
+
+### Server
+
+![Node.js](https://img.shields.io/badge/Node.js-5FA04E?style=for-the-badge&logo=Node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express-676767?style=for-the-badge&logo=Express&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=MongoDB&logoColor=white)
+
+### Deployment
+
+![Amazon EC2](https://img.shields.io/badge/Amazon%20EC2-FD911E?style=for-the-badge&logo=Amazon%20EC2&logoColor=white)
+![Amazon S3](https://img.shields.io/badge/Amazon%20S3-569A31?style=for-the-badge&logo=Amazon%20S3&logoColor=white)
+![Amazon Route 53](https://img.shields.io/badge/Amazon%20ROUTE%2053-456990?style=for-the-badge&logo=Amazon%20ROUTE53&logoColor=white)
+![Amazon CloudFront](https://img.shields.io/badge/Amazon%20CLOUDFRONT-8709AA?style=for-the-badge&logo=Amazon%20CLOUDFRONT&logoColor=white)
 
 # 🗓️ 기간
 
