@@ -56,6 +56,7 @@
 
 ![alt preview-1](public/Noddy-preview-1.jpeg)
 ![alt preview-2](public/Noddy-preview-2.jpeg)
+![alt preview-4](public/Noddy-preview-4.jpeg)
 
 ### 📸 앱 툴바 스크린샷
 
