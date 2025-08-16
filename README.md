@@ -350,6 +350,7 @@ export default function Model3D() {
 ### 3.2 해결 방법: 고개 각도 기반 속도 조절 + 스크롤 모드 분리
 
 <스크롤 전용 모드 분리>
+
 앞서 언급한 문제점을 해결하기 위해 커서 이동과 스크롤 기능을 명확하게 분리하는 구조로 시스템을 재설계하였습니다.
 사용자가 서비스를 이용하는 중 특정 단축키를 누르면 "스크롤 모드"로 진입하며, 이 모드에 들어가면 커서를 더 이상 직접 이동하지 않고, 고개 움직임만으로 화면을 위 아래로 스크롤할 수 있게 됩니다.
 
@@ -357,10 +358,31 @@ export default function Model3D() {
 이로써 사용자는 손을 전혀 쓰지 않고도 웹 페이지를 훨씬 더 자연스럽게 탐색할 수 있게 되었습니다.
 
 <고개 각도에 따른 스크롤 속도 조절>
-또한 스크롤 모드 내에서도 단순히 방향만 조절하는 것이 아니라, 사용자의 고개 각도(pitch)에 따라 스크롤 속도도 자동으로 조절되도록 구현하였습니다.
 
-- 고개를 살짝 숙이면 -> 페이지가 천천히 스크롤되고
-- 고개를 크게 숙이면 -> 패아자거 뻐루개 스크롤되는 구조입니다.
+또한, 스크롤 모드 내에서도 단순히 방향만 조절하는 것이 아니라, 사용자의 고개 각도(pitch)에 따라 스크롤 속도도 자동으로 조절되도록 구현하였습니다.
+
+```swift
+    private func checkDistanceFromCenter() {
+        guard !isCursorMode else { return }
+        guard isScrolling else { return }
+
+        let deltaY = pitchForScroll - centerPoint.y
+        let absoluteDeltaY = abs(deltaY)
+
+        let deadZone: CGFloat = 90 // 데드존 설정
+        guard absoluteDeltaY > deadZone else { return } // 커서의 y축과 중앙의 차이가 데드존을 초과하지 않으면 함수 종료
+
+        let maxSpeed: CGFloat = 30
+        let dynamicSpeed = min(maxSpeed, ((absoluteDeltaY - deadZone) / scrollSensitivity) * maxSpeed)
+        // 사용자의 고개 각도에 따른 스크롤 속도 조절
+
+        let direction: CGFloat = deltaY < 0 ? 1 : -1
+        postScrollWheelEvent(deltaY: Int32(dynamicSpeed * direction))
+    }
+```
+
+- 고개를 조금 숙이면 -> 페이지가 천천히 스크롤되고
+- 고개를 크게 숙이면 -> 페이지가 빠르게 스크롤되는 구조입니다.
 
 ### 3.3 결과
 
